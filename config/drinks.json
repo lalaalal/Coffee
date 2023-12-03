@@ -1,0 +1,102 @@
+[
+    {
+        "id": "americano",
+        "cost": 1000,
+        "typeChecker": "BOTH"
+    },
+    {
+        "id": "latte",
+        "cost": 1500,
+        "typeChecker": "BOTH"
+    },
+    {
+        "id": "caramel_macchiato",
+        "cost": 1700,
+        "typeChecker": "BOTH"
+    },
+    {
+        "id": "hazelnut_latte",
+        "cost": 1700,
+        "typeChecker": "BOTH"
+    },
+    {
+        "id": "vanilla_latte",
+        "cost": 1700,
+        "typeChecker": "BOTH"
+    },
+    {
+        "id": "banana_latte",
+        "cost": 1500,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "choco_latte",
+        "cost": 1500,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "strawberry_latte",
+        "cost": 1500,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "green_tea_latte",
+        "cost": 1500,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "icedtea",
+        "cost": 1000,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "schisandra_tea",
+        "cost": 1000,
+        "typeChecker": "BOTH"
+    },
+    {
+        "id": "plum_tea",
+        "cost": 1000,
+        "typeChecker": "BOTH"
+    },
+    {
+        "id": "apple_mango_ade",
+        "cost": 1500,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "grapefruit_ade",
+        "cost": 1500,
+        "typeChecker": "BOTH"
+    },
+    {
+        "id": "green_grape_ade",
+        "cost": 1500,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "passion_fruit_ade",
+        "cost": 1500,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "apple_juice",
+        "cost": 1700,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "apple_juice_carbonated",
+        "cost": 1700,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "cookie",
+        "cost": 1200,
+        "typeChecker": "ICE_ONLY"
+    },
+    {
+        "id": "steam_milk",
+        "cost": 1200,
+        "typeChecker": "HOT_ONLY"
+    }
+]
