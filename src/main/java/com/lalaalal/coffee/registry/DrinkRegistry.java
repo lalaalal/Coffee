@@ -1,12 +1,9 @@
 package com.lalaalal.coffee.registry;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.lalaalal.coffee.CoffeeApplication;
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.DrinkDeserializer;
-import com.lalaalal.coffee.DrinkSerializer;
 import com.lalaalal.coffee.model.Drink;
 import com.lalaalal.coffee.model.TypeChecker;
 
@@ -19,13 +16,6 @@ import java.util.List;
 
 public class DrinkRegistry extends Registry<Drink> {
     private final ObjectMapper mapper = CoffeeApplication.MAPPER;
-
-    public DrinkRegistry() {
-        SimpleModule module = new SimpleModule();
-        module.addSerializer(Drink.class, new DrinkSerializer());
-        module.addDeserializer(Drink.class, new DrinkDeserializer());
-        mapper.registerModule(module);
-    }
 
     @Override
     public void initialize() {
