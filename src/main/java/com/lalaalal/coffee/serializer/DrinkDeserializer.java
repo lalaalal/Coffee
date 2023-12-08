@@ -1,12 +1,12 @@
-package com.lalaalal.coffee.misc;
+package com.lalaalal.coffee.serializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.lalaalal.coffee.model.Drink;
-import com.lalaalal.coffee.model.Group;
-import com.lalaalal.coffee.model.TemperatureChecker;
+import com.lalaalal.coffee.model.menu.Drink;
+import com.lalaalal.coffee.model.menu.Group;
+import com.lalaalal.coffee.model.menu.TemperatureChecker;
 import com.lalaalal.coffee.registry.GroupRegistry;
 import com.lalaalal.coffee.registry.Registries;
 

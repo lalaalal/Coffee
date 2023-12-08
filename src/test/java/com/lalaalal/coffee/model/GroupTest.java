@@ -2,6 +2,7 @@ package com.lalaalal.coffee.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lalaalal.coffee.model.menu.Group;
 import org.junit.jupiter.api.Test;
 
 class GroupTest {

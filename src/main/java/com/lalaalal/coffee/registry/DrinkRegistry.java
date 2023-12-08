@@ -1,7 +1,7 @@
 package com.lalaalal.coffee.registry;
 
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.model.Drink;
+import com.lalaalal.coffee.model.menu.Drink;
 
 public class DrinkRegistry extends Registry<Drink> {
     @Override

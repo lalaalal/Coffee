@@ -1,7 +1,7 @@
 package com.lalaalal.coffee.registry;
 
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.model.Group;
+import com.lalaalal.coffee.model.menu.Group;
 
 public class GroupRegistry extends Registry<Group> {
     @Override

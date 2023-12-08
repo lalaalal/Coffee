@@ -1,4 +1,4 @@
-package com.lalaalal.coffee.model;
+package com.lalaalal.coffee.model.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

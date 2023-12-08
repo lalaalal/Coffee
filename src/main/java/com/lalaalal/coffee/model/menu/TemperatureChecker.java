@@ -1,4 +1,4 @@
-package com.lalaalal.coffee.model;
+package com.lalaalal.coffee.model.menu;
 
 
 import lombok.Getter;

@@ -1,9 +1,9 @@
-package com.lalaalal.coffee.misc;
+package com.lalaalal.coffee.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.lalaalal.coffee.model.OrderItem;
+import com.lalaalal.coffee.model.order.OrderItem;
 
 import java.io.IOException;
 

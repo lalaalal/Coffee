@@ -2,9 +2,9 @@ package com.lalaalal.coffee.misc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lalaalal.coffee.CoffeeApplication;
-import com.lalaalal.coffee.model.Drink;
-import com.lalaalal.coffee.model.OrderItem;
-import com.lalaalal.coffee.model.Temperature;
+import com.lalaalal.coffee.model.menu.Drink;
+import com.lalaalal.coffee.model.order.OrderItem;
+import com.lalaalal.coffee.model.menu.Temperature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

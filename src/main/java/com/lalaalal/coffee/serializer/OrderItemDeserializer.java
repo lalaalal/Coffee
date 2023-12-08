@@ -1,10 +1,10 @@
-package com.lalaalal.coffee.misc;
+package com.lalaalal.coffee.serializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.lalaalal.coffee.model.OrderItem;
+import com.lalaalal.coffee.model.order.OrderItem;
 
 import java.io.IOException;
 

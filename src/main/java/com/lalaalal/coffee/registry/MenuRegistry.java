@@ -1,7 +1,7 @@
 package com.lalaalal.coffee.registry;
 
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.model.Menu;
+import com.lalaalal.coffee.model.menu.Menu;
 
 public class MenuRegistry extends Registry<Menu> {
     @Override

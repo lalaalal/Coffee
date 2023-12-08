@@ -1,7 +1,7 @@
 package com.lalaalal.coffee;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.lalaalal.coffee.model.Menu;
+import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.registry.MenuRegistry;
 import com.lalaalal.coffee.registry.Registries;
 import org.assertj.core.util.Files;

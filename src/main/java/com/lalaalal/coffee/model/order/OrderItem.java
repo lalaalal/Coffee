@@ -1,7 +1,8 @@
-package com.lalaalal.coffee.model;
+package com.lalaalal.coffee.model.order;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.registry.MenuRegistry;
 import com.lalaalal.coffee.registry.Registries;
 

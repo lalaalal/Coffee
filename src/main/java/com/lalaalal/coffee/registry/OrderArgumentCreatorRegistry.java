@@ -1,6 +1,10 @@
 package com.lalaalal.coffee.registry;
 
-import com.lalaalal.coffee.model.*;
+import com.lalaalal.coffee.model.menu.Drink;
+import com.lalaalal.coffee.model.menu.Menu;
+import com.lalaalal.coffee.model.menu.Temperature;
+import com.lalaalal.coffee.model.order.ArgumentCreator;
+import com.lalaalal.coffee.model.order.OrderArgument;
 
 public class OrderArgumentCreatorRegistry extends Registry<ArgumentCreator> {
     public static ArgumentCreator COUNT;

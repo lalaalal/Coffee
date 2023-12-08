@@ -1,8 +1,11 @@
-package com.lalaalal.coffee.model;
+package com.lalaalal.coffee.model.menu;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.model.order.ArgumentCreator;
+import com.lalaalal.coffee.model.order.ArgumentReader;
+import com.lalaalal.coffee.model.order.OrderItem;
 import com.lalaalal.coffee.registry.OrderArgumentCreatorRegistry;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

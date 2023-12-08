@@ -1,4 +1,4 @@
-package com.lalaalal.coffee;
+package com.lalaalal.coffee.misc;
 
 @FunctionalInterface
 public interface InitializeListener {
