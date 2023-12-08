@@ -1,9 +1,9 @@
 package com.lalaalal.coffee.model;
 
-public enum Type {
+public enum Temperature {
     HOT, ICE;
 
-    public static Type get(String name) {
+    public static Temperature get(String name) {
         return switch (name) {
             case "HOT" -> HOT;
             case "ICE" -> ICE;

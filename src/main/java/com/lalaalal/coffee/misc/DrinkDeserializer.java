@@ -1,11 +1,14 @@
-package com.lalaalal.coffee;
+package com.lalaalal.coffee.misc;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.lalaalal.coffee.model.Drink;
-import com.lalaalal.coffee.model.TypeChecker;
+import com.lalaalal.coffee.model.Group;
+import com.lalaalal.coffee.model.TemperatureChecker;
+import com.lalaalal.coffee.registry.GroupRegistry;
+import com.lalaalal.coffee.registry.Registries;
 
 import java.io.IOException;
 
@@ -23,9 +26,11 @@ public class DrinkDeserializer extends StdDeserializer<Drink> {
         JsonNode node = parser.getCodec().readTree(parser);
         String id = node.get("id").asText();
         int cost = node.get("cost").asInt();
-        String typeCheckerId = node.get("typeChecker").asText();
-        TypeChecker typeChecker = TypeChecker.get(typeCheckerId);
+        String typeCheckerId = node.get("temperatureChecker").asText();
+        TemperatureChecker temperatureChecker = TemperatureChecker.get(typeCheckerId);
+        String groupId = node.get("groupId").asText();
+        Group group = Registries.get(GroupRegistry.class).get(groupId);
 
-        return new Drink(id, cost, typeChecker);
+        return new Drink(id, cost, group, temperatureChecker);
     }
 }

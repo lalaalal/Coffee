@@ -56,4 +56,7 @@ public class Configurations {
     public static String getDefaultConfiguration(String key) {
         return defaults.getProperty(key);
     }
+
+    private Configurations() {
+    }
 }

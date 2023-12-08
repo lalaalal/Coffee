@@ -1,4 +1,4 @@
-package com.lalaalal.coffee;
+package com.lalaalal.coffee.misc;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -21,7 +21,8 @@ public class DrinkSerializer extends StdSerializer<Drink> {
         generator.writeStartObject();
         generator.writeStringField("id", value.getId());
         generator.writeNumberField("cost", value.getCost());
-        generator.writeStringField("typeChecker", value.getTypeCheckerId());
+        generator.writeStringField("temperatureChecker", value.getTypeCheckerId());
+        generator.writeStringField("groupId", value.getGroup().getId());
         generator.writeEndObject();
     }
 }
