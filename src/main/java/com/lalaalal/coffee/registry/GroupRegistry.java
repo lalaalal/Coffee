@@ -8,6 +8,8 @@ public class GroupRegistry extends Registry<Group> {
     public void initialize() {
         register("etc");
 
+        alias("etc", "");
+
         String filePath = Configurations.getConfiguration("menu.groups.path");
         loadListFromJson(filePath, String.class, this::register);
     }

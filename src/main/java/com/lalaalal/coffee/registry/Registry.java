@@ -47,4 +47,11 @@ public abstract class Registry<T> {
             throw new RuntimeException("Key (%s) already exists".formatted(key));
         registry.put(key, value);
     }
+
+    public void alias(String original, String alias) {
+        if (!registry.containsKey(original))
+            throw new RuntimeException(original + " is not exists.");
+        T value = get(original);
+        register(alias, value);
+    }
 }
