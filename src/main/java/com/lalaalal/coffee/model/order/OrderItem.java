@@ -9,8 +9,9 @@ import com.lalaalal.coffee.registry.Registries;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
-public class OrderItem implements ArgumentReader {
+public class OrderItem implements ArgumentWriter {
     private final Menu menu;
     private final HashMap<String, OrderArgument<?>> arguments = new HashMap<>();
 
@@ -39,6 +40,7 @@ public class OrderItem implements ArgumentReader {
         return OrderArgument.get(type, arguments.get(name));
     }
 
+    @Override
     public <T> void setArgument(String name, Class<T> type, T value) {
         if (!arguments.containsKey(name))
             // TODO: 12/8/23 handle exception
@@ -61,5 +63,19 @@ public class OrderItem implements ArgumentReader {
 
     public int calculateCost() {
         return menu.calculateCost(this);
+    }
+
+    public boolean canBeCombinedWith(OrderItem other) {
+        return argumentEquals(other, menu.getCombinationCheckArguments());
+    }
+
+    protected boolean argumentEquals(OrderItem other, List<String> targetArgumentNames) {
+        for (String targetArgumentName : targetArgumentNames) {
+            OrderArgument<?> a = this.arguments.get(targetArgumentName);
+            OrderArgument<?> b = other.arguments.get(targetArgumentName);
+            if (!a.equals(b))
+                return false;
+        }
+        return true;
     }
 }

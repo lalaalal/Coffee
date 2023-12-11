@@ -8,7 +8,7 @@ import com.lalaalal.coffee.model.order.OrderArgument;
 
 public class OrderArgumentCreatorRegistry extends Registry<ArgumentCreator> {
     public static ArgumentCreator COUNT;
-    public static ArgumentCreator HAS_TUMBLER;
+    public static ArgumentCreator TUMBLER_COUNT;
     public static ArgumentCreator DECAFFEINATE;
     public static ArgumentCreator SHOT;
     public static ArgumentCreator TEMPERATURE;
@@ -16,7 +16,7 @@ public class OrderArgumentCreatorRegistry extends Registry<ArgumentCreator> {
     @Override
     public void initialize() {
         COUNT = register(Menu.ARG_COUNT, Integer.class, 1);
-        HAS_TUMBLER = register(Drink.ARG_TUMBLER_COUNT, Integer.class, 0);
+        TUMBLER_COUNT = register(Drink.ARG_TUMBLER_COUNT, Integer.class, 0);
         DECAFFEINATE = register(Drink.ARG_DECAFFEINATED, Boolean.class, false);
         SHOT = register(Drink.ARG_SHOT, Integer.class, 0);
         TEMPERATURE = register(Drink.ARG_TEMPERATURE, Temperature.class, Temperature.ICE);

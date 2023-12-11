@@ -28,4 +28,11 @@ public class OrderArgument<T> {
         // TODO: 12/6/23 handle exception
         throw new RuntimeException("Temperature not matches.");
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OrderArgument<?> argument))
+            return false;
+        return argument.type.equals(this.type) && argument.value.equals(this.value);
+    }
 }

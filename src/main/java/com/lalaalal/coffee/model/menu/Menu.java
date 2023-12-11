@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.lalaalal.coffee.Configurations;
 import com.lalaalal.coffee.model.order.ArgumentCreator;
 import com.lalaalal.coffee.model.order.ArgumentReader;
+import com.lalaalal.coffee.model.order.ArgumentWriter;
 import com.lalaalal.coffee.model.order.OrderItem;
 import com.lalaalal.coffee.registry.OrderArgumentCreatorRegistry;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,14 @@ public class Menu {
 
     public boolean canMake(ArgumentReader arguments) {
         return true;
+    }
+
+    public List<String> getCombinationCheckArguments() {
+        return List.of();
+    }
+
+    public void combineArguments(ArgumentWriter operator, ArgumentReader operand) {
+        operator.combineValue(ARG_COUNT, Integer.class, operand, Integer::sum);
     }
 
     public int calculateCost(ArgumentReader arguments) {

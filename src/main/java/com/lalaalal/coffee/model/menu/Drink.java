@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.lalaalal.coffee.Configurations;
 import com.lalaalal.coffee.model.order.ArgumentCreator;
 import com.lalaalal.coffee.model.order.ArgumentReader;
+import com.lalaalal.coffee.model.order.ArgumentWriter;
 import com.lalaalal.coffee.model.order.OrderItem;
 import com.lalaalal.coffee.registry.OrderArgumentCreatorRegistry;
 
@@ -38,7 +39,7 @@ public class Drink extends Menu {
                 OrderArgumentCreatorRegistry.COUNT,
                 OrderArgumentCreatorRegistry.SHOT,
                 OrderArgumentCreatorRegistry.DECAFFEINATE,
-                OrderArgumentCreatorRegistry.HAS_TUMBLER,
+                OrderArgumentCreatorRegistry.TUMBLER_COUNT,
                 OrderArgumentCreatorRegistry.TEMPERATURE
         );
     }
@@ -51,6 +52,17 @@ public class Drink extends Menu {
 
     public boolean canMake(Temperature temperature) {
         return temperatureChecker.canMake(temperature);
+    }
+
+    @Override
+    public List<String> getCombinationCheckArguments() {
+        return List.of(ARG_TEMPERATURE, ARG_SHOT, ARG_DECAFFEINATED);
+    }
+
+    @Override
+    public void combineArguments(ArgumentWriter operator, ArgumentReader operand) {
+        super.combineArguments(operator, operand);
+        operator.combineValue(ARG_TUMBLER_COUNT, Integer.class, operand, Integer::sum);
     }
 
     public Temperature[] getAvailableTypes() {
