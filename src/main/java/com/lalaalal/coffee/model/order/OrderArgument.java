@@ -8,9 +8,10 @@ public class OrderArgument<T> {
     private final String name;
     private T value;
 
-    public OrderArgument(Class<T> type, String name) {
+    public OrderArgument(Class<T> type, String name, T defaultValue) {
         this.type = type;
         this.name = name;
+        value = defaultValue;
     }
 
     public void setValue(Object value, Class<?> type) {

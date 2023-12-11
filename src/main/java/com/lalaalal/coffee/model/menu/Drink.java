@@ -14,7 +14,7 @@ import java.util.List;
 public class Drink extends Menu {
     public static final String ARG_SHOT = "shot";
     public static final String ARG_DECAFFEINATED = "decaffeinated";
-    public static final String ARG_HAS_TUMBLER = "hasTumbler";
+    public static final String ARG_TUMBLER_COUNT = "tumblerCount";
     public static final String ARG_TEMPERATURE = "temperature";
 
     protected static int shotCost;
@@ -64,12 +64,12 @@ public class Drink extends Menu {
     @Override
     public int calculateCost(ArgumentReader arguments) {
         int count = arguments.getArgumentValue(ARG_COUNT, Integer.class);
-        boolean hasTumbler = arguments.getArgumentValue("hasTumbler", Boolean.class);
+        int tumblerCount = arguments.getArgumentValue(ARG_TUMBLER_COUNT, Integer.class);
         boolean decaffeinated = arguments.getArgumentValue(ARG_DECAFFEINATED, Boolean.class);
         int shot = arguments.getArgumentValue(ARG_SHOT, Integer.class);
         return (getCost() + shot * shotCost) * count
                 - (decaffeinated ? decaffeinateCost : 0)
-                - (hasTumbler ? tumblerDiscount : 0);
+                - tumblerCount * tumblerDiscount;
     }
 
     @Override
@@ -77,11 +77,11 @@ public class Drink extends Menu {
         super._serializeArguments(generator, arguments);
         int shot = arguments.getArgumentValue(ARG_SHOT, Integer.class);
         boolean decaffeinated = arguments.getArgumentValue(ARG_DECAFFEINATED, Boolean.class);
-        boolean hasTumbler = arguments.getArgumentValue(ARG_HAS_TUMBLER, Boolean.class);
+        int tumblerCount = arguments.getArgumentValue(ARG_TUMBLER_COUNT, Integer.class);
         Temperature temperature = arguments.getArgumentValue(ARG_TEMPERATURE, Temperature.class);
         generator.writeNumberField(ARG_SHOT, shot);
         generator.writeBooleanField(ARG_DECAFFEINATED, decaffeinated);
-        generator.writeBooleanField(ARG_HAS_TUMBLER, hasTumbler);
+        generator.writeNumberField(ARG_TUMBLER_COUNT, tumblerCount);
         generator.writeStringField(ARG_TEMPERATURE, temperature.name());
     }
 
@@ -90,12 +90,12 @@ public class Drink extends Menu {
         super.deserializeArguments(argumentsNode, orderItem);
         int shot = argumentsNode.get(ARG_SHOT).asInt();
         boolean decaffeinated = argumentsNode.get(ARG_DECAFFEINATED).asBoolean();
-        boolean hasTumbler = argumentsNode.get(ARG_HAS_TUMBLER).asBoolean();
+        int tumblerCount = argumentsNode.get(ARG_TUMBLER_COUNT).asInt();
         String temperatureString = argumentsNode.get(ARG_TEMPERATURE).asText();
         Temperature temperature = Temperature.get(temperatureString);
         orderItem.setArgument(ARG_SHOT, Integer.class, shot);
         orderItem.setArgument(ARG_DECAFFEINATED, Boolean.class, decaffeinated);
-        orderItem.setArgument(ARG_HAS_TUMBLER, Boolean.class, hasTumbler);
+        orderItem.setArgument(ARG_TUMBLER_COUNT, Integer.class, tumblerCount);
         orderItem.setArgument(ARG_TEMPERATURE, Temperature.class, temperature);
     }
 }

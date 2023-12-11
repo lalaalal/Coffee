@@ -15,15 +15,15 @@ public class OrderArgumentCreatorRegistry extends Registry<ArgumentCreator> {
 
     @Override
     public void initialize() {
-        COUNT = register(Menu.ARG_COUNT, Integer.class);
-        HAS_TUMBLER = register(Drink.ARG_HAS_TUMBLER, Boolean.class);
-        DECAFFEINATE = register(Drink.ARG_DECAFFEINATED, Boolean.class);
-        SHOT = register(Drink.ARG_SHOT, Integer.class);
-        TEMPERATURE = register(Drink.ARG_TEMPERATURE, Temperature.class);
+        COUNT = register(Menu.ARG_COUNT, Integer.class, 1);
+        HAS_TUMBLER = register(Drink.ARG_TUMBLER_COUNT, Integer.class, 0);
+        DECAFFEINATE = register(Drink.ARG_DECAFFEINATED, Boolean.class, false);
+        SHOT = register(Drink.ARG_SHOT, Integer.class, 0);
+        TEMPERATURE = register(Drink.ARG_TEMPERATURE, Temperature.class, Temperature.ICE);
     }
 
-    public ArgumentCreator register(String name, Class<?> type) {
-        ArgumentCreator creator = () -> new OrderArgument<>(type, name);
+    public <T> ArgumentCreator register(String name, Class<T> type, T defaultValue) {
+        ArgumentCreator creator = () -> new OrderArgument<>(type, name, defaultValue);
         register(name, creator);
         return creator;
     }
