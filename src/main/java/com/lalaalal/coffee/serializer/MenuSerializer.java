@@ -21,7 +21,7 @@ public class MenuSerializer extends StdSerializer<Menu> {
         generator.writeStartObject();
         generator.writeStringField("id", value.getId());
         generator.writeNumberField("cost", value.getCost());
-        generator.writeStringField("groupId", value.getGroup().getId());
+        generator.writeStringField("group_id", value.getGroup().getId());
         generator.writeEndObject();
     }
 }

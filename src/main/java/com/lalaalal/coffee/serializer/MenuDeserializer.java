@@ -25,7 +25,7 @@ public class MenuDeserializer extends StdDeserializer<Menu> {
         JsonNode node = parser.getCodec().readTree(parser);
         String id = node.get("id").asText();
         int cost = node.get("cost").asInt();
-        String groupId = node.get("groupId").asText();
+        String groupId = node.get("group_id").asText();
         Group group = Registries.get(GroupRegistry.class).get(groupId);
 
         return new Menu(id, cost, group);

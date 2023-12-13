@@ -2,116 +2,116 @@
     {
         "id": "americano",
         "cost": 1000,
-        "temperatureChecker": "BOTH",
-        "groupId": "coffee"
+        "temperature_checker": "BOTH",
+        "group_id": "coffee"
     },
     {
         "id": "latte",
         "cost": 1500,
-        "temperatureChecker": "BOTH",
-        "groupId": "coffee"
+        "temperature_checker": "BOTH",
+        "group_id": "coffee"
 
     },
     {
         "id": "caramel_macchiato",
         "cost": 1700,
-        "temperatureChecker": "BOTH",
-        "groupId": "coffee"
+        "temperature_checker": "BOTH",
+        "group_id": "coffee"
     },
     {
         "id": "hazelnut_latte",
         "cost": 1700,
-        "temperatureChecker": "BOTH",
-        "groupId": "coffee"
+        "temperature_checker": "BOTH",
+        "group_id": "coffee"
     },
     {
         "id": "vanilla_latte",
         "cost": 1700,
-        "temperatureChecker": "BOTH",
-        "groupId": "coffee"
+        "temperature_checker": "BOTH",
+        "group_id": "coffee"
     },
     {
         "id": "banana_latte",
         "cost": 1500,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "latte"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "latte"
     },
     {
         "id": "choco_latte",
         "cost": 1500,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "latte"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "latte"
     },
     {
         "id": "strawberry_latte",
         "cost": 1500,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "latte"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "latte"
     },
     {
         "id": "green_tea_latte",
         "cost": 1500,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "latte"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "latte"
     },
     {
         "id": "icedtea",
         "cost": 1000,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "tea"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "tea"
     },
     {
         "id": "schisandra_tea",
         "cost": 1000,
-        "temperatureChecker": "BOTH",
-        "groupId": "tea"
+        "temperature_checker": "BOTH",
+        "group_id": "tea"
     },
     {
         "id": "plum_tea",
         "cost": 1000,
-        "temperatureChecker": "BOTH",
-        "groupId": "tea"
+        "temperature_checker": "BOTH",
+        "group_id": "tea"
     },
     {
         "id": "apple_mango_ade",
         "cost": 1500,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "ade"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "ade"
     },
     {
         "id": "grapefruit_ade",
         "cost": 1500,
-        "temperatureChecker": "BOTH",
-        "groupId": "ade"
+        "temperature_checker": "BOTH",
+        "group_id": "ade"
     },
     {
         "id": "green_grape_ade",
         "cost": 1500,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "ade"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "ade"
     },
     {
         "id": "passion_fruit_ade",
         "cost": 1500,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "ade"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "ade"
     },
     {
         "id": "apple_juice",
         "cost": 1700,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "bottle"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "bottle"
     },
     {
         "id": "apple_juice_carbonated",
         "cost": 1700,
-        "temperatureChecker": "ICE_ONLY",
-        "groupId": "bottle"
+        "temperature_checker": "ICE_ONLY",
+        "group_id": "bottle"
     },
     {
         "id": "steam_milk",
         "cost": 1200,
-        "temperatureChecker": "HOT_ONLY",
-        "groupId": "etc"
+        "temperature_checker": "HOT_ONLY",
+        "group_id": "etc"
     }
 ]

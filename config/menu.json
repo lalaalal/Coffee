@@ -2,6 +2,6 @@
     {
         "id": "cookie",
         "cost": 1200,
-        "groupId": "etc"
+        "group_id": "etc"
     }
 ]

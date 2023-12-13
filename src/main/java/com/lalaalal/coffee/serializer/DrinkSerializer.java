@@ -21,8 +21,8 @@ public class DrinkSerializer extends StdSerializer<Drink> {
         generator.writeStartObject();
         generator.writeStringField("id", value.getId());
         generator.writeNumberField("cost", value.getCost());
-        generator.writeStringField("temperatureChecker", value.getTypeCheckerId());
-        generator.writeStringField("groupId", value.getGroup().getId());
+        generator.writeStringField("temperature_checker", value.getTypeCheckerId());
+        generator.writeStringField("group_id", value.getGroup().getId());
         generator.writeEndObject();
     }
 }

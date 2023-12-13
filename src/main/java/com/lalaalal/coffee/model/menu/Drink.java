@@ -15,7 +15,7 @@ import java.util.List;
 public class Drink extends Menu {
     public static final String ARG_SHOT = "shot";
     public static final String ARG_DECAFFEINATED = "decaffeinated";
-    public static final String ARG_TUMBLER_COUNT = "tumblerCount";
+    public static final String ARG_TUMBLER_COUNT = "tumbler_count";
     public static final String ARG_TEMPERATURE = "temperature";
 
     protected static int shotCost;
