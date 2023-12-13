@@ -69,6 +69,10 @@ public class OrderItem implements ArgumentWriter {
         return argumentEquals(other, menu.getCombinationCheckArguments());
     }
 
+    public void combineWith(ArgumentReader arguments) {
+        menu.combineArguments(this, arguments);
+    }
+
     protected boolean argumentEquals(OrderItem other, List<String> targetArgumentNames) {
         for (String targetArgumentName : targetArgumentNames) {
             OrderArgument<?> a = this.arguments.get(targetArgumentName);

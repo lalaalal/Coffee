@@ -23,6 +23,7 @@ public class CoffeeApplication {
     }
 
     public static void registerRegistries() {
+        Registries.register(LanguageRegistry.class, LanguageRegistry::new);
         Registries.register(GroupRegistry.class, GroupRegistry::new);
         Registries.register(MenuRegistry.class, MenuRegistry::new);
         Registries.register(DrinkRegistry.class, DrinkRegistry::new);
