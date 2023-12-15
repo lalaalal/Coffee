@@ -15,6 +15,10 @@ public class Order {
         items.add(item);
     }
 
+    public void remove(int itemId) {
+        items.remove(itemId);
+    }
+
     public int calculateCost() {
         int cost = 0;
         for (OrderItem item : items)
