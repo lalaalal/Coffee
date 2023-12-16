@@ -1,5 +1,6 @@
 package com.lalaalal.coffee;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class DataTable<K, V> {
+public class DataTable<K, V> implements DataTableReader<K, V> {
     protected static final ObjectMapper MAPPER = CoffeeApplication.MAPPER;
     private final Map<K, V> table;
     private final KeyGenerator<K> keyGenerator;
@@ -50,10 +51,15 @@ public class DataTable<K, V> {
         return key;
     }
 
+    public void add(K id, V data) {
+        table.put(id, data);
+    }
+
     public void remove(K id) {
         table.remove(id);
     }
 
+    @Override
     public V findFirst(Predicate<V> predicate) {
         for (V data : table.values()) {
             if (predicate.test(data))
@@ -63,16 +69,19 @@ public class DataTable<K, V> {
         return null;
     }
 
+    @Override
     public V findById(K id) {
         return table.get(id);
     }
 
+    @Override
     public Set<K> filterKey(Predicate<K> predicate) {
         return table.keySet().stream()
                 .filter(predicate)
                 .collect(Collectors.toSet());
     }
 
+    @Override
     public List<V> filter(Predicate<V> predicate) {
         return table.values()
                 .stream()
@@ -80,4 +89,12 @@ public class DataTable<K, V> {
                 .toList();
     }
 
+    @Override
+    public String toJSON() {
+        try {
+            return MAPPER.writeValueAsString(table);
+        } catch (JsonProcessingException e) {
+            return "{}";
+        }
+    }
 }

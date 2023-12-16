@@ -1,12 +1,7 @@
 package com.lalaalal.coffee.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lalaalal.coffee.CoffeeApplication;
-import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.DataTable;
-import com.lalaalal.coffee.DateBasedKeyGenerator;
+import com.lalaalal.coffee.*;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
 import org.springframework.stereotype.Service;
@@ -18,19 +13,27 @@ public class OrderService {
 
     public OrderService() {
         String saveFilePath = Configurations.getConfiguration("data.order.path");
-        orders = new DataTable<>(String.class, Order.class, new DateBasedKeyGenerator(), saveFilePath);
+        DateBasedKeyGenerator keyGenerator = new DateBasedKeyGenerator();
+        orders = new DataTable<>(String.class, Order.class, keyGenerator, saveFilePath);
     }
 
-    public void addOrderItem(String id, String orderItemText) {
-        try {
-            Order order = orders.findById(id);
-            OrderItem orderItem = MAPPER.readValue(orderItemText, OrderItem.class);
-            order.add(orderItem);
-            orders.save();
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public void addOrder(Order order) {
+        String id = orders.add(order);
+        order.setId(id);
+    }
+
+    public void addOrderItem(String id, OrderItem orderItem) {
+        Order order = orders.findById(id);
+        order.add(orderItem);
+        orders.save();
+    }
+
+    public void cancelOrderItem(String id, String menu) {
+        Order order = orders.findById(id);
+        order.remove(menu);
+    }
+
+    public DataTableReader<String, Order> getDataTableReader() {
+        return orders;
     }
 }

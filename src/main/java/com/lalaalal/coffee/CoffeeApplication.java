@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.order.OrderItem;
@@ -31,6 +32,7 @@ public class CoffeeApplication {
     }
 
     public static void initialize() {
+        MAPPER.registerModule(new JavaTimeModule());
         registerSerializer(Menu.class, new MenuSerializer(), new MenuDeserializer());
         registerSerializer(Drink.class, new DrinkSerializer(), new DrinkDeserializer());
         registerSerializer(OrderItem.class, new OrderItemSerializer(), new OrderItemDeserializer());

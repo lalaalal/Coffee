@@ -7,9 +7,9 @@ import com.lalaalal.coffee.registry.MenuRegistry;
 import com.lalaalal.coffee.registry.Registries;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class OrderItem implements ArgumentWriter {
     private final Menu menu;
@@ -28,7 +28,7 @@ public class OrderItem implements ArgumentWriter {
     }
 
     @Override
-    public Collection<String> getArgumentNames() {
+    public Set<String> getArgumentNames() {
         return arguments.keySet();
     }
 

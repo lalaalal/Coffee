@@ -1,9 +1,27 @@
 package com.lalaalal.coffee.model.order;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 
+@Getter
 public class Order {
-    private final ArrayList<OrderItem> items = new ArrayList<>();
+    @Setter
+    private String id = "";
+    protected final ArrayList<OrderItem> items;
+
+    public Order() {
+        this.items = new ArrayList<>();
+    }
+
+    @JsonCreator
+    public Order(@JsonProperty("id") String id, @JsonProperty("items") ArrayList<OrderItem> items) {
+        this.id = id;
+        this.items = items;
+    }
 
     public void add(OrderItem item) {
         for (OrderItem element : items) {
@@ -15,8 +33,8 @@ public class Order {
         items.add(item);
     }
 
-    public void remove(int itemId) {
-        items.remove(itemId);
+    public void remove(String menuId) {
+        items.removeIf(item -> item.getMenuId().equals(menuId));
     }
 
     public int calculateCost() {
