@@ -1,19 +1,18 @@
 package com.lalaalal.coffee.service;
 
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.DataTable;
-import com.lalaalal.coffee.DataTableReader;
-import com.lalaalal.coffee.DateBasedKeyGenerator;
 import com.lalaalal.coffee.misc.SHA256;
+import com.lalaalal.coffee.model.DataTable;
+import com.lalaalal.coffee.model.DataTableReader;
+import com.lalaalal.coffee.model.DateBasedKeyGenerator;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.Reservation;
 import com.lalaalal.coffee.model.order.ReservationDTO;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 @Service
 public class ReservationService {
+    public static final String DATE_TIME_PATTERN = "RyyMMddHHmm";
     private final DataTable<String, Reservation> reservations;
 
     public ReservationService() {
@@ -22,10 +21,11 @@ public class ReservationService {
     }
 
     protected ReservationDTO convertToDTO(DataTableReader<String, Order> orders, Reservation reservation) {
-        Order order = orders.findById(reservation.getOrderId());
+        Order order = orders.get(reservation.getOrderId());
         return new ReservationDTO(
                 reservation.getName(),
-                order
+                order,
+                reservation.getTime()
         );
     }
 
@@ -34,7 +34,7 @@ public class ReservationService {
                 reservationDTO.name(),
                 hashedPassword,
                 reservationDTO.order().getId(),
-                LocalDateTime.now()
+                reservationDTO.time()
         );
     }
 
@@ -48,7 +48,7 @@ public class ReservationService {
     }
 
     public ReservationDTO getReservation(DataTableReader<String, Order> orders, String id) {
-        Reservation reservation = reservations.findById(id);
+        Reservation reservation = reservations.get(id);
         return convertToDTO(orders, reservation);
     }
 }

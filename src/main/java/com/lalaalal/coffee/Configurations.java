@@ -1,7 +1,5 @@
 package com.lalaalal.coffee;
 
-import com.lalaalal.coffee.misc.InitializeListener;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

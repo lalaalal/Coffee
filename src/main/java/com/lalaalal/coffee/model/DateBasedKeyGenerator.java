@@ -1,4 +1,4 @@
-package com.lalaalal.coffee;
+package com.lalaalal.coffee.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

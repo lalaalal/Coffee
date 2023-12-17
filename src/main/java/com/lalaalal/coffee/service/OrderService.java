@@ -1,14 +1,16 @@
 package com.lalaalal.coffee.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lalaalal.coffee.*;
+import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.model.DataTable;
+import com.lalaalal.coffee.model.DataTableReader;
+import com.lalaalal.coffee.model.DateBasedKeyGenerator;
+import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
-    private static final ObjectMapper MAPPER = CoffeeApplication.MAPPER;
     private final DataTable<String, Order> orders;
 
     public OrderService() {
@@ -17,20 +19,30 @@ public class OrderService {
         orders = new DataTable<>(String.class, Order.class, keyGenerator, saveFilePath);
     }
 
-    public void addOrder(Order order) {
+    public Result addOrder(Order order) {
         String id = orders.add(order);
         order.setId(id);
+
+        return Result.SUCCEED;
     }
 
-    public void addOrderItem(String id, OrderItem orderItem) {
-        Order order = orders.findById(id);
+    public Result addOrderItem(String orderId, OrderItem orderItem) {
+        Order order = orders.get(orderId);
+        if (order == null)
+            return Result.failed("result.message.failed.add_order_item", orderId);
         order.add(orderItem);
         orders.save();
+
+        return Result.SUCCEED;
     }
 
-    public void cancelOrderItem(String id, String menu) {
-        Order order = orders.findById(id);
-        order.remove(menu);
+    public Result cancelMenu(String orderId, String menuId) {
+        Order order = orders.get(orderId);
+        if (order == null)
+            return Result.failed("result.message.failed.cancel_menu", orderId, menuId);
+        order.remove(menuId);
+
+        return Result.SUCCEED;
     }
 
     public DataTableReader<String, Order> getDataTableReader() {

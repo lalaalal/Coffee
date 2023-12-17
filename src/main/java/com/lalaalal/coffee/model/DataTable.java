@@ -1,8 +1,9 @@
-package com.lalaalal.coffee;
+package com.lalaalal.coffee.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.lalaalal.coffee.CoffeeApplication;
 
 import java.io.*;
 import java.util.HashMap;
@@ -51,12 +52,12 @@ public class DataTable<K, V> implements DataTableReader<K, V> {
         return key;
     }
 
-    public void add(K id, V data) {
-        table.put(id, data);
+    public void add(K key, V data) {
+        table.put(key, data);
     }
 
-    public void remove(K id) {
-        table.remove(id);
+    public void remove(K key) {
+        table.remove(key);
     }
 
     @Override
@@ -70,8 +71,8 @@ public class DataTable<K, V> implements DataTableReader<K, V> {
     }
 
     @Override
-    public V findById(K id) {
-        return table.get(id);
+    public V get(K key) {
+        return table.get(key);
     }
 
     @Override
@@ -90,7 +91,7 @@ public class DataTable<K, V> implements DataTableReader<K, V> {
     }
 
     @Override
-    public String toJSON() {
+    public String toJsonString() {
         try {
             return MAPPER.writeValueAsString(table);
         } catch (JsonProcessingException e) {

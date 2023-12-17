@@ -1,29 +1,31 @@
 package com.lalaalal.coffee.model;
 
 import com.lalaalal.coffee.Language;
+import org.springframework.http.HttpStatus;
 
-public record Result(int code, String messageKey) {
-    public static final int SUCCEED_CODE = 0x10;
-    public static final int FAILED_CODE = 0xf0;
-    public static final Result SUCCEED = new Result(200, "");
+public record Result(HttpStatus status, Message message) {
+    public static final Result SUCCEED = succeed("result.message.succeed");
 
-    public static Result succeed(String messageKey) {
-        return new Result(SUCCEED_CODE, messageKey);
+    public static Result succeed(String messageKey, Object... args) {
+        return new Result(HttpStatus.OK, Message.of(messageKey, args));
     }
 
-    public static Result failed(String messageKey) {
-        return new Result(FAILED_CODE, messageKey);
+    public static Result failed(String messageKey, Object... args) {
+        return new Result(HttpStatus.BAD_REQUEST, Message.of(messageKey, args));
+    }
+
+    public static Result forbidden(String userName) {
+        return new Result(HttpStatus.FORBIDDEN, Message.of("result.message.forbidden", userName));
     }
 
     @Override
     public String toString() {
-        String format = "{\"code\": %d, \"messageKey\": \"%s\"}";
-        return format.formatted(code, messageKey);
+        String format = "{\"status\": %d, \"messageKey\": \"%s\"}";
+        return format.formatted(status.value(), message);
     }
 
     public String translatedJsonString(Language language) {
-        String format = "{\"code\": %d, \"messageKey\": \"%s\"}";
-        return format.formatted(code, language.translate(messageKey));
-
+        String format = "{\"status\": %d, \"messageKey\": \"%s\"}";
+        return format.formatted(status.value(), message.translate(language));
     }
 }
