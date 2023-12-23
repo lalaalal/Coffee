@@ -24,6 +24,15 @@ public record Result(HttpStatus status, Message message) {
         return format.formatted(status.value(), message);
     }
 
+    public String getTranslatedMessage(Language language) {
+        return message.translate(language);
+    }
+
+    public ResultDTO toResultDTO(Language language) {
+        return new ResultDTO(status.value(), getTranslatedMessage(language));
+    }
+
+    @Deprecated
     public String translatedJsonString(Language language) {
         String format = "{\"status\": %d, \"messageKey\": \"%s\"}";
         return format.formatted(status.value(), message.translate(language));
