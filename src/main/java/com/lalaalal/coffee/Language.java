@@ -20,6 +20,8 @@ public class Language {
     }
 
     public String translate(String key) {
-        return bundle.getString(key);
+        if (bundle.containsKey(key))
+            return bundle.getString(key);
+        return key;
     }
 }
