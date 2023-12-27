@@ -33,7 +33,7 @@ public class OrderService {
     public Result addOrderItem(String orderId, OrderItem orderItem) {
         Order order = orders.get(orderId);
         if (order == null)
-            return Result.failed("result.message.failed.add_order_item", orderId);
+            return Result.failed("result.message.failed.no_such_order_id", orderId);
         order.add(orderItem);
         orders.save();
 
@@ -43,7 +43,9 @@ public class OrderService {
     public Result cancelMenu(String orderId, String menuId) {
         Order order = orders.get(orderId);
         if (order == null)
-            return Result.failed("result.message.failed.cancel_menu", orderId, menuId);
+            return Result.failed("result.message.failed.no_such_order_id", orderId);
+        if (!order.containsMenu(menuId))
+            return Result.failed("result.message.failed.menu_not_exist", orderId, menuId);
         order.remove(menuId);
 
         return Result.SUCCEED;

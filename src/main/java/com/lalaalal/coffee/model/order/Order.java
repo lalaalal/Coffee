@@ -33,6 +33,11 @@ public class Order {
         items.add(item);
     }
 
+    public boolean containsMenu(String menuName) {
+        return items.stream()
+                .anyMatch(orderItem -> orderItem.getMenuId().equals(menuName));
+    }
+
     public void remove(String menuId) {
         items.removeIf(item -> item.getMenuId().equals(menuId));
     }
