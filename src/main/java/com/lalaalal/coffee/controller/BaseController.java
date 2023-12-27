@@ -1,8 +1,8 @@
 package com.lalaalal.coffee.controller;
 
 import com.lalaalal.coffee.Language;
+import com.lalaalal.coffee.dto.ResultDTO;
 import com.lalaalal.coffee.model.Result;
-import com.lalaalal.coffee.model.ResultDTO;
 import com.lalaalal.coffee.service.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

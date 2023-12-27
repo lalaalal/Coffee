@@ -1,7 +1,7 @@
 package com.lalaalal.coffee.controller;
 
+import com.lalaalal.coffee.dto.ResultDTO;
 import com.lalaalal.coffee.model.Result;
-import com.lalaalal.coffee.model.ResultDTO;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
 import com.lalaalal.coffee.service.UserService;
@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 @Controller
 @RequestMapping("/test")
 @SpringBootTest
+@SuppressWarnings("unused")
 public class TestController extends BaseController {
     @Autowired
     public TestController(UserService userService) {

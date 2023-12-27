@@ -1,4 +1,4 @@
-package com.lalaalal.coffee.model;
+package com.lalaalal.coffee.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

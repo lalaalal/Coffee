@@ -1,6 +1,7 @@
 package com.lalaalal.coffee.model;
 
 import com.lalaalal.coffee.Language;
+import com.lalaalal.coffee.dto.ResultDTO;
 import org.springframework.http.HttpStatus;
 
 public record Result(HttpStatus status, Message message) {

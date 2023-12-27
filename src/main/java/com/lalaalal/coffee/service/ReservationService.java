@@ -1,13 +1,13 @@
 package com.lalaalal.coffee.service;
 
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.misc.SHA256;
+import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.model.DataTable;
 import com.lalaalal.coffee.model.DataTableReader;
 import com.lalaalal.coffee.model.DateBasedKeyGenerator;
+import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.Reservation;
-import com.lalaalal.coffee.model.order.ReservationDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,16 +34,17 @@ public class ReservationService {
 
     protected Reservation createReservation(ReservationDTO reservationDTO, String hashedPassword) {
         return new Reservation(
-                reservationDTO.name(),
+                reservationDTO.getName(),
                 hashedPassword,
-                reservationDTO.order().getId(),
-                reservationDTO.time()
+                reservationDTO.getOrder().getId(),
+                reservationDTO.getTime()
         );
     }
 
-    public void makeReservation(ReservationDTO reservation, String password) {
-        String hashedPassword = SHA256.encrypt(password);
+    public Result makeReservation(ReservationDTO reservation, String hashedPassword) {
         reservations.add(createReservation(reservation, hashedPassword));
+
+        return Result.SUCCEED;
     }
 
     public void cancel(String id) {
