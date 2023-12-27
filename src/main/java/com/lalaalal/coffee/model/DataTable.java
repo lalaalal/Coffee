@@ -64,6 +64,10 @@ public class DataTable<K, V> implements DataTableReader<K, V> {
                 .stream();
     }
 
+    public boolean containsKey(K key) {
+        return table.containsKey(key);
+    }
+
     public void remove(K key) {
         table.remove(key);
     }

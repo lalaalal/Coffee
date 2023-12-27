@@ -40,6 +40,14 @@ public class OrderService {
         return Result.SUCCEED;
     }
 
+    public Result cancelOrder(String orderId) {
+        if (!orders.containsKey(orderId))
+            return Result.failed("result.message.failed.no_such_order_id", orderId);
+
+        orders.remove(orderId);
+        return Result.SUCCEED;
+    }
+
     public Result cancelMenu(String orderId, String menuId) {
         Order order = orders.get(orderId);
         if (order == null)
@@ -47,7 +55,6 @@ public class OrderService {
         if (!order.containsMenu(menuId))
             return Result.failed("result.message.failed.menu_not_exist", orderId, menuId);
         order.remove(menuId);
-
         return Result.SUCCEED;
     }
 

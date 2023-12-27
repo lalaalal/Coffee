@@ -1,6 +1,5 @@
 package com.lalaalal.coffee.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lalaalal.coffee.CoffeeApplication;
 import com.lalaalal.coffee.model.Result;
@@ -18,6 +17,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("api/order")
+@SuppressWarnings("unused")
 public class OrderApiController extends BaseController {
     public final ObjectMapper mapper = CoffeeApplication.MAPPER;
     private final OrderService orderService;
@@ -42,9 +42,16 @@ public class OrderApiController extends BaseController {
     }
 
     @PostMapping("/{orderId}/menu/add")
-    public ResponseEntity<ResultDTO> addOrderItem(@PathVariable("orderId") String orderId, @RequestBody OrderItem orderItem) throws JsonProcessingException {
+    public ResponseEntity<ResultDTO> addOrderItem(@PathVariable("orderId") String orderId, @RequestBody OrderItem orderItem) {
         // TODO: 12/17/23 handle exception
         Result result = orderService.addOrderItem(orderId, orderItem);
+
+        return createResultEntity(result);
+    }
+
+    @PostMapping("/{orderId}/cancel")
+    public ResponseEntity<ResultDTO> cancelOrder(@PathVariable("orderId") String orderId) {
+        Result result = orderService.cancelOrder(orderId);
 
         return createResultEntity(result);
     }
