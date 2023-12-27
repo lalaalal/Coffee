@@ -9,6 +9,9 @@ import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Comparator;
+
 @Service
 public class OrderService {
     private final DataTable<String, Order> orders;
@@ -23,6 +26,7 @@ public class OrderService {
         String id = orders.add(order);
         order.setId(id);
 
+        orders.save();
         return Result.SUCCEED;
     }
 
@@ -43,6 +47,12 @@ public class OrderService {
         order.remove(menuId);
 
         return Result.SUCCEED;
+    }
+
+    public Collection<Order> collect() {
+        return orders.stream()
+                .sorted(Comparator.comparing(Order::getId))
+                .toList();
     }
 
     public DataTableReader<String, Order> getDataTableReader() {

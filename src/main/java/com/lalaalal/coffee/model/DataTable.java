@@ -1,17 +1,14 @@
 package com.lalaalal.coffee.model;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.lalaalal.coffee.CoffeeApplication;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DataTable<K, V> implements DataTableReader<K, V> {
     protected static final ObjectMapper MAPPER = CoffeeApplication.MAPPER;
@@ -38,7 +35,7 @@ public class DataTable<K, V> implements DataTableReader<K, V> {
     }
 
     public void save() {
-        try (OutputStream outputStream = new FileOutputStream(saveFilePath)) {
+        try (FileOutputStream outputStream = new FileOutputStream(saveFilePath)) {
             MAPPER.writeValue(outputStream, table);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -56,46 +53,23 @@ public class DataTable<K, V> implements DataTableReader<K, V> {
         table.put(key, data);
     }
 
+    @Override
+    public Collection<V> collect() {
+        return table.values();
+    }
+
+    @Override
+    public Stream<V> stream() {
+        return table.values()
+                .stream();
+    }
+
     public void remove(K key) {
         table.remove(key);
     }
 
     @Override
-    public V findFirst(Predicate<V> predicate) {
-        for (V data : table.values()) {
-            if (predicate.test(data))
-                return data;
-        }
-
-        return null;
-    }
-
-    @Override
     public V get(K key) {
         return table.get(key);
-    }
-
-    @Override
-    public Set<K> filterKey(Predicate<K> predicate) {
-        return table.keySet().stream()
-                .filter(predicate)
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public List<V> filter(Predicate<V> predicate) {
-        return table.values()
-                .stream()
-                .filter(predicate)
-                .toList();
-    }
-
-    @Override
-    public String toJsonString() {
-        try {
-            return MAPPER.writeValueAsString(table);
-        } catch (JsonProcessingException e) {
-            return "{}";
-        }
     }
 }

@@ -1,17 +1,12 @@
 package com.lalaalal.coffee.model;
 
-import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 public interface DataTableReader<K, V> {
-    V findFirst(Predicate<V> predicate);
+    V get(K key);
 
-    V get(K id);
+    Collection<V> collect();
 
-    Set<K> filterKey(Predicate<K> predicate);
-
-    List<V> filter(Predicate<V> predicate);
-
-    String toJsonString();
+    Stream<V> stream();
 }

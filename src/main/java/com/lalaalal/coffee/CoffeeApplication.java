@@ -12,6 +12,7 @@ import com.lalaalal.coffee.registry.*;
 import com.lalaalal.coffee.serializer.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class CoffeeApplication {
@@ -45,6 +46,11 @@ public class CoffeeApplication {
 
         Configurations.initialize();
         Registries.initialize();
+    }
+
+    @Bean
+    public static ObjectMapper objectMapper() {
+        return MAPPER;
     }
 
     public static void main(String[] args) {

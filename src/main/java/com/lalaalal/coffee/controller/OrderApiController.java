@@ -10,17 +10,15 @@ import com.lalaalal.coffee.model.order.OrderItem;
 import com.lalaalal.coffee.service.OrderService;
 import com.lalaalal.coffee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("api/order")
-public class OrderApiController extends AbstractController {
+public class OrderApiController extends BaseController {
     public final ObjectMapper mapper = CoffeeApplication.MAPPER;
     private final OrderService orderService;
 
@@ -31,34 +29,28 @@ public class OrderApiController extends AbstractController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<String> listOrder() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
-        String text = orderService.getDataTableReader().toJsonString();
-
-        return new ResponseEntity<>(text, headers, HttpStatus.OK);
+    public ResponseEntity<Collection<Order>> listOrder() {
+        return createResponseEntity(orderService.collect(), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResultDTO> createOrder(@RequestParam String orderJsonString) throws JsonProcessingException {
+    public ResponseEntity<ResultDTO> createOrder(@RequestBody Order order) {
         // TODO: 12/17/23 handle exception
-        Order order = mapper.readValue(orderJsonString, Order.class);
         Result result = orderService.addOrder(order);
 
         return createResultEntity(result);
     }
 
     @PostMapping("/{orderId}/menu/add")
-    public ResponseEntity<ResultDTO> addOrderItem(@PathVariable String orderId, @RequestParam String orderItemString) throws JsonProcessingException {
+    public ResponseEntity<ResultDTO> addOrderItem(@PathVariable("orderId") String orderId, @RequestBody OrderItem orderItem) throws JsonProcessingException {
         // TODO: 12/17/23 handle exception
-        OrderItem orderItem = mapper.readValue(orderItemString, OrderItem.class);
         Result result = orderService.addOrderItem(orderId, orderItem);
 
         return createResultEntity(result);
     }
 
-    @PostMapping("/{orderId}/menu/cancel")
-    public ResponseEntity<ResultDTO> cancelMenu(@PathVariable String orderId, @RequestParam String menuId) {
+    @PostMapping("/{orderId}/menu/{menuId}/cancel")
+    public ResponseEntity<ResultDTO> cancelMenu(@PathVariable("orderId") String orderId, @PathVariable("menuId") String menuId) {
         Result result = orderService.cancelMenu(orderId, menuId);
 
         return createResultEntity(result);

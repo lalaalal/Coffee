@@ -10,6 +10,9 @@ import com.lalaalal.coffee.model.order.Reservation;
 import com.lalaalal.coffee.model.order.ReservationDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 @Service
 public class ReservationService {
     public static final String DATE_TIME_PATTERN = "RyyMMddHHmm";
@@ -17,7 +20,7 @@ public class ReservationService {
 
     public ReservationService() {
         String saveFilePath = Configurations.getConfiguration("data.reservation.path");
-        reservations = new DataTable<>(String.class, Reservation.class, new DateBasedKeyGenerator(), saveFilePath);
+        reservations = new DataTable<>(String.class, Reservation.class, new DateBasedKeyGenerator(DATE_TIME_PATTERN), saveFilePath);
     }
 
     protected ReservationDTO convertToDTO(DataTableReader<String, Order> orders, Reservation reservation) {
@@ -38,7 +41,7 @@ public class ReservationService {
         );
     }
 
-    public void makeReservation(DataTableReader<String, Order> orders, ReservationDTO reservation, String password) {
+    public void makeReservation(ReservationDTO reservation, String password) {
         String hashedPassword = SHA256.encrypt(password);
         reservations.add(createReservation(reservation, hashedPassword));
     }
@@ -50,5 +53,12 @@ public class ReservationService {
     public ReservationDTO getReservation(DataTableReader<String, Order> orders, String id) {
         Reservation reservation = reservations.get(id);
         return convertToDTO(orders, reservation);
+    }
+
+    public Collection<ReservationDTO> collectDTO(DataTableReader<String, Order> orders) {
+        ArrayList<ReservationDTO> list = new ArrayList<>();
+        reservations.stream()
+                .forEach(reservation -> list.add(convertToDTO(orders, reservation)));
+        return list;
     }
 }
