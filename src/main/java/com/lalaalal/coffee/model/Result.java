@@ -19,6 +19,18 @@ public record Result(HttpStatus status, Message message) {
         return new Result(HttpStatus.FORBIDDEN, Message.of("result.message.forbidden", userName));
     }
 
+    public static Result error(String messageKey, Object... args) {
+        return of(HttpStatus.INTERNAL_SERVER_ERROR, messageKey, args);
+    }
+
+    public static Result error(Message message) {
+        return new Result(HttpStatus.INTERNAL_SERVER_ERROR, message);
+    }
+
+    public static Result of(HttpStatus status, String messageKey, Object... args) {
+        return new Result(status, Message.of(messageKey, args));
+    }
+
     @Override
     public String toString() {
         String format = "{\"status\": %d, \"messageKey\": \"%s\"}";

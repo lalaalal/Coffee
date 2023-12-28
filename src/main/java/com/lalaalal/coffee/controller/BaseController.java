@@ -2,12 +2,14 @@ package com.lalaalal.coffee.controller;
 
 import com.lalaalal.coffee.Language;
 import com.lalaalal.coffee.dto.ResultDTO;
+import com.lalaalal.coffee.exception.GeneralException;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.service.UserService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.nio.charset.StandardCharsets;
 
@@ -31,5 +33,10 @@ public abstract class BaseController {
 
     protected Language getLanguage() {
         return userService.getLanguage();
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ResultDTO> handle(GeneralException e) {
+        return createResultEntity(e.getResult());
     }
 }

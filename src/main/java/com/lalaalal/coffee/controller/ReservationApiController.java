@@ -3,6 +3,7 @@ package com.lalaalal.coffee.controller;
 import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.dto.ReservationRequestDTO;
 import com.lalaalal.coffee.dto.ResultDTO;
+import com.lalaalal.coffee.exception.ClientCausedException;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.service.OrderService;
@@ -32,7 +33,7 @@ public class ReservationApiController extends BaseController {
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<Collection<ReservationDTO>> listOrder() {
         return createResponseEntity(
-                reservationService.collectDTO(orderService.getDataTableReader()),
+                reservationService.collectDTO(orderService.delegateGetter()),
                 HttpStatus.OK
         );
     }
@@ -50,9 +51,18 @@ public class ReservationApiController extends BaseController {
         return createResultEntity(orderResult);
     }
 
-    @PostMapping("{reservationId}/cancel")
+    @RequestMapping(value = "/{reservationId}", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<ReservationDTO> getOrder(@PathVariable("reservationId") String reservationId) {
+        ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId);
+        if (reservationDTO == null)
+            // TODO: 12/28/23 add translation
+            throw new ClientCausedException("error.client.message.no_such_reservation_id", reservationId);
+        return createResponseEntity(reservationDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/{reservationId}/cancel")
     public ResponseEntity<ResultDTO> cancelReservation(@PathVariable("reservationId") String reservationId) {
-        ReservationDTO reservationDTO = reservationService.getReservation(orderService.getDataTableReader(), reservationId);
+        ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId);
         Result orderResult = orderService.cancelOrder(reservationDTO.getOrder().getId());
         if (orderResult.status().is4xxClientError())
             return createResultEntity(orderResult);

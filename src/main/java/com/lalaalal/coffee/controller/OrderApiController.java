@@ -1,6 +1,7 @@
 package com.lalaalal.coffee.controller;
 
 import com.lalaalal.coffee.dto.ResultDTO;
+import com.lalaalal.coffee.exception.ClientCausedException;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
@@ -35,6 +36,15 @@ public class OrderApiController extends BaseController {
         Result result = orderService.addOrder(order);
 
         return createResultEntity(result);
+    }
+
+    @RequestMapping(value = "/{orderId}", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<Order> getOrder(@PathVariable("orderId") String orderId) {
+        Order order = orderService.getOrder(orderId);
+        if (order == null)
+            // TODO: 12/28/23 add translation
+            throw new ClientCausedException("error.client.message.no_such_order_id", orderId);
+        return createResponseEntity(order, HttpStatus.OK);
     }
 
     @PostMapping("/{orderId}/menu/add")
