@@ -52,11 +52,12 @@ public class ReservationApiController extends BaseController {
     }
 
     @RequestMapping(value = "/{reservationId}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<ReservationDTO> getOrder(@PathVariable("reservationId") String reservationId) {
-        ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId);
-        if (reservationDTO == null)
+    public ResponseEntity<ReservationDTO> getReservation(@PathVariable("reservationId") String reservationId) {
+        if (!reservationService.containsKey(reservationId))
             // TODO: 12/28/23 add translation
             throw new ClientCausedException("error.client.message.no_such_reservation_id", reservationId);
+        ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId);
+
         return createResponseEntity(reservationDTO, HttpStatus.OK);
     }
 

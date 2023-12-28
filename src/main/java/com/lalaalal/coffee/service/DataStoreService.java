@@ -30,6 +30,10 @@ public abstract class DataStoreService<K, V> {
         }
     }
 
+    public boolean containsKey(K key) {
+        return data.containsKey(key);
+    }
+
     public void save() {
         // TODO: 12/28/23 handle exception when directory does not exist
         try (FileOutputStream outputStream = new FileOutputStream(saveFilePath)) {

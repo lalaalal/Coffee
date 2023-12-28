@@ -24,6 +24,8 @@ public class ReservationService extends DataStoreService<String, Reservation> {
     }
 
     protected ReservationDTO convertToDTO(DelegateGetter<String, Order> delegate, Reservation reservation) {
+        if (reservation == null)
+            return null;
         Order order = delegate.get(reservation.getOrderId());
         return new ReservationDTO(
                 reservation.getName(),

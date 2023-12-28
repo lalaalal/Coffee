@@ -33,6 +33,11 @@ public class OrderApiController extends BaseController {
 
     @PostMapping("/create")
     public ResponseEntity<ResultDTO> createOrder(@RequestBody Order order) {
+        for (OrderItem item : order.getItems()) {
+            if (!item.canMake())
+                // TODO: 12/28/23 add translation
+                throw new ClientCausedException("error.client.message.unable_to_make_menu", item.getMenuId());
+        }
         Result result = orderService.addOrder(order);
 
         return createResultEntity(result);
@@ -40,10 +45,11 @@ public class OrderApiController extends BaseController {
 
     @RequestMapping(value = "/{orderId}", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<Order> getOrder(@PathVariable("orderId") String orderId) {
-        Order order = orderService.getOrder(orderId);
-        if (order == null)
+        if (!orderService.containsKey(orderId))
             // TODO: 12/28/23 add translation
             throw new ClientCausedException("error.client.message.no_such_order_id", orderId);
+        Order order = orderService.getOrder(orderId);
+
         return createResponseEntity(order, HttpStatus.OK);
     }
 
@@ -52,6 +58,8 @@ public class OrderApiController extends BaseController {
             @PathVariable("orderId") String orderId,
             @RequestBody OrderItem orderItem
     ) {
+        if (!orderItem.canMake())
+            throw new ClientCausedException("error.client.message.unable_to_make_menu", orderItem.getMenuId());
         Result result = orderService.addOrderItem(orderId, orderItem);
 
         return createResultEntity(result);
