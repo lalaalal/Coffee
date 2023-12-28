@@ -6,12 +6,21 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class Order {
     @Setter
     private String id = "";
     protected final ArrayList<OrderItem> items;
+
+    public static int calculateCost(List<OrderItem> items) {
+        int cost = 0;
+        for (OrderItem item : items)
+            cost += item.calculateCost();
+
+        return cost;
+    }
 
     public Order() {
         this.items = new ArrayList<>();
@@ -43,10 +52,6 @@ public class Order {
     }
 
     public int calculateCost() {
-        int cost = 0;
-        for (OrderItem item : items)
-            cost += item.calculateCost();
-
-        return cost;
+        return calculateCost(this.items);
     }
 }

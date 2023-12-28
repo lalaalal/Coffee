@@ -10,17 +10,19 @@ import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.Reservation;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
 public class ReservationService {
-    public static final String DATE_TIME_PATTERN = "RyyMMddHHmm";
+    public static final String DATE_TIME_PATTERN = "yyMMddHHmm";
+    public static final String KEY_FORMAT = "R%s";
     private final DataTable<String, Reservation> reservations;
 
     public ReservationService() {
         String saveFilePath = Configurations.getConfiguration("data.reservation.path");
-        reservations = new DataTable<>(String.class, Reservation.class, new DateBasedKeyGenerator(DATE_TIME_PATTERN), saveFilePath);
+        reservations = new DataTable<>(String.class, Reservation.class, new DateBasedKeyGenerator(DATE_TIME_PATTERN, KEY_FORMAT), saveFilePath);
     }
 
     protected ReservationDTO convertToDTO(DataTableReader<String, Order> orders, Reservation reservation) {
@@ -41,14 +43,28 @@ public class ReservationService {
         );
     }
 
-    public Result makeReservation(ReservationDTO reservation, String hashedPassword) {
-        reservations.add(createReservation(reservation, hashedPassword));
+    public String createReservationId(ReservationDTO reservationDTO) {
+        return reservationDTO.getTime().format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
+    }
 
+    public Result makeReservation(ReservationDTO reservationDTO, String hashedPassword) {
+        String reservationId = createReservationId(reservationDTO);
+        if (reservations.containsKey(reservationId))
+            return Result.failed("result.message.failed.reservation_exists_at", reservationId);
+
+        Reservation reservation = createReservation(reservationDTO, hashedPassword);
+        reservation.setOrderId(reservationId);
+        reservations.add(reservationId, reservation);
+        reservations.save();
         return Result.SUCCEED;
     }
 
-    public void cancel(String id) {
+    public Result cancel(String id) {
+        if (!reservations.containsKey(id))
+            return Result.failed("result.message.failed.no_such_reservation_id", id);
         reservations.remove(id);
+        reservations.save();
+        return Result.SUCCEED;
     }
 
     public ReservationDTO getReservation(DataTableReader<String, Order> orders, String id) {

@@ -30,6 +30,13 @@ public class OrderService {
         return Result.SUCCEED;
     }
 
+    public Result addOrder(String orderId, Order order) {
+        orders.add(orderId, order);
+        orders.save();
+
+        return Result.SUCCEED;
+    }
+
     public Result addOrderItem(String orderId, OrderItem orderItem) {
         Order order = orders.get(orderId);
         if (order == null)
@@ -45,6 +52,7 @@ public class OrderService {
             return Result.failed("result.message.failed.no_such_order_id", orderId);
 
         orders.remove(orderId);
+        orders.save();
         return Result.SUCCEED;
     }
 
@@ -55,6 +63,7 @@ public class OrderService {
         if (!order.containsMenu(menuId))
             return Result.failed("result.message.failed.menu_not_exist", orderId, menuId);
         order.remove(menuId);
+        orders.save();
         return Result.SUCCEED;
     }
 

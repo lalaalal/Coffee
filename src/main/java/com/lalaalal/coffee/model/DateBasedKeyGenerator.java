@@ -9,20 +9,26 @@ public class DateBasedKeyGenerator extends KeyGenerator<String> {
     private static final String KEY_FORMAT = "%s-%03d";
 
     private final String datePattern;
+    private final String keyFormat;
+    private final boolean useAutoincrement;
 
     public DateBasedKeyGenerator() {
-        this(DATE_PATTERN);
+        this(DATE_PATTERN, KEY_FORMAT);
     }
 
-    public DateBasedKeyGenerator(String datePattern) {
+    public DateBasedKeyGenerator(String datePattern, String keyFormat) {
         this.datePattern = datePattern;
+        this.keyFormat = keyFormat;
+        useAutoincrement = keyFormat.matches("^.*%s.*-.*%.*d.*");
     }
 
     @Override
     public String generateKey() {
         String keyFront = LocalDateTime.now().format(DateTimeFormatter.ofPattern(datePattern));
 
-        return KEY_FORMAT.formatted(keyFront, findMaxTailId(keyFront) + 1);
+        if (useAutoincrement)
+            return keyFormat.formatted(keyFront, findMaxTailId(keyFront) + 1);
+        return keyFormat.formatted(keyFormat.formatted(keyFront));
     }
 
     private int findMaxTailId(String keyFront) {
@@ -31,7 +37,7 @@ public class DateBasedKeyGenerator extends KeyGenerator<String> {
                 .stream()
                 .filter(s -> s.contains(keyFront))
                 .max(Comparator.naturalOrder())
-                .orElse("-001");
+                .orElse("-000");
         return Integer.parseInt(maxId.split("-")[1]);
     }
 }

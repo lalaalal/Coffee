@@ -1,25 +1,24 @@
 package com.lalaalal.coffee.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lalaalal.coffee.CoffeeApplication;
+import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.dto.ReservationRequestDTO;
 import com.lalaalal.coffee.dto.ResultDTO;
 import com.lalaalal.coffee.model.Result;
+import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.service.OrderService;
 import com.lalaalal.coffee.service.ReservationService;
 import com.lalaalal.coffee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
-@RequestMapping("reservation")
+@RequestMapping("api/reservation")
 @SuppressWarnings("unused")
 public class ReservationApiController extends BaseController {
-    private final ObjectMapper mapper = CoffeeApplication.MAPPER;
     private final ReservationService reservationService;
     private final OrderService orderService;
 
@@ -30,10 +29,34 @@ public class ReservationApiController extends BaseController {
         this.orderService = orderService;
     }
 
+    @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<Collection<ReservationDTO>> listOrder() {
+        return createResponseEntity(
+                reservationService.collectDTO(orderService.getDataTableReader()),
+                HttpStatus.OK
+        );
+    }
+
     @PostMapping("/take")
     public ResponseEntity<ResultDTO> takeReservation(@RequestBody ReservationRequestDTO reservation) {
-        orderService.addOrder(reservation.getOrder());
+        String reservationId = reservationService.createReservationId(reservation);
         Result result = reservationService.makeReservation(reservation, reservation.getHashedPassword());
+        if (!result.status().is2xxSuccessful())
+            return createResultEntity(result);
+        Order order = reservation.getOrder();
+        order.setId(reservationId);
+        Result orderResult = orderService.addOrder(order.getId(), order);
+
+        return createResultEntity(orderResult);
+    }
+
+    @PostMapping("{reservationId}/cancel")
+    public ResponseEntity<ResultDTO> cancelReservation(@PathVariable("reservationId") String reservationId) {
+        ReservationDTO reservationDTO = reservationService.getReservation(orderService.getDataTableReader(), reservationId);
+        Result orderResult = orderService.cancelOrder(reservationDTO.getOrder().getId());
+        if (orderResult.status().is4xxClientError())
+            return createResultEntity(orderResult);
+        Result result = reservationService.cancel(reservationId);
 
         return createResultEntity(result);
     }

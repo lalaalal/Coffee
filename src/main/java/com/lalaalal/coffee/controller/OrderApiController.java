@@ -47,19 +47,19 @@ public class OrderApiController extends BaseController {
         return createResultEntity(result);
     }
 
-    @PostMapping("/{orderId}/cancel")
-    public ResponseEntity<ResultDTO> cancelOrder(@PathVariable("orderId") String orderId) {
-        Result result = orderService.cancelOrder(orderId);
-
-        return createResultEntity(result);
-    }
-
     @PostMapping("/{orderId}/menu/{menuId}/cancel")
     public ResponseEntity<ResultDTO> cancelMenu(
             @PathVariable("orderId") String orderId,
             @PathVariable("menuId") String menuId
     ) {
         Result result = orderService.cancelMenu(orderId, menuId);
+
+        return createResultEntity(result);
+    }
+
+    @PostMapping("/{orderId}/cancel")
+    public ResponseEntity<ResultDTO> cancelOrder(@PathVariable("orderId") String orderId) {
+        Result result = orderService.cancelOrder(orderId);
 
         return createResultEntity(result);
     }

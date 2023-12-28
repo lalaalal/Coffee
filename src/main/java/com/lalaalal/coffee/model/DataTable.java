@@ -35,6 +35,7 @@ public class DataTable<K, V> implements DataTableReader<K, V> {
     }
 
     public void save() {
+        // TODO: 12/28/23 handle exception when directory does not exist
         try (FileOutputStream outputStream = new FileOutputStream(saveFilePath)) {
             MAPPER.writeValue(outputStream, table);
         } catch (IOException e) {
