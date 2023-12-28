@@ -2,9 +2,7 @@ package com.lalaalal.coffee.service;
 
 import com.lalaalal.coffee.Configurations;
 import com.lalaalal.coffee.dto.ReservationDTO;
-import com.lalaalal.coffee.model.DataTable;
-import com.lalaalal.coffee.model.DataTableReader;
-import com.lalaalal.coffee.model.DateBasedKeyGenerator;
+import com.lalaalal.coffee.misc.DelegateGetter;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.Reservation;
@@ -13,20 +11,20 @@ import org.springframework.stereotype.Service;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
 
 @Service
-public class ReservationService {
+public class ReservationService extends DataStoreService<String, Reservation> {
     public static final String DATE_TIME_PATTERN = "yyMMddHHmm";
-    public static final String KEY_FORMAT = "R%s";
-    private final DataTable<String, Reservation> reservations;
 
     public ReservationService() {
-        String saveFilePath = Configurations.getConfiguration("data.reservation.path");
-        reservations = new DataTable<>(String.class, Reservation.class, new DateBasedKeyGenerator(DATE_TIME_PATTERN, KEY_FORMAT), saveFilePath);
+        super(String.class, Reservation.class, HashMap::new,
+                Configurations.getConfiguration("data.reservation.path"));
     }
 
-    protected ReservationDTO convertToDTO(DataTableReader<String, Order> orders, Reservation reservation) {
-        Order order = orders.get(reservation.getOrderId());
+    protected ReservationDTO convertToDTO(DelegateGetter<String, Order> delegate, Reservation reservation) {
+        Order order = delegate.get(reservation.getOrderId());
         return new ReservationDTO(
                 reservation.getName(),
                 order,
@@ -49,33 +47,34 @@ public class ReservationService {
 
     public Result makeReservation(ReservationDTO reservationDTO, String hashedPassword) {
         String reservationId = createReservationId(reservationDTO);
-        if (reservations.containsKey(reservationId))
+        if (data.containsKey(reservationId))
             return Result.failed("result.message.failed.reservation_exists_at", reservationId);
 
         Reservation reservation = createReservation(reservationDTO, hashedPassword);
         reservation.setOrderId(reservationId);
-        reservations.add(reservationId, reservation);
-        reservations.save();
+        data.put(reservationId, reservation);
+        save();
         return Result.SUCCEED;
     }
 
     public Result cancel(String id) {
-        if (!reservations.containsKey(id))
+        if (!data.containsKey(id))
             return Result.failed("result.message.failed.no_such_reservation_id", id);
-        reservations.remove(id);
-        reservations.save();
+        data.remove(id);
+        save();
         return Result.SUCCEED;
     }
 
-    public ReservationDTO getReservation(DataTableReader<String, Order> orders, String id) {
-        Reservation reservation = reservations.get(id);
-        return convertToDTO(orders, reservation);
+    public ReservationDTO getReservation(DelegateGetter<String, Order> delegate, String id) {
+        Reservation reservation = data.get(id);
+        return convertToDTO(delegate, reservation);
     }
 
-    public Collection<ReservationDTO> collectDTO(DataTableReader<String, Order> orders) {
+    public Collection<ReservationDTO> collectDTO(DelegateGetter<String, Order> delegate) {
         ArrayList<ReservationDTO> list = new ArrayList<>();
-        reservations.stream()
-                .forEach(reservation -> list.add(convertToDTO(orders, reservation)));
+        data.values().stream()
+                .sorted(Comparator.comparing(Reservation::getOrderId))
+                .forEach(reservation -> list.add(convertToDTO(delegate, reservation)));
         return list;
     }
 }
