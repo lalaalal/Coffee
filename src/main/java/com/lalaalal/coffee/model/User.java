@@ -33,6 +33,13 @@ public class User {
         this.permission = Registries.get(PermissionRegistry.class, permission);
     }
 
+    public User(String id, String password) {
+        this.id = id;
+        this.hashedPassword = SHA256.encrypt(password);
+        this.language = Registries.get(LanguageRegistry.class, "");
+        this.permission = Registries.get(PermissionRegistry.class, "none");
+    }
+
     @JsonProperty("language")
     public String getLanguageCode() {
         return language.getLanguage();

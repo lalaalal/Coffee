@@ -13,6 +13,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class UserDTO {
+    public static final UserDTO ANONYMOUS = new UserDTO("anonymous", "ko");
+
     @JsonProperty("id")
     private final String id;
     @JsonIgnore

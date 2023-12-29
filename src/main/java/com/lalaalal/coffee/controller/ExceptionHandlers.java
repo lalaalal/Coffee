@@ -1,22 +1,24 @@
 package com.lalaalal.coffee.controller;
 
 import com.lalaalal.coffee.dto.ResultDTO;
+import com.lalaalal.coffee.exception.ClientCausedException;
 import com.lalaalal.coffee.exception.GeneralException;
-import com.lalaalal.coffee.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
+@SuppressWarnings("unused")
 public class ExceptionHandlers extends BaseController {
     @Autowired
-    public ExceptionHandlers(UserService userService) {
-        super(userService);
+    public ExceptionHandlers(HttpSession httpSession) {
+        super(httpSession);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<ResultDTO> handle(GeneralException e) {
+    @ExceptionHandler(value = {GeneralException.class, ClientCausedException.class})
+    public ResponseEntity<ResultDTO> handleGeneral(GeneralException e) {
         return createResultEntity(e.getResult());
     }
 }

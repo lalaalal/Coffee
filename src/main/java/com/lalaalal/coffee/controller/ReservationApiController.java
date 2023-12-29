@@ -8,7 +8,7 @@ import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.service.OrderService;
 import com.lalaalal.coffee.service.ReservationService;
-import com.lalaalal.coffee.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,8 @@ public class ReservationApiController extends BaseController {
     private final OrderService orderService;
 
     @Autowired
-    public ReservationApiController(ReservationService reservationService, OrderService orderService, UserService userService) {
-        super(userService);
+    public ReservationApiController(ReservationService reservationService, OrderService orderService, HttpSession httpSession) {
+        super(httpSession);
         this.reservationService = reservationService;
         this.orderService = orderService;
     }
