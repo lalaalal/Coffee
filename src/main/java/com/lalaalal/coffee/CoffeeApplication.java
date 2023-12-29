@@ -25,6 +25,7 @@ public class CoffeeApplication {
     }
 
     public static void registerRegistries() {
+        Registries.register(PermissionRegistry.class, PermissionRegistry::new);
         Registries.register(LanguageRegistry.class, LanguageRegistry::new);
         Registries.register(GroupRegistry.class, GroupRegistry::new);
         Registries.register(MenuRegistry.class, MenuRegistry::new);
