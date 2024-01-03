@@ -45,7 +45,7 @@ public class OrderApiController extends BaseController {
 
     @RequestMapping(value = "/{orderId}", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<Order> getOrder(@PathVariable("orderId") String orderId) {
-        if (!orderService.containsKey(orderId))
+        if (!orderService.isValidKey(orderId))
             // TODO: 12/28/23 add translation
             throw new ClientCausedException("error.client.message.no_such_order_id", orderId);
         Order order = orderService.getOrder(orderId);

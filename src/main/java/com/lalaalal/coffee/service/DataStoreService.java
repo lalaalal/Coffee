@@ -30,7 +30,7 @@ public abstract class DataStoreService<K, V> {
         }
     }
 
-    public boolean containsKey(K key) {
+    public boolean isValidKey(K key) {
         return data.containsKey(key);
     }
 

@@ -14,6 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Store single object by key.
+ *
+ * @param <T> Object type to store, should be serializable with {@link ObjectMapper}
+ * @author lalaalal
+ */
 public abstract class Registry<T> {
     protected static final ObjectMapper MAPPER = CoffeeApplication.MAPPER;
 

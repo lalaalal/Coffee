@@ -3,6 +3,7 @@ package com.lalaalal.coffee.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lalaalal.coffee.Configurations;
 import com.lalaalal.coffee.Language;
 import com.lalaalal.coffee.model.User;
 import com.lalaalal.coffee.registry.LanguageRegistry;
@@ -13,7 +14,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class UserDTO {
-    public static final UserDTO ANONYMOUS = new UserDTO("anonymous", "ko");
+    public static final UserDTO ANONYMOUS = new UserDTO("anonymous", Configurations.getConfiguration("language.default"));
 
     @JsonProperty("id")
     private final String id;
@@ -31,7 +32,7 @@ public class UserDTO {
     }
 
     @JsonProperty("language")
-    public String getLanguageCode() {
+    public String getLanguageName() {
         return language.getLanguage();
     }
 }
