@@ -15,11 +15,12 @@ public class ReservationRequestDTO extends ReservationDTO {
     @JsonCreator
     public ReservationRequestDTO(
             @JsonProperty("name") String name,
+            @JsonProperty("orderer") String orderer,
             @JsonProperty("order") Order order,
             @JsonProperty("time") LocalDateTime time,
             @JsonProperty("password") String password
     ) {
-        super(name, order, time);
+        super(name, orderer, order, time);
         this.hashedPassword = SHA256.encrypt(password);
     }
 }
