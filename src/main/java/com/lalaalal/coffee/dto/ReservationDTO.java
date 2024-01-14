@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 public class ReservationDTO {
     private final String name;
-    private final String orderer;
     private final Order order;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime time;
@@ -19,12 +18,10 @@ public class ReservationDTO {
     @JsonCreator
     public ReservationDTO(
             @JsonProperty("name") String name,
-            @JsonProperty("orderer") String orderer,
             @JsonProperty("order") Order order,
             @JsonProperty("time") LocalDateTime time
     ) {
         this.name = name;
-        this.orderer = orderer;
         this.order = order;
         this.time = time;
     }

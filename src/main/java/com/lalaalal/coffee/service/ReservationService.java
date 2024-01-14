@@ -29,7 +29,6 @@ public class ReservationService extends DataStoreService<String, Reservation> {
         Order order = delegate.get(reservation.getOrderId());
         return new ReservationDTO(
                 reservation.getName(),
-                reservation.getOrderer(),
                 order,
                 reservation.getTime()
         );
@@ -38,7 +37,6 @@ public class ReservationService extends DataStoreService<String, Reservation> {
     protected Reservation createReservation(ReservationDTO reservationDTO, String hashedPassword) {
         return new Reservation(
                 reservationDTO.getName(),
-                reservationDTO.getOrderer(),
                 hashedPassword,
                 reservationDTO.getOrder().getId(),
                 reservationDTO.getTime()

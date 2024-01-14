@@ -2,6 +2,7 @@ package com.lalaalal.coffee.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.lalaalal.coffee.misc.SHA256;
 import com.lalaalal.coffee.model.order.Order;
 import lombok.Getter;
@@ -9,18 +10,18 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
+@JsonPropertyOrder({"name", "order", "time", "password"})
 public class ReservationRequestDTO extends ReservationDTO {
     private final String hashedPassword;
 
     @JsonCreator
     public ReservationRequestDTO(
             @JsonProperty("name") String name,
-            @JsonProperty("orderer") String orderer,
             @JsonProperty("order") Order order,
             @JsonProperty("time") LocalDateTime time,
             @JsonProperty("password") String password
     ) {
-        super(name, orderer, order, time);
+        super(name, order, time);
         this.hashedPassword = SHA256.encrypt(password);
     }
 }

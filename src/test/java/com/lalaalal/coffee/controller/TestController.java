@@ -4,7 +4,7 @@ import com.lalaalal.coffee.dto.ResultDTO;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
-import com.lalaalal.coffee.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
@@ -21,10 +21,10 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping("/test")
 @SpringBootTest
 @SuppressWarnings("unused")
-public class TestController extends BaseController {
+public class TestController extends SessionHelper {
     @Autowired
-    public TestController(UserService userService) {
-        super(userService);
+    public TestController(HttpSession httpSession) {
+        super(httpSession);
     }
 
     @GetMapping("/hello")

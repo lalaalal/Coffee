@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Reservation {
     private String name;
-    private String orderer;
     @JsonProperty("hashed_password")
     private String hashedPassword;
     @JsonProperty("order_id")

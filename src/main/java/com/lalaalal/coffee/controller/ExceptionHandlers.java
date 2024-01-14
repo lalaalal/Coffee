@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-@SuppressWarnings("unused")
-public class ExceptionHandlers extends BaseController {
+public class ExceptionHandlers extends SessionHelper {
     @Autowired
     public ExceptionHandlers(HttpSession httpSession) {
         super(httpSession);

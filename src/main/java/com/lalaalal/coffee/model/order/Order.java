@@ -27,9 +27,10 @@ public class Order {
     }
 
     @JsonCreator
-    public Order(@JsonProperty("id") String id, @JsonProperty("items") ArrayList<OrderItem> items) {
+    public Order(@JsonProperty("id") String id, @JsonProperty("items") List<OrderItem> items) {
         this.id = id;
-        this.items = items;
+        this.items = new ArrayList<>();
+        this.items.addAll(items);
     }
 
     public void add(OrderItem item) {

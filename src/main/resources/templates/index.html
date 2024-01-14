@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>칠성다방</title>
+</head>
+<body>
+<header class="header mdc-top-app-bar">
+    <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+            <span class="mdc-top-app-bar__title">칠성다방</span>
+        </section>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite">favorite
+            </button>
+            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search
+            </button>
+            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">more_vert
+            </button>
+        </section>
+    </div>
+</header>
+<main>
+    <div class="notice mdc-data-table">
+        <div class="mdc-data-table__table-container">
+            <table class="mdc-data-table__table" aria-label="event">
+                <thead>
+                <tr class="mdc-data-table__header-row">
+                    <th class="notice-title mdc-data-table__header-cell" role="columnheader" scope="col">Event</th>
+                </tr>
+                </thead>
+                <tbody class="mdc-data-table__content">
+                <tr class="mdc-data-table__row" th:each="event : ${events}">
+                    <th class="mdc-data-table__cell" th:text="${event}"></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+</body>
+<script>
+
+</script>
+</html>

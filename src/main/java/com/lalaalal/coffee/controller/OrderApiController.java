@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("api/order")
-@SuppressWarnings("unused")
-public class OrderApiController extends BaseController {
+@RequestMapping("/api/order")
+public class OrderApiController extends SessionHelper {
     private final OrderService orderService;
 
     @Autowired

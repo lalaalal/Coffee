@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("api/reservation")
-@SuppressWarnings("unused")
-public class ReservationApiController extends BaseController {
+@RequestMapping("/api/reservation")
+public class ReservationApiController extends SessionHelper {
     private final ReservationService reservationService;
     private final OrderService orderService;
 

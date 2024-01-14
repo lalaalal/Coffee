@@ -15,14 +15,14 @@ import java.nio.charset.StandardCharsets;
 /**
  * Helps create ResponseEntity and gives session data.
  *
- * @see BaseController#BaseController(HttpSession)
- * @see BaseController#createResponseEntity(Object, HttpStatus)
- * @see BaseController#createResultEntity(Result)
- * @see BaseController#currentUser()
- * @see BaseController#getUserLanguage()
+ * @see SessionHelper#SessionHelper(HttpSession)
+ * @see SessionHelper#createResponseEntity(Object, HttpStatus)
+ * @see SessionHelper#createResultEntity(Result)
+ * @see SessionHelper#currentUser()
+ * @see SessionHelper#getUserLanguage()
  * @author lalaalal
  */
-public abstract class BaseController {
+public abstract class SessionHelper {
     protected final HttpSession httpSession;
 
     /**
@@ -38,7 +38,7 @@ public abstract class BaseController {
      *
      * @param httpSession Bean of HttpSession
      */
-    protected BaseController(HttpSession httpSession) {
+    protected SessionHelper(HttpSession httpSession) {
         this.httpSession = httpSession;
     }
 
@@ -51,7 +51,7 @@ public abstract class BaseController {
      * @return ResponseEntity<ResponseDTO> made of Result
      * @see Result
      * @see ResultDTO
-     * @see BaseController#createResponseEntity(Object, HttpStatus)
+     * @see SessionHelper#createResponseEntity(Object, HttpStatus)
      */
     protected ResponseEntity<ResultDTO> createResultEntity(Result result) {
         return createResponseEntity(result.toResultDTO(getUserLanguage()), result.status());
