@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -44,8 +45,20 @@ public abstract class Registry<T> {
         return registry.get(key);
     }
 
+    public Set<String> keys() {
+        return registry.keySet();
+    }
+
     public Collection<T> values() {
         return registry.values();
+    }
+
+    public String findKey(T value) {
+        for (String key : registry.keySet()) {
+            if (get(key).equals(value))
+                return key;
+        }
+        return "null";
     }
 
     public void register(String key, T value) {

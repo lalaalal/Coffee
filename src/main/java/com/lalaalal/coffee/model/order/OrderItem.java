@@ -1,85 +1,59 @@
 package com.lalaalal.coffee.model.order;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.registry.MenuRegistry;
 import com.lalaalal.coffee.registry.Registries;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-
-public class OrderItem implements ArgumentWriter {
+@JsonPropertyOrder({"menu", "cost_modifier", "arguments"})
+public class OrderItem {
+    @JsonIgnore
     private final Menu menu;
-    private final HashMap<String, OrderArgument<?>> arguments = new HashMap<>();
+    @Getter
+    @Setter
+    @JsonProperty("cost_modifier")
+    private CostModifier costModifier = CostModifier.DO_NOTHING;
+    @Getter
+    @JsonProperty("arguments")
+    private final OrderArgumentMap arguments;
 
     public OrderItem(String menu) {
         this.menu = Registries.get(MenuRegistry.class, menu);
-        for (ArgumentCreator argumentCreator : this.menu.getRequiredArgumentCreators()) {
-            OrderArgument<?> argument = argumentCreator.create();
-            arguments.put(argument.getName(), argument);
-        }
+        this.arguments = new OrderArgumentMap(this.menu);
     }
 
+    @JsonCreator
+    public OrderItem(@JsonProperty("menu") String menu,
+                     @JsonProperty("cost_modifier") CostModifier costModifier,
+                     @JsonProperty("arguments") OrderArgumentMap arguments) {
+        this.menu = Registries.get(MenuRegistry.class, menu);
+        this.costModifier = costModifier;
+        this.arguments = arguments;
+    }
+
+    @JsonProperty("menu")
     public String getMenuId() {
         return menu.getId();
     }
 
-    @Override
-    public Set<String> getArgumentNames() {
-        return arguments.keySet();
-    }
-
-    @Override
-    public <T> T getArgumentValue(String name, Class<T> type) {
-        if (!arguments.containsKey(name))
-            // TODO: 12/8/23 handle exception
-            throw new RuntimeException();
-        return OrderArgument.get(type, arguments.get(name));
-    }
-
-    @Override
-    public <T> void setArgument(String name, Class<T> type, T value) {
-        if (!arguments.containsKey(name))
-            // TODO: 12/8/23 handle exception
-            throw new RuntimeException();
-        OrderArgument<?> argument = arguments.get(name);
-        argument.setValue(value, type);
-    }
-
-    public void serializeArguments(JsonGenerator generator) throws IOException {
-        menu.serializeArguments(generator, this);
-    }
-
-    public void deserializeArguments(JsonNode argumentsNode) {
-        menu.deserializeArguments(argumentsNode, this);
-    }
-
     public boolean canMake() {
-        return menu.canMake(this);
+        return menu.canMake(arguments);
     }
 
     public int calculateCost() {
-        return menu.calculateCost(this);
+        return menu.calculateCost(arguments, costModifier);
     }
 
     public boolean canBeCombinedWith(OrderItem other) {
-        return argumentEquals(other, menu.getCombinationCheckArguments());
+        return this.arguments.canBeCombinedWith(other.arguments, menu);
     }
 
-    public void combineWith(ArgumentReader arguments) {
-        menu.combineArguments(this, arguments);
-    }
-
-    protected boolean argumentEquals(OrderItem other, List<String> targetArgumentNames) {
-        for (String targetArgumentName : targetArgumentNames) {
-            OrderArgument<?> a = this.arguments.get(targetArgumentName);
-            OrderArgument<?> b = other.arguments.get(targetArgumentName);
-            if (!a.equals(b))
-                return false;
-        }
-        return true;
+    public void combineWith(OrderItem operand) {
+        menu.combineArguments(this.arguments, operand.arguments);
     }
 }

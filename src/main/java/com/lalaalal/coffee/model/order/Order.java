@@ -14,14 +14,6 @@ public class Order {
     private String id = "";
     protected final ArrayList<OrderItem> items;
 
-    public static int calculateCost(List<OrderItem> items) {
-        int cost = 0;
-        for (OrderItem item : items)
-            cost += item.calculateCost();
-
-        return cost;
-    }
-
     public Order() {
         this.items = new ArrayList<>();
     }
@@ -53,6 +45,10 @@ public class Order {
     }
 
     public int calculateCost() {
-        return calculateCost(this.items);
+        int cost = 0;
+        for (OrderItem item : items)
+            cost += item.calculateCost();
+
+        return cost;
     }
 }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
-import com.lalaalal.coffee.model.order.OrderItem;
+import com.lalaalal.coffee.model.order.OrderArgumentMap;
 import com.lalaalal.coffee.registry.*;
 import com.lalaalal.coffee.serializer.*;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +25,7 @@ public class CoffeeApplication {
     }
 
     public static void registerRegistries() {
+        Registries.register(ModifierMethodRegistry.class, ModifierMethodRegistry::new);
         Registries.register(PermissionRegistry.class, PermissionRegistry::new);
         Registries.register(LanguageRegistry.class, LanguageRegistry::new);
         Registries.register(GroupRegistry.class, GroupRegistry::new);
@@ -37,7 +38,7 @@ public class CoffeeApplication {
         MAPPER.registerModule(new JavaTimeModule());
         registerSerializer(Menu.class, new MenuSerializer(), new MenuDeserializer());
         registerSerializer(Drink.class, new DrinkSerializer(), new DrinkDeserializer());
-        registerSerializer(OrderItem.class, new OrderItemSerializer(), new OrderItemDeserializer());
+        registerSerializer(OrderArgumentMap.class, new OrderArgumentMapSerializer(), new OrderArgumentMapDeserializer());
         registerRegistries();
 
         Configurations.addInitializeListener(Menu::initialize);

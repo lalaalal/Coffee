@@ -25,7 +25,6 @@ public class OrderService extends DataStoreService<String, Order> {
     }
 
     public Result addOrder(Order order) {
-
         String orderId = keyGenerator.generateKey();
         data.put(orderId, order);
         order.setId(orderId);

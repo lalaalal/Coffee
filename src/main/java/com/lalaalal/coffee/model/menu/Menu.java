@@ -1,17 +1,14 @@
 package com.lalaalal.coffee.model.menu;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.lalaalal.coffee.Configurations;
 import com.lalaalal.coffee.model.order.ArgumentCreator;
 import com.lalaalal.coffee.model.order.ArgumentReader;
 import com.lalaalal.coffee.model.order.ArgumentWriter;
-import com.lalaalal.coffee.model.order.OrderItem;
+import com.lalaalal.coffee.model.order.CostModifier;
 import com.lalaalal.coffee.registry.OrderArgumentCreatorRegistry;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.io.IOException;
 import java.util.List;
 
 @Getter
@@ -45,25 +42,12 @@ public class Menu {
         operator.combineValue(ARG_COUNT, Integer.class, operand, Integer::sum);
     }
 
-    public int calculateCost(ArgumentReader arguments) {
+    public int getModifiedCost(CostModifier costModifier) {
+        return costModifier.apply(cost);
+    }
+
+    public int calculateCost(ArgumentReader arguments, CostModifier costModifier) {
         int count = arguments.getArgumentValue(ARG_COUNT, Integer.class);
-        return cost * count;
-    }
-
-    public void deserializeArguments(JsonNode argumentsNode, OrderItem orderItem) {
-        int count = argumentsNode.get(ARG_COUNT).asInt();
-        orderItem.setArgument(ARG_COUNT, Integer.class, count);
-    }
-
-    public final void serializeArguments(JsonGenerator generator, ArgumentReader arguments) throws IOException {
-        generator.writeObjectFieldStart("arguments");
-        this._serializeArguments(generator, arguments);
-        generator.writeEndObject();
-    }
-
-    protected void _serializeArguments(JsonGenerator generator, ArgumentReader arguments) throws IOException {
-        int count = arguments.getArgumentValue(ARG_COUNT, Integer.class);
-        generator.writeNumberField(ARG_COUNT, count);
-
+        return getModifiedCost(costModifier) * count;
     }
 }

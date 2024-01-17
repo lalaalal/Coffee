@@ -1,15 +1,12 @@
 package com.lalaalal.coffee.model.menu;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.lalaalal.coffee.Configurations;
 import com.lalaalal.coffee.model.order.ArgumentCreator;
 import com.lalaalal.coffee.model.order.ArgumentReader;
 import com.lalaalal.coffee.model.order.ArgumentWriter;
-import com.lalaalal.coffee.model.order.OrderItem;
+import com.lalaalal.coffee.model.order.CostModifier;
 import com.lalaalal.coffee.registry.OrderArgumentCreatorRegistry;
 
-import java.io.IOException;
 import java.util.List;
 
 public class Drink extends Menu {
@@ -74,40 +71,13 @@ public class Drink extends Menu {
     }
 
     @Override
-    public int calculateCost(ArgumentReader arguments) {
+    public int calculateCost(ArgumentReader arguments, CostModifier costModifier) {
         int count = arguments.getArgumentValue(ARG_COUNT, Integer.class);
         int tumblerCount = arguments.getArgumentValue(ARG_TUMBLER_COUNT, Integer.class);
         boolean decaffeinated = arguments.getArgumentValue(ARG_DECAFFEINATED, Boolean.class);
         int shot = arguments.getArgumentValue(ARG_SHOT, Integer.class);
-        return (getCost() + shot * shotCost) * count
+        return (getModifiedCost(costModifier) + shot * shotCost) * count
                 - (decaffeinated ? decaffeinateCost : 0)
                 - tumblerCount * tumblerDiscount;
-    }
-
-    @Override
-    public void _serializeArguments(JsonGenerator generator, ArgumentReader arguments) throws IOException {
-        super._serializeArguments(generator, arguments);
-        int shot = arguments.getArgumentValue(ARG_SHOT, Integer.class);
-        boolean decaffeinated = arguments.getArgumentValue(ARG_DECAFFEINATED, Boolean.class);
-        int tumblerCount = arguments.getArgumentValue(ARG_TUMBLER_COUNT, Integer.class);
-        Temperature temperature = arguments.getArgumentValue(ARG_TEMPERATURE, Temperature.class);
-        generator.writeNumberField(ARG_SHOT, shot);
-        generator.writeBooleanField(ARG_DECAFFEINATED, decaffeinated);
-        generator.writeNumberField(ARG_TUMBLER_COUNT, tumblerCount);
-        generator.writeStringField(ARG_TEMPERATURE, temperature.name());
-    }
-
-    @Override
-    public void deserializeArguments(JsonNode argumentsNode, OrderItem orderItem) {
-        super.deserializeArguments(argumentsNode, orderItem);
-        int shot = argumentsNode.get(ARG_SHOT).asInt();
-        boolean decaffeinated = argumentsNode.get(ARG_DECAFFEINATED).asBoolean();
-        int tumblerCount = argumentsNode.get(ARG_TUMBLER_COUNT).asInt();
-        String temperatureString = argumentsNode.get(ARG_TEMPERATURE).asText();
-        Temperature temperature = Temperature.get(temperatureString);
-        orderItem.setArgument(ARG_SHOT, Integer.class, shot);
-        orderItem.setArgument(ARG_DECAFFEINATED, Boolean.class, decaffeinated);
-        orderItem.setArgument(ARG_TUMBLER_COUNT, Integer.class, tumblerCount);
-        orderItem.setArgument(ARG_TEMPERATURE, Temperature.class, temperature);
     }
 }

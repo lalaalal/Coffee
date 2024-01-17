@@ -5,6 +5,7 @@ import com.lalaalal.coffee.CoffeeApplication;
 import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.menu.Temperature;
+import com.lalaalal.coffee.model.order.ArgumentWriter;
 import com.lalaalal.coffee.model.order.OrderItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,11 +19,12 @@ class OrderItemSerializerTest {
     @Test
     void test() throws JsonProcessingException {
         OrderItem orderItem = new OrderItem("americano");
-        orderItem.setArgument(Menu.ARG_COUNT, Integer.class, 5);
-        orderItem.setArgument(Drink.ARG_TUMBLER_COUNT, Integer.class, 1);
-        orderItem.setArgument(Drink.ARG_DECAFFEINATED, Boolean.class, false);
-        orderItem.setArgument(Drink.ARG_TEMPERATURE, Temperature.class, Temperature.HOT);
-        orderItem.setArgument(Drink.ARG_SHOT, Integer.class, 1);
+        ArgumentWriter argumentWriter = orderItem.getArguments();
+        argumentWriter.setArgument(Menu.ARG_COUNT, Integer.class, 5);
+        argumentWriter.setArgument(Drink.ARG_TUMBLER_COUNT, Integer.class, 1);
+        argumentWriter.setArgument(Drink.ARG_DECAFFEINATED, Boolean.class, false);
+        argumentWriter.setArgument(Drink.ARG_TEMPERATURE, Temperature.class, Temperature.HOT);
+        argumentWriter.setArgument(Drink.ARG_SHOT, Integer.class, 1);
         String serialized = CoffeeApplication.MAPPER.writeValueAsString(orderItem);
         System.out.println(serialized);
 
