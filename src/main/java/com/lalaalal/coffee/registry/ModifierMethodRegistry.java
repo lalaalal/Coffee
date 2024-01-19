@@ -1,8 +1,8 @@
 package com.lalaalal.coffee.registry;
 
-import com.lalaalal.coffee.model.order.CostModifier;
+import com.lalaalal.coffee.model.order.Modifier;
 
-public class ModifierMethodRegistry extends Registry<CostModifier.Method> {
+public class ModifierMethodRegistry extends Registry<Modifier.Method> {
     @Override
     public void initialize() {
         register("set", (original, factor) -> factor);
@@ -15,7 +15,7 @@ public class ModifierMethodRegistry extends Registry<CostModifier.Method> {
     }
 
     @Override
-    public CostModifier.Method get(String key) {
+    public Modifier.Method get(String key) {
         if (!registry.containsKey(key))
             throw new RuntimeException("No such key in ModifierMethodRegistry : " + key);
         return super.get(key);

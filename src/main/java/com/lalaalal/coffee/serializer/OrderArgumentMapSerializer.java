@@ -3,7 +3,7 @@ package com.lalaalal.coffee.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.lalaalal.coffee.model.order.OrderArgumentMap;
+import com.lalaalal.coffee.model.order.argument.OrderArgumentMap;
 
 import java.io.IOException;
 

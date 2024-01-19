@@ -1,0 +1,29 @@
+POST http://localhost:8080/api/reservation/2401280930/cancel
+Content-Type: application/json
+
+###
+GET http://localhost:8080/api/reservation/list
+Accept: application/json
+
+###
+POST http://localhost:8080/api/reservation/take
+Content-Type: application/json
+
+{
+    "password": "hello",
+    "name": "Me",
+    "order": {
+        "id": "",
+        "items": [
+            {
+                "menu": "latte",
+                "arguments": {
+                    "count": 1,
+                    "temperature": "HOT",
+                    "shot": 1
+                }
+            }
+        ]
+    },
+    "time": "2024-01-28 09:30:00"
+}

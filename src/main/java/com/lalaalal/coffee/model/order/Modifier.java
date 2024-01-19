@@ -7,8 +7,8 @@ import com.lalaalal.coffee.registry.ModifierMethodRegistry;
 import com.lalaalal.coffee.registry.Registries;
 import lombok.Getter;
 
-public class CostModifier {
-    public static final CostModifier DO_NOTHING = new CostModifier("do_nothing", 0);
+public class Modifier {
+    public static final Modifier DO_NOTHING = new Modifier("do_nothing", 0);
 
     @JsonIgnore
     private final Method method;
@@ -17,13 +17,13 @@ public class CostModifier {
     @JsonProperty("factor")
     private final int factor;
 
-    public CostModifier(Method method, int factor) {
+    public Modifier(Method method, int factor) {
         this.method = method;
         this.factor = factor;
     }
 
     @JsonCreator
-    public CostModifier(
+    public Modifier(
             @JsonProperty("method") String method,
             @JsonProperty("factor") int factor) {
         this.method = Registries.get(ModifierMethodRegistry.class, method);

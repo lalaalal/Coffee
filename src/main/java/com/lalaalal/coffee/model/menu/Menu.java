@@ -1,15 +1,15 @@
 package com.lalaalal.coffee.model.menu;
 
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.model.order.ArgumentCreator;
-import com.lalaalal.coffee.model.order.ArgumentReader;
-import com.lalaalal.coffee.model.order.ArgumentWriter;
-import com.lalaalal.coffee.model.order.CostModifier;
-import com.lalaalal.coffee.registry.OrderArgumentCreatorRegistry;
+import com.lalaalal.coffee.model.order.Modifier;
+import com.lalaalal.coffee.model.order.argument.ArgumentCostModifier;
+import com.lalaalal.coffee.model.order.argument.ArgumentReader;
+import com.lalaalal.coffee.model.order.argument.ArgumentWriter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -26,8 +26,8 @@ public class Menu {
         tumblerDiscount = Configurations.getIntConfiguration("tumbler.discount");
     }
 
-    public List<ArgumentCreator> getRequiredArgumentCreators() {
-        return List.of(OrderArgumentCreatorRegistry.COUNT);
+    public Set<String> getRequiredArgumentNames() {
+        return Set.of(ARG_COUNT);
     }
 
     public boolean canMake(ArgumentReader arguments) {
@@ -42,12 +42,14 @@ public class Menu {
         operator.combineValue(ARG_COUNT, Integer.class, operand, Integer::sum);
     }
 
-    public int getModifiedCost(CostModifier costModifier) {
-        return costModifier.apply(cost);
+    public int getModifiedCost(Modifier modifier) {
+        if (modifier == null)
+            return cost;
+        return modifier.apply(cost);
     }
 
-    public int calculateCost(ArgumentReader arguments, CostModifier costModifier) {
+    public int calculateCost(ArgumentReader arguments, Modifier modifier, ArgumentCostModifier argumentCostModifier) {
         int count = arguments.getArgumentValue(ARG_COUNT, Integer.class);
-        return getModifiedCost(costModifier) * count;
+        return getModifiedCost(modifier) * count;
     }
 }

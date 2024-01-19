@@ -1,10 +1,12 @@
 package com.lalaalal.coffee.controller;
 
+import com.lalaalal.coffee.dto.OrderDTO;
+import com.lalaalal.coffee.dto.OrderItemDTO;
 import com.lalaalal.coffee.dto.ResultDTO;
 import com.lalaalal.coffee.exception.ClientCausedException;
+import com.lalaalal.coffee.model.Event;
 import com.lalaalal.coffee.model.Result;
-import com.lalaalal.coffee.model.order.Order;
-import com.lalaalal.coffee.model.order.OrderItem;
+import com.lalaalal.coffee.service.EventService;
 import com.lalaalal.coffee.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,36 +20,37 @@ import java.util.Collection;
 @RequestMapping("/api/order")
 public class OrderApiController extends SessionHelper {
     private final OrderService orderService;
+    private final EventService eventService;
 
     @Autowired
-    public OrderApiController(OrderService orderService, HttpSession httpSession) {
+    public OrderApiController(
+            OrderService orderService,
+            EventService eventService,
+            HttpSession httpSession) {
         super(httpSession);
         this.orderService = orderService;
+        this.eventService = eventService;
     }
 
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<Collection<Order>> listOrder() {
-        return createResponseEntity(orderService.collect(), HttpStatus.OK);
+    public ResponseEntity<Collection<OrderDTO>> listOrder() {
+        return createResponseEntity(orderService.collectDTO(), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResultDTO> createOrder(@RequestBody Order order) {
-        for (OrderItem item : order.getItems()) {
-            if (!item.canMake())
-                // TODO: 12/28/23 add translation
-                throw new ClientCausedException("error.client.message.unable_to_make_menu", item.getMenuId());
-        }
-        Result result = orderService.addOrder(order);
+    public ResponseEntity<ResultDTO> createOrder(@RequestBody OrderDTO orderDTO) {
+        Event event = eventService.getCurrentEvent();
+        Result result = orderService.addOrder(orderDTO, event);
 
         return createResultEntity(result);
     }
 
     @RequestMapping(value = "/{orderId}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<Order> getOrder(@PathVariable("orderId") String orderId) {
+    public ResponseEntity<OrderDTO> getOrder(@PathVariable("orderId") String orderId) {
         if (!orderService.isValidKey(orderId))
             // TODO: 12/28/23 add translation
             throw new ClientCausedException("error.client.message.no_such_order_id", orderId);
-        Order order = orderService.getOrder(orderId);
+        OrderDTO order = orderService.getOrder(orderId);
 
         return createResponseEntity(order, HttpStatus.OK);
     }
@@ -55,10 +58,9 @@ public class OrderApiController extends SessionHelper {
     @PostMapping("/{orderId}/menu/add")
     public ResponseEntity<ResultDTO> addOrderItem(
             @PathVariable("orderId") String orderId,
-            @RequestBody OrderItem orderItem) {
-        if (!orderItem.canMake())
-            throw new ClientCausedException("error.client.message.unable_to_make_menu", orderItem.getMenuId());
-        Result result = orderService.addOrderItem(orderId, orderItem);
+            @RequestBody OrderItemDTO orderItem) {
+        Event event = eventService.getCurrentEvent();
+        Result result = orderService.addOrderItem(orderId, orderItem, event);
 
         return createResultEntity(result);
     }

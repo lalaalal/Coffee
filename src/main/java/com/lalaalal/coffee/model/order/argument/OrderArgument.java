@@ -1,4 +1,4 @@
-package com.lalaalal.coffee.model.order;
+package com.lalaalal.coffee.model.order.argument;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,6 +12,10 @@ public class OrderArgument<T> {
     private final String name;
     private T value;
     private final ArgumentMapper<T> mapper;
+
+    public static <E> E getValue(Class<E> type, OrderArgument<?> argument) {
+        return argument.getValue(type);
+    }
 
     public OrderArgument(Class<T> type, String name, T defaultValue, ArgumentMapper<T> mapper) {
         this.type = type;
@@ -28,11 +32,11 @@ public class OrderArgument<T> {
         this.value = this.type.cast(value);
     }
 
-    public static <E> E get(Class<E> type, OrderArgument<?> argument) {
-        if (type.equals(argument.type))
-            return type.cast(argument.value);
+    public <E> E getValue(Class<E> type) {
+        if (type.equals(this.type))
+            return type.cast(this.value);
         // TODO: 12/6/23 handle exception
-        throw new RuntimeException("Temperature not matches.");
+        throw new RuntimeException();
     }
 
     public void serializeArgument(JsonGenerator generator) throws IOException {

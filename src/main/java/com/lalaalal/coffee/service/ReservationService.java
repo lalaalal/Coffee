@@ -1,10 +1,10 @@
 package com.lalaalal.coffee.service;
 
 import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.misc.DelegateGetter;
 import com.lalaalal.coffee.model.Result;
-import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.Reservation;
 import org.springframework.stereotype.Service;
 
@@ -23,26 +23,6 @@ public class ReservationService extends DataStoreService<String, Reservation> {
                 Configurations.getConfiguration("data.reservation.path"));
     }
 
-    protected ReservationDTO convertToDTO(DelegateGetter<String, Order> delegate, Reservation reservation) {
-        if (reservation == null)
-            return null;
-        Order order = delegate.get(reservation.getOrderId());
-        return new ReservationDTO(
-                reservation.getName(),
-                order,
-                reservation.getTime()
-        );
-    }
-
-    protected Reservation createReservation(ReservationDTO reservationDTO, String hashedPassword) {
-        return new Reservation(
-                reservationDTO.getName(),
-                hashedPassword,
-                reservationDTO.getOrder().getId(),
-                reservationDTO.getTime()
-        );
-    }
-
     public String createReservationId(ReservationDTO reservationDTO) {
         return reservationDTO.getTime().format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
     }
@@ -52,7 +32,7 @@ public class ReservationService extends DataStoreService<String, Reservation> {
         if (data.containsKey(reservationId))
             return Result.failed("result.message.failed.reservation_exists_at", reservationId);
 
-        Reservation reservation = createReservation(reservationDTO, hashedPassword);
+        Reservation reservation = reservationDTO.convertToReservation(hashedPassword);
         reservation.setOrderId(reservationId);
         data.put(reservationId, reservation);
         save();
@@ -67,16 +47,16 @@ public class ReservationService extends DataStoreService<String, Reservation> {
         return Result.SUCCEED;
     }
 
-    public ReservationDTO getReservation(DelegateGetter<String, Order> delegate, String id) {
+    public ReservationDTO getReservation(DelegateGetter<String, OrderDTO> delegate, String id) {
         Reservation reservation = data.get(id);
-        return convertToDTO(delegate, reservation);
+        return ReservationDTO.convertFrom(delegate, reservation);
     }
 
-    public Collection<ReservationDTO> collectDTO(DelegateGetter<String, Order> delegate) {
+    public Collection<ReservationDTO> collectDTO(DelegateGetter<String, OrderDTO> delegate) {
         ArrayList<ReservationDTO> list = new ArrayList<>();
         data.values().stream()
                 .sorted(Comparator.comparing(Reservation::getOrderId))
-                .forEach(reservation -> list.add(convertToDTO(delegate, reservation)));
+                .forEach(reservation -> list.add(ReservationDTO.convertFrom(delegate, reservation)));
         return list;
     }
 }

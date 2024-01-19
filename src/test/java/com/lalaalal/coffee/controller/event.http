@@ -1,0 +1,23 @@
+POST http://localhost:8080/api/event/1/cancel
+Content-Type: application/json
+
+###
+POST http://localhost:8080/api/event/add
+Content-Type: application/json
+
+{
+    "title": "Title",
+    "content": "Content",
+    "cost_modifiers": {
+        "americano": {
+            "method": "set",
+            "factor": 500
+        }
+    },
+    "argument_cost_modifier": {
+    },
+    "start": "2024-01-01",
+    "end": "2024-01-31"
+}
+
+###

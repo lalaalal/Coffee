@@ -1,7 +1,8 @@
-package com.lalaalal.coffee.model.order;
+package com.lalaalal.coffee.model.order.argument;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lalaalal.coffee.exception.ServerException;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.registry.OrderArgumentCreatorRegistry;
 import com.lalaalal.coffee.registry.Registries;
@@ -14,14 +15,21 @@ public class OrderArgumentMap implements ArgumentWriter {
     private final HashMap<String, OrderArgument<?>> arguments = new HashMap<>();
 
     public OrderArgumentMap(Menu menu) {
-        for (ArgumentCreator argumentCreator : menu.getRequiredArgumentCreators()) {
-            OrderArgument<?> argument = argumentCreator.create();
-            arguments.put(argument.getName(), argument);
-        }
+        this(menu.getRequiredArgumentNames());
     }
 
     public OrderArgumentMap(Set<String> argumentNames) {
         for (String argumentName : argumentNames) {
+            ArgumentCreator creator = Registries.get(OrderArgumentCreatorRegistry.class, argumentName);
+            OrderArgument<?> argument = creator.create();
+            arguments.put(argument.getName(), argument);
+        }
+    }
+
+    public void ensureArguments(Menu menu) {
+        for (String argumentName : menu.getRequiredArgumentNames()) {
+            if (arguments.containsKey(argumentName))
+                continue;
             ArgumentCreator creator = Registries.get(OrderArgumentCreatorRegistry.class, argumentName);
             OrderArgument<?> argument = creator.create();
             arguments.put(argument.getName(), argument);
@@ -35,10 +43,15 @@ public class OrderArgumentMap implements ArgumentWriter {
 
     @Override
     public <T> T getArgumentValue(String name, Class<T> type) {
-        if (!arguments.containsKey(name))
-            // TODO: 12/8/23 handle exception
-            throw new RuntimeException();
-        return OrderArgument.get(type, arguments.get(name));
+        if (arguments.containsKey(name))
+            return OrderArgument.getValue(type, arguments.get(name));
+        ArgumentCreator creator = Registries.get(OrderArgumentCreatorRegistry.class, name);
+        if (creator == null)
+            // TODO : translate
+            throw new ServerException("error.server.message.no_such_argument_name", name);
+        OrderArgument<?> argument = creator.create();
+        arguments.put(name, argument);
+        return argument.getValue(type);
     }
 
     @Override

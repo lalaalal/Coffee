@@ -1,12 +1,9 @@
 package com.lalaalal.coffee.service;
 
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.Language;
 import com.lalaalal.coffee.dto.UserDTO;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.User;
-import com.lalaalal.coffee.registry.LanguageRegistry;
-import com.lalaalal.coffee.registry.Registries;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -41,10 +38,5 @@ public class UserService extends DataStoreService<String, User> {
 
     public UserDTO getUser(String id) {
         return UserDTO.from(data.get(id));
-    }
-
-    public Language getLanguage() {
-        // TODO: 12/16/23 handle user language
-        return Registries.get(LanguageRegistry.class, "ko");
     }
 }

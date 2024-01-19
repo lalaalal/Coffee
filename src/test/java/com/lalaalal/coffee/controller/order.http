@@ -1,0 +1,20 @@
+GET http://localhost:8080/api/order/list
+Accept: application/json
+
+###
+POST http://localhost:8080/api/order/create
+Content-Type: application/json
+
+{
+    "cost": 0,
+    "items": [
+        {
+            "menu": "choco_latte",
+            "arguments": {
+                "count": 1,
+                "temperature": "ICE"
+            }
+        }
+    ]
+}
+

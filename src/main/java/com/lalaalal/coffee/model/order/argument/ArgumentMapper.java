@@ -1,4 +1,4 @@
-package com.lalaalal.coffee.model.order;
+package com.lalaalal.coffee.model.order.argument;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -11,7 +11,7 @@ public interface ArgumentMapper<T> {
         @Override
         public void serialize(JsonGenerator generator, OrderArgument<Integer> argument) throws IOException {
             String name = argument.getName();
-            int value = OrderArgument.get(Integer.class, argument);
+            int value = argument.getValue(Integer.class);
             generator.writeNumberField(name, value);
         }
 
@@ -26,7 +26,7 @@ public interface ArgumentMapper<T> {
         @Override
         public void serialize(JsonGenerator generator, OrderArgument<Boolean> argument) throws IOException {
             String name = argument.getName();
-            boolean value = OrderArgument.get(Boolean.class, argument);
+            boolean value = argument.getValue(Boolean.class);
             generator.writeBooleanField(name, value);
         }
 
@@ -41,7 +41,7 @@ public interface ArgumentMapper<T> {
         @Override
         public void serialize(JsonGenerator generator, OrderArgument<Temperature> argument) throws IOException {
             String name = argument.getName();
-            Temperature value = OrderArgument.get(Temperature.class, argument);
+            Temperature value = argument.getValue(Temperature.class);
             generator.writeStringField(name, value.name());
         }
 

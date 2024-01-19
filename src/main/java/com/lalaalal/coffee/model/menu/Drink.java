@@ -1,13 +1,13 @@
 package com.lalaalal.coffee.model.menu;
 
 import com.lalaalal.coffee.Configurations;
-import com.lalaalal.coffee.model.order.ArgumentCreator;
-import com.lalaalal.coffee.model.order.ArgumentReader;
-import com.lalaalal.coffee.model.order.ArgumentWriter;
-import com.lalaalal.coffee.model.order.CostModifier;
-import com.lalaalal.coffee.registry.OrderArgumentCreatorRegistry;
+import com.lalaalal.coffee.model.order.Modifier;
+import com.lalaalal.coffee.model.order.argument.ArgumentCostModifier;
+import com.lalaalal.coffee.model.order.argument.ArgumentReader;
+import com.lalaalal.coffee.model.order.argument.ArgumentWriter;
 
 import java.util.List;
+import java.util.Set;
 
 public class Drink extends Menu {
     public static final String ARG_SHOT = "shot";
@@ -31,13 +31,13 @@ public class Drink extends Menu {
     }
 
     @Override
-    public List<ArgumentCreator> getRequiredArgumentCreators() {
-        return List.of(
-                OrderArgumentCreatorRegistry.COUNT,
-                OrderArgumentCreatorRegistry.SHOT,
-                OrderArgumentCreatorRegistry.DECAFFEINATE,
-                OrderArgumentCreatorRegistry.TUMBLER_COUNT,
-                OrderArgumentCreatorRegistry.TEMPERATURE
+    public Set<String> getRequiredArgumentNames() {
+        return Set.of(
+                ARG_COUNT,
+                ARG_SHOT,
+                ARG_DECAFFEINATED,
+                ARG_TUMBLER_COUNT,
+                ARG_TEMPERATURE
         );
     }
 
@@ -71,13 +71,16 @@ public class Drink extends Menu {
     }
 
     @Override
-    public int calculateCost(ArgumentReader arguments, CostModifier costModifier) {
+    public int calculateCost(ArgumentReader arguments, Modifier modifier, ArgumentCostModifier argumentCostModifier) {
         int count = arguments.getArgumentValue(ARG_COUNT, Integer.class);
         int tumblerCount = arguments.getArgumentValue(ARG_TUMBLER_COUNT, Integer.class);
         boolean decaffeinated = arguments.getArgumentValue(ARG_DECAFFEINATED, Boolean.class);
         int shot = arguments.getArgumentValue(ARG_SHOT, Integer.class);
-        return (getModifiedCost(costModifier) + shot * shotCost) * count
-                - (decaffeinated ? decaffeinateCost : 0)
-                - tumblerCount * tumblerDiscount;
+        int modifiedShotCost = argumentCostModifier.apply(ArgumentCostModifier.SHOT, shotCost);
+        int modifiedDecaffeinateCost = argumentCostModifier.apply(ArgumentCostModifier.DECAFFEINATE, decaffeinateCost);
+        int modifiedTumblerDiscount = argumentCostModifier.apply(ArgumentCostModifier.TUMBLER, tumblerCount);
+        return (getModifiedCost(modifier) + shot * modifiedShotCost) * count
+                - (decaffeinated ? modifiedDecaffeinateCost : 0)
+                - tumblerCount * modifiedTumblerDiscount;
     }
 }

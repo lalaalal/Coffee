@@ -5,16 +5,15 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.lalaalal.coffee.CoffeeApplication;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 public abstract class DataStoreService<K, V> {
     protected static final ObjectMapper MAPPER = CoffeeApplication.MAPPER;
-    protected final HashMap<K, V> data;
+    protected final Map<K, V> data;
     protected final String saveFilePath;
 
-    protected DataStoreService(Class<K> keyType, Class<V> valueType, Supplier<HashMap<K, V>> supplier, String saveFilePath) {
+    protected DataStoreService(Class<K> keyType, Class<V> valueType, Supplier<Map<K, V>> supplier, String saveFilePath) {
         this.data = supplier.get();
         this.saveFilePath = saveFilePath;
 

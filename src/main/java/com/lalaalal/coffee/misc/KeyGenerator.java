@@ -5,8 +5,8 @@ import lombok.Setter;
 import java.util.Set;
 import java.util.function.Supplier;
 
+@Setter
 public abstract class KeyGenerator<K> {
-    @Setter
     private Supplier<Set<K>> keySetSupplier;
 
     public Set<K> getKeySet() {

@@ -12,7 +12,7 @@ import java.util.List;
 public class Order {
     @Setter
     private String id = "";
-    protected final ArrayList<OrderItem> items;
+    protected final List<OrderItem> items;
 
     public Order() {
         this.items = new ArrayList<>();

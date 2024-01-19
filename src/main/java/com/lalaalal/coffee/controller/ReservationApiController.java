@@ -1,11 +1,13 @@
 package com.lalaalal.coffee.controller;
 
+import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.dto.ReservationRequestDTO;
 import com.lalaalal.coffee.dto.ResultDTO;
 import com.lalaalal.coffee.exception.ClientCausedException;
+import com.lalaalal.coffee.model.Event;
 import com.lalaalal.coffee.model.Result;
-import com.lalaalal.coffee.model.order.Order;
+import com.lalaalal.coffee.service.EventService;
 import com.lalaalal.coffee.service.OrderService;
 import com.lalaalal.coffee.service.ReservationService;
 import jakarta.servlet.http.HttpSession;
@@ -21,12 +23,18 @@ import java.util.Collection;
 public class ReservationApiController extends SessionHelper {
     private final ReservationService reservationService;
     private final OrderService orderService;
+    private final EventService eventService;
 
     @Autowired
-    public ReservationApiController(ReservationService reservationService, OrderService orderService, HttpSession httpSession) {
+    public ReservationApiController(
+            ReservationService reservationService,
+            OrderService orderService,
+            EventService eventService,
+            HttpSession httpSession) {
         super(httpSession);
         this.reservationService = reservationService;
         this.orderService = orderService;
+        this.eventService = eventService;
     }
 
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
@@ -43,9 +51,9 @@ public class ReservationApiController extends SessionHelper {
         Result result = reservationService.makeReservation(reservation, reservation.getHashedPassword());
         if (!result.status().is2xxSuccessful())
             return createResultEntity(result);
-        Order order = reservation.getOrder();
-        order.setId(reservationId);
-        Result orderResult = orderService.addOrder(order.getId(), order);
+        OrderDTO order = reservation.getOrder();
+        Event event = eventService.getCurrentEvent();
+        Result orderResult = orderService.addOrder(reservationId, order, event);
 
         return createResultEntity(orderResult);
     }
@@ -60,7 +68,7 @@ public class ReservationApiController extends SessionHelper {
         return createResponseEntity(reservationDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/{reservationId}/cancel")
+    @RequestMapping(value = "/{reservationId}/cancel", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<ResultDTO> cancelReservation(@PathVariable("reservationId") String reservationId) {
         ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId);
         Result orderResult = orderService.cancelOrder(reservationDTO.getOrder().getId());

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
-import com.lalaalal.coffee.model.order.OrderArgumentMap;
+import com.lalaalal.coffee.model.order.argument.OrderArgumentMap;
 import com.lalaalal.coffee.registry.*;
 import com.lalaalal.coffee.serializer.*;
 import org.springframework.boot.SpringApplication;
