@@ -22,10 +22,13 @@ public class EventService extends DataStoreService<Integer, Event> {
     }
 
     public Event getCurrentEvent() {
-        LocalDate today = LocalDate.now();
+        return getEventAt(LocalDate.now());
+    }
+
+    public Event getEventAt(LocalDate date) {
         for (Event event : data.values()) {
-            if (today.isAfter(event.getStart().minusDays(1))
-                    && today.isBefore(event.getEnd().plusDays(1)))
+            if (date.isAfter(event.getStart().minusDays(1))
+                    && date.isBefore(event.getEnd().plusDays(1)))
                 return event;
         }
 
@@ -33,6 +36,8 @@ public class EventService extends DataStoreService<Integer, Event> {
     }
 
     public Result addEvent(Event event) {
+        // TODO : check date conflict
+
         int id = keyGenerator.generateKey();
         data.put(id, event);
         save();

@@ -12,6 +12,10 @@ Content-Type: application/json
         "americano": {
             "method": "set",
             "factor": 500
+        },
+        "latte": {
+            "method": "set",
+            "factor": 800
         }
     },
     "argument_cost_modifier": {

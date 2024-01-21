@@ -52,7 +52,7 @@ public class ReservationApiController extends SessionHelper {
         if (!result.status().is2xxSuccessful())
             return createResultEntity(result);
         OrderDTO order = reservation.getOrder();
-        Event event = eventService.getCurrentEvent();
+        Event event = eventService.getEventAt(reservation.getTime().toLocalDate());
         Result orderResult = orderService.addOrder(reservationId, order, event);
 
         return createResultEntity(orderResult);
