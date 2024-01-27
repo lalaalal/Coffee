@@ -32,16 +32,26 @@
     </div>
 </header>
 <main>
+    <div class="flex-container">
+        <div class="left-part current-month" th:text="${currentMonth}"></div>
+        <div class="right-part">
+            <button class="rectangle-button rectangle-button--outlined week-control-button" th:text="${lastWeekText}"
+                    th:value="${offset - 1}"></button>
+            <button class="rectangle-button rectangle-button--outlined week-control-button" th:text="${nextWeekText}"
+                    th:value="${offset + 1}"></button>
+        </div>
+    </div>
     <div class="row-direction-container">
-        <div class="row-element" th:each="dayOfWeek : ${dayOfWeeks}">
-            <div class="row-head" th:text="${dayOfWeek.toString()}"></div>
-            <div class="row-content" th:each="reservation : ${weekReservations.get(dayOfWeek)}">
+        <div class="row-element" th:each="date : ${dates}">
+            <div class="row-head" th:text="${dayOfWeeks.get(date)}"></div>
+            <div class="row-content reservation-container" th:each="reservation : ${weekReservations.get(date)}">
+                <input type="hidden" name="reservation-id" th:value="${reservation.getId()}">
                 <p class="reservation-content" th:text="${reservation.getName()}"></p>
                 <p class="reservation-content" th:text="${reservation.getTime().format(formatter)}"></p>
             </div>
             <div class="row-content row-tail">
                 <button class="rectangle-button rectangle-button--outlined rectangle-button--fill add-button"
-                        th:value="${dates.get(dayOfWeek)}">Add
+                        th:text="${addText}" th:value="${date}">
                 </button>
             </div>
         </div>

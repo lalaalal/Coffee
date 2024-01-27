@@ -13,8 +13,9 @@ main {
     position: relative;
 }
 
-.notice {
+.flex-container {
     display: flex;
+    margin: 8px 0;
 }
 
 .notice-title {
@@ -74,4 +75,25 @@ main {
 
 .row-tail {
     border-bottom: none;
+}
+
+.left-part {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: start;
+}
+
+.center-part {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-part {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: end;
 }

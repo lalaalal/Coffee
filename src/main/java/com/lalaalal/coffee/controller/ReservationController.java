@@ -1,5 +1,6 @@
 package com.lalaalal.coffee.controller;
 
+import com.lalaalal.coffee.Language;
 import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.service.OrderService;
 import com.lalaalal.coffee.service.ReservationService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.*;
 
 @Controller
@@ -34,20 +36,28 @@ public class ReservationController extends SessionHelper {
         LocalDate monday = LocalDate.now()
                 .plusWeeks(offset)
                 .with(DayOfWeek.MONDAY);
+        Language language = getUserLanguage();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        List<DayOfWeek> dayOfWeeks = new ArrayList<>();
-        Map<DayOfWeek, LocalDate> dates = new HashMap<>();
-        Map<DayOfWeek, List<ReservationDTO>> weekReservations = new HashMap<>();
+        List<LocalDate> dates = new ArrayList<>();
+        Map<LocalDate, String> dayOfWeeks = new HashMap<>();
+        Map<LocalDate, List<ReservationDTO>> weekReservations = new HashMap<>();
         Collection<ReservationDTO> reservationDTOs = reservationService.collectDTO(orderService.delegateGetter());
         for (DayOfWeek dayOfWeek = monday.getDayOfWeek(); dayOfWeek.compareTo(DayOfWeek.SATURDAY) < 0; dayOfWeek = dayOfWeek.plus(1)) {
             LocalDate currentDate = monday.with(dayOfWeek);
             List<ReservationDTO> reservations = reservationDTOs.stream()
                     .filter(reservationDTO -> currentDate.isEqual(reservationDTO.getTime().toLocalDate()))
                     .toList();
-            weekReservations.put(dayOfWeek, reservations);
-            dayOfWeeks.add(dayOfWeek);
-            dates.put(dayOfWeek, currentDate);
+            weekReservations.put(currentDate, reservations);
+            String dayOfWeekText = dayOfWeek.getDisplayName(TextStyle.SHORT, language.getLocale());
+            dayOfWeeks.put(currentDate, "%d (%s)".formatted(currentDate.getDayOfMonth(), dayOfWeekText));
+            dates.add(currentDate);
         }
+
+        model.addAttribute("lastWeekText", language.translate("text.last_week"));
+        model.addAttribute("nextWeekText", language.translate("text.next_week"));
+        model.addAttribute("addText", language.translate("text.add"));
+        model.addAttribute("offset", offset);
+        model.addAttribute("currentMonth", monday.format(DateTimeFormatter.ofPattern("yyyy-MM")));
         model.addAttribute("dayOfWeeks", dayOfWeeks);
         model.addAttribute("dates", dates);
         model.addAttribute("weekReservations", weekReservations);
@@ -57,7 +67,11 @@ public class ReservationController extends SessionHelper {
     }
 
     @GetMapping("/make")
-    public String makeReservation(Model model) {
+    public String makeReservation(Model model, @RequestParam(value = "date", required = false) LocalDate date) {
+        if (date == null)
+            date = LocalDate.now();
+
+        model.addAttribute("date", date);
         return "reservation/make";
     }
 }

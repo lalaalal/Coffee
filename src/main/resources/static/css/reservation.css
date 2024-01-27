@@ -1,0 +1,16 @@
+.current-month {
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+.week-control-button {
+    margin-left: 8px;
+}
+
+.reservation-container {
+    transition-duration: 0.5s;
+}
+
+.reservation-container:hover {
+    background-color: #ddd;
+}
