@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.lalaalal.coffee.CoffeeApplication;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -16,6 +18,14 @@ public abstract class DataStoreService<K, V> {
     protected DataStoreService(Class<K> keyType, Class<V> valueType, Supplier<Map<K, V>> supplier, String saveFilePath) {
         this.data = supplier.get();
         this.saveFilePath = saveFilePath;
+
+        try {
+            Path directoryPath = Path.of(saveFilePath).getParent();
+            if (!Files.exists(directoryPath))
+                Files.createDirectories(directoryPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try (InputStream inputStream = new FileInputStream(saveFilePath)) {
             TypeFactory typeFactory = MAPPER.getTypeFactory();

@@ -11,6 +11,8 @@ import com.lalaalal.coffee.model.Event;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import java.util.HashMap;
 
 @Service
 public class OrderService extends DataStoreService<String, Order> {
+    @Getter @Setter
+    private int currentOrderNumber;
     private final KeyGenerator<String> keyGenerator;
 
     public OrderService() {
@@ -26,6 +30,10 @@ public class OrderService extends DataStoreService<String, Order> {
                 Configurations.getConfiguration("data.order.path"));
         keyGenerator = new DateBasedKeyGenerator();
         keyGenerator.setKeySetSupplier(data::keySet);
+    }
+
+    public void increaseCurrentOrderNumber() {
+        this.currentOrderNumber += 1;
     }
 
     public Result addOrder(OrderDTO orderDTO, Event event) {

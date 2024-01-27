@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class RootController extends SessionHelper {
+public class HomeController extends SessionHelper {
     private final EventService eventService;
 
     @Autowired
-    public RootController(HttpSession httpSession, EventService eventService) {
+    public HomeController(HttpSession httpSession, EventService eventService) {
         super(httpSession);
         this.eventService = new EventService();
     }
