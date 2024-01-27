@@ -16,12 +16,10 @@ import lombok.Setter;
 public class OrderItem {
     @JsonIgnore
     private final Menu menu;
-    @Getter
-    @Setter
+    @Getter @Setter
     @JsonProperty("cost_modifier")
     private Modifier modifier = Modifier.DO_NOTHING;
-    @Getter
-    @Setter
+    @Getter @Setter
     @JsonProperty("argument_cost_modifier")
     private ArgumentCostModifier argumentCostModifier = new ArgumentCostModifier();
     @Getter

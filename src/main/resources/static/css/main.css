@@ -20,3 +20,58 @@ main {
 .notice-title {
     font-weight: bold;
 }
+
+.rectangle-button {
+    transition-duration: 0.5s;
+    padding: 8px;
+    border: #ddd solid 1px;
+    background-color: #ddd;
+}
+
+.rectangle-button:hover {
+    background-color: #eee;
+}
+
+.rectangle-button:focus {
+    background-color: #ddd;
+}
+
+.rectangle-button--outlined {
+    background-color: transparent;
+}
+
+.rectangle-button--fill {
+    width: 100%;
+}
+
+.row-direction-container {
+    display: flex;
+    flex-direction: row;
+    border: #ddd solid 1px;
+}
+
+.row-element {
+    border-right: #ddd solid 1px;
+    flex: 1;
+}
+
+.row-element:last-child {
+    border-right: none;
+}
+
+.row-head {
+    padding: 8px;
+    text-align: center;
+    background-color: #e6e6e6;
+    border-bottom: #ddd solid 1px;
+}
+
+.row-content {
+    margin: 8px;
+    text-align: center;
+    border-bottom: #ddd solid 1px;
+}
+
+.row-tail {
+    border-bottom: none;
+}

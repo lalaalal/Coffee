@@ -6,12 +6,14 @@
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/reservation.css">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/reservation-view.js"></script>
     <title>Title</title>
 </head>
 <body>
-<header class="mdc-top-app-bar">
+<header class="header mdc-top-app-bar">
     <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
             <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
@@ -29,19 +31,21 @@
         </section>
     </div>
 </header>
-<main class="mdc-top-app-bar--fixed-adjust">
-    App content
+<main>
+    <div class="row-direction-container">
+        <div class="row-element" th:each="dayOfWeek : ${dayOfWeeks}">
+            <div class="row-head" th:text="${dayOfWeek.toString()}"></div>
+            <div class="row-content" th:each="reservation : ${weekReservations.get(dayOfWeek)}">
+                <p class="reservation-content" th:text="${reservation.getName()}"></p>
+                <p class="reservation-content" th:text="${reservation.getTime().format(formatter)}"></p>
+            </div>
+            <div class="row-content row-tail">
+                <button class="rectangle-button rectangle-button--outlined rectangle-button--fill add-button"
+                        th:value="${dates.get(dayOfWeek)}">Add
+                </button>
+            </div>
+        </div>
+    </div>
 </main>
-<label for="name-input">name</label><input type="text" name="name" id="name-input">
-<label for="time-selector">time</label><select name="time" id="time-selector">
-    <option value="hi">hi</option>
-</select>
-<div id="order-list" class="mdc-card">
-    <h1>hi</h1>
-</div>
-<input class="mdc-button mdc-button--outlined" type="button" value="submit">
 </body>
-<script>
-
-</script>
 </html>

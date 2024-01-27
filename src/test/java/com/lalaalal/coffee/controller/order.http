@@ -6,13 +6,13 @@ POST http://localhost:8080/api/order/create
 Content-Type: application/json
 
 {
-    "cost": 0,
     "items": [
         {
             "menu": "choco_latte",
             "arguments": {
                 "count": 1,
-                "temperature": "ICE"
+                "shot": 1,
+                "temperature": "HOT"
             }
         }
     ]

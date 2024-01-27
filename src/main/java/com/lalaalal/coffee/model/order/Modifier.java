@@ -12,7 +12,6 @@ public class Modifier {
 
     @JsonIgnore
     private final Method method;
-
     @Getter
     @JsonProperty("factor")
     private final int factor;

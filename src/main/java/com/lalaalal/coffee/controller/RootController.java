@@ -1,5 +1,7 @@
 package com.lalaalal.coffee.controller;
 
+import com.lalaalal.coffee.model.Event;
+import com.lalaalal.coffee.service.EventService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,23 +9,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-
 @Controller
 @RequestMapping("/")
 public class RootController extends SessionHelper {
+    private final EventService eventService;
 
     @Autowired
-    public RootController(HttpSession httpSession) {
+    public RootController(HttpSession httpSession, EventService eventService) {
         super(httpSession);
+        this.eventService = new EventService();
     }
 
     @GetMapping({"/", "/home"})
     public String index(Model model) {
-        ArrayList<String> events = new ArrayList<>();
-        events.add("hello");
-        events.add("world");
-        model.addAttribute("events", events);
+        Event event = eventService.getCurrentEvent();
+        model.addAttribute("event", event);
 
         return "index";
     }
