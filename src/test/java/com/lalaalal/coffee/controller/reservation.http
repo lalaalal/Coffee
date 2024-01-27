@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
     "password": "hello",
-    "name": "Me",
+    "name": "총포과",
     "order": {
         "items": [
             {
@@ -28,5 +28,6 @@ Content-Type: application/json
             }
         ]
     },
-    "time": "2024-01-26 10:30:00"
+    "time": "2024-01-26 10:30:00",
+    "for_meeting": true
 }
