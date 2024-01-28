@@ -1,16 +1,16 @@
-GET http://localhost:8080/api/reservation/2401280930
+GET http://{{host}}/api/reservation/2401280930
 Accept: application/json
 
 ###
-POST http://localhost:8080/api/reservation/2401280930/cancel
+POST http://{{host}}/api/reservation/2401280930/cancel
 Content-Type: application/json
 
 ###
-GET http://localhost:8080/api/reservation/list
+GET http://{{host}}/api/reservation/list
 Accept: application/json
 
 ###
-POST http://localhost:8080/api/reservation/take
+POST http://{{host}}/api/reservation/take
 Content-Type: application/json
 
 {

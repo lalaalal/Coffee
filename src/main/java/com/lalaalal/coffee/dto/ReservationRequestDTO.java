@@ -21,9 +21,10 @@ public class ReservationRequestDTO extends ReservationDTO {
             @JsonProperty("order") OrderDTO order,
             @JsonProperty("time") LocalDateTime time,
             @JsonProperty("password") String password,
+            @JsonProperty("comment") String comment,
             @JsonProperty(value = "for_meeting", defaultValue = "true") boolean forMeeting
     ) {
-        super(name, order, time, forMeeting);
+        super(name, order, time, comment, forMeeting);
         this.hashedPassword = SHA256.encrypt(password);
     }
 }

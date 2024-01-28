@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -71,7 +72,17 @@ public class ReservationController extends SessionHelper {
         if (date == null)
             date = LocalDate.now();
 
-        model.addAttribute("date", date);
+        // TODO : make read from file
+
+        List<LocalDateTime> availableTimes = new ArrayList<>();
+        availableTimes.add(date.atTime(9, 30));
+        availableTimes.add(date.atTime(10, 0));
+        availableTimes.add(date.atTime(10, 30));
+        availableTimes.add(date.atTime(11, 30));
+        availableTimes.add(date.atTime(12, 0));
+        availableTimes.add(date.atTime(12, 30));
+
+        model.addAttribute("availableTimes", availableTimes);
         return "reservation/make";
     }
 }

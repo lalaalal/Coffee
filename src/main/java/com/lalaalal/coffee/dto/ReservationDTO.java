@@ -11,12 +11,13 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-@JsonPropertyOrder({"id", "name", "time", "order", "for_meeting"})
+@JsonPropertyOrder({"id", "name", "time", "order", "comment", "for_meeting"})
 public class ReservationDTO {
     private final String name;
     private final OrderDTO order;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime time;
+    private final String comment;
     @JsonProperty("for_meeting")
     private final boolean forMeeting;
 
@@ -27,6 +28,7 @@ public class ReservationDTO {
                 reservation.getName(),
                 delegate.get(reservation.getOrderId()),
                 reservation.getTime(),
+                reservation.getComment(),
                 reservation.isForMeeting()
         );
     }
@@ -36,11 +38,13 @@ public class ReservationDTO {
             @JsonProperty("name") String name,
             @JsonProperty("order") OrderDTO order,
             @JsonProperty("time") LocalDateTime time,
+            @JsonProperty("comment") String comment,
             @JsonProperty(value = "for_meeting", defaultValue = "true") boolean forMeeting
     ) {
         this.name = name;
         this.order = order;
         this.time = time;
+        this.comment = comment;
         this.forMeeting = forMeeting;
     }
 
@@ -55,6 +59,7 @@ public class ReservationDTO {
                 hashedPassword,
                 this.order.getId(),
                 this.getTime(),
+                this.getComment(),
                 this.isForMeeting()
         );
     }

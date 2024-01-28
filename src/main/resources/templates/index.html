@@ -27,11 +27,7 @@
     </div>
 </header>
 <main>
-    <div class="mdc-card mdc-card--outlined">
-        <h1>Event</h1>
-        <p th:text="${event.getTitle()}"></p>
-    </div>
-    <div class="flex-container mdc-data-table">
+    <div th:if="${event != null}" class="column-direction-container mdc-data-table">
         <div class="mdc-data-table__table-container">
             <table class="mdc-data-table__table" aria-label="event">
                 <thead>

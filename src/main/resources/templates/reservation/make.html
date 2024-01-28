@@ -30,14 +30,29 @@
     </div>
 </header>
 <main>
-    <label for="name-input">name</label><input type="text" name="name" id="name-input">
-    <label for="time-selector">time</label><select name="time" id="time-selector">
-    <option value="hi">hi</option>
-</select>
-    <div id="order-list" class="mdc-card">
-        <h1>hi</h1>
+    <div class="title" th:text="${param.date}"></div>
+    <div class="column-direction-container outlined">
+        <div class="row-direction-container">
+            <div class="content ">
+                <label class="form-label" for="name-input">과 이름</label>
+                <input class="rectangle-input" type="text" name="name" id="name-input" placeholder="과 이름">        
+            </div>
+            <div class="content">
+                <label class="form-label" for="password-input">비밀번호</label>
+                <input class="rectangle-input" type="password" name="password" id="password-input" placeholder="비밀번호">
+            </div>
+        </div>
+        <div class="content">
+            <label class="form-label" for="time-selector">시간</label>
+            <select name="time" id="time-selector">
+                <option th:each="time:${availableTimes}" th:value="${time}" th:text="${time}"></option>
+            </select>
+        </div>
+        <div class="content ">
+            <label class="form-label" for="name-input">요청 사항</label>
+            <input class="rectangle-input" type="text" name="name" id="name-input" placeholder="요청 사항">        
+        </div>
     </div>
-    <input class="mdc-button mdc-button--outlined" type="button" value="submit">
 </main>
 </body>
 </html>

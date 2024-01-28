@@ -20,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 @Controller
 @RequestMapping("/test")
 @SpringBootTest
-@SuppressWarnings("unused")
 public class TestController extends SessionHelper {
     @Autowired
     public TestController(HttpSession httpSession) {

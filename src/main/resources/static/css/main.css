@@ -1,25 +1,25 @@
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0;
-    align-content: center;
     font-family: sans-serif;
 }
 
 main {
     margin: 8px;
-    max-width: 800px;
+    min-width: 720px;
+    max-width: 1024px;
 }
 
 .header {
     position: relative;
 }
 
-.flex-container {
+.column-direction-container {
     display: flex;
+    flex-direction: column;
     margin: 8px 0;
-}
-
-.notice-title {
-    font-weight: bold;
 }
 
 .rectangle-button {
@@ -48,6 +48,9 @@ main {
 .row-direction-container {
     display: flex;
     flex-direction: row;
+}
+
+.outlined {
     border: #ddd solid 1px;
 }
 
@@ -96,4 +99,30 @@ main {
     flex: 1;
     align-items: center;
     justify-content: end;
+}
+
+.title {
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+}
+
+.form-label {
+    margin-left: 12px;
+    margin-bottom: 4px;
+}
+
+.rectangle-input {
+    border: none;
+    border-bottom: gray solid 1px;
+    background-color: #eee;
+    padding: 8px 4px;
 }
