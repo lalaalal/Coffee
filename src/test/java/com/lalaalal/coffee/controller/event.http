@@ -1,8 +1,8 @@
-POST http://{{host}}/api/event/1/cancel
+POST {{host}}/api/event/1/cancel
 Content-Type: application/json
 
 ###
-POST http://{{host}}/api/event/add
+POST {{host}}/api/event/add
 Content-Type: application/json
 
 {

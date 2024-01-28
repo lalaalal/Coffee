@@ -1,21 +1,21 @@
-GET http://{{host}}/api/reservation/2401280930
+GET {{host}}/api/reservation/2401280930
 Accept: application/json
 
 ###
-POST http://{{host}}/api/reservation/2401280930/cancel
+POST {{host}}/api/reservation/2401280930/cancel
 Content-Type: application/json
 
 ###
-GET http://{{host}}/api/reservation/list
+GET {{host}}/api/reservation/list
 Accept: application/json
 
 ###
-POST http://{{host}}/api/reservation/take
+POST {{host}}/api/reservation/take
 Content-Type: application/json
 
 {
     "password": "hello",
-    "name": "총포과",
+    "name": "인사과",
     "order": {
         "items": [
             {
@@ -28,6 +28,6 @@ Content-Type: application/json
             }
         ]
     },
-    "time": "2024-01-26 10:30:00",
+    "time": "2024-01-26 09:30:00",
     "for_meeting": true
 }

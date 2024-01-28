@@ -17,7 +17,7 @@ public class HomeController extends SessionHelper {
     @Autowired
     public HomeController(HttpSession httpSession, EventService eventService) {
         super(httpSession);
-        this.eventService = new EventService();
+        this.eventService = eventService;
     }
 
     @GetMapping({"/", "/home"})
