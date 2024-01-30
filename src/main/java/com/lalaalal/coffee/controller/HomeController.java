@@ -27,4 +27,12 @@ public class HomeController extends SessionHelper {
 
         return "index";
     }
+
+    @GetMapping("header")
+    public String header(Model model) {
+        String title = getUserLanguage().translate("app.name");
+        model.addAttribute("title", title);
+
+        return "header";
+    }
 }

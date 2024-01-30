@@ -8,12 +8,19 @@ body {
 
 main {
     margin: 8px;
-    min-width: 720px;
     max-width: 1024px;
 }
 
-.header {
+header {
     position: relative;
+    width: 100%;
+}
+
+#header-container {
+    background-color: beige;
+    border-bottom: bisque;
+    box-shadow: 0 1px 1px gray;
+    padding: 8px;
 }
 
 .column-direction-container {
@@ -108,7 +115,6 @@ main {
 
 .content {
     flex: 1;
-    align-items: start;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -121,8 +127,14 @@ main {
 }
 
 .rectangle-input {
-    border: none;
+    border: #ddd solid 1px;
     border-bottom: gray solid 1px;
     background-color: #eee;
     padding: 8px 4px;
+}
+
+@media (max-width: 1024px) {
+    body {
+        align-items: stretch;
+    }
 }

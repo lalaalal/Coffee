@@ -8,27 +8,11 @@
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/material-components-web.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
     <title>Title</title>
 </head>
 <body>
-<header class="header mdc-top-app-bar">
-    <div class="mdc-top-app-bar__row">
-        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
-                    aria-label="Open navigation menu">menu
-            </button>
-            <span class="mdc-top-app-bar__title">Page title</span>
-        </section>
-        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite">favorite
-            </button>
-            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search
-            </button>
-            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">more_vert
-            </button>
-        </section>
-    </div>
-</header>
+<header class="html-part" data-include-file="/header"></header>
 <main>
     <div class="title" th:text="${param.date}"></div>
     <div class="column-direction-container outlined">
@@ -44,13 +28,13 @@
         </div>
         <div class="content">
             <label class="form-label" for="time-selector">시간</label>
-            <select name="time" id="time-selector">
+            <select class="rectangle-input" name="time" id="time-selector">
                 <option th:each="time:${availableTimes}" th:value="${time}" th:text="${time}"></option>
             </select>
         </div>
         <div class="content ">
-            <label class="form-label" for="name-input">요청 사항</label>
-            <input class="rectangle-input" type="text" name="name" id="name-input" placeholder="요청 사항">        
+            <label class="form-label" for="message-input">요청 사항</label>
+            <input class="rectangle-input" type="text" name="name" id="message-input" placeholder="요청 사항">
         </div>
     </div>
 </main>

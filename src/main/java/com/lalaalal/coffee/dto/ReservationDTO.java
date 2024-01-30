@@ -17,6 +17,7 @@ public class ReservationDTO {
     private final OrderDTO order;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime time;
+    // TODO : rename to message
     private final String comment;
     @JsonProperty("for_meeting")
     private final boolean forMeeting;
