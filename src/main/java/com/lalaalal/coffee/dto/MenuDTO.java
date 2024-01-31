@@ -6,12 +6,14 @@ import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.menu.Temperature;
 import com.lalaalal.coffee.model.order.Modifier;
+import lombok.Getter;
 
+@Getter
 public class MenuDTO {
-    public final String id;
-    public final String name;
-    public final int cost;
-    public final Temperature[] availableTemperature;
+    private final String id;
+    private final String name;
+    private final int cost;
+    private final Temperature[] availableTemperature;
 
     public MenuDTO(Menu menu, Event event, Language language) {
         this.id = menu.getId();

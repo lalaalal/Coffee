@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+// TODO : separate menu and group translation file
 public class Language {
     private static final String BASE_NAME = "lang";
     @Getter

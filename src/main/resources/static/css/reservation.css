@@ -6,13 +6,3 @@
 .week-control-button {
     margin-left: 8px;
 }
-
-.reservation-content {
-    transition-duration: 0.5s;
-    margin: 8px 0;
-    padding: 4px;
-}
-
-.reservation-content:hover {
-    background-color: #ddd;
-}

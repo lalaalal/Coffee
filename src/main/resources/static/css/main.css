@@ -61,6 +61,12 @@ header {
     flex-direction: row;
 }
 
+.wrap-container {
+    flex-wrap: wrap;
+    padding: 8px;
+    column-gap: 8px;
+}
+
 .outlined {
     border: #ddd solid 1px;
 }
@@ -85,6 +91,20 @@ header {
     margin: 8px;
     text-align: center;
     border-bottom: #ddd solid 1px;
+}
+
+.row-content-item {
+    text-align: center;
+    margin: 8px 0;
+    padding: 4px;
+}
+
+.hover-effect {
+    transition-duration: 0.5s;
+}
+
+.hover-effect:hover {
+    background-color: #ddd;
 }
 
 .row-tail {

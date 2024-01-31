@@ -1,0 +1,15 @@
+<!--Need to include menu.css and menu.js-->
+<div id="menu-selector" class="column-direction-container outlined">
+    <div class="row-direction-container tab-container">
+        <div class="row-element row-head tab-item" th:each="group : ${groupList}" th:data-group-id="${group.id}"
+             th:text="${group.name}"></div>
+    </div>
+    <div class="row-direction-container wrap-container menu-container" th:each="group : ${groupList}"
+         th:data-group-id="${group.id}">
+        <div class="row-content-item hover-effect outlined menu-item" th:each="menu : ${menuTable.get(group)}"
+             th:data-menu-id="${menu.id}">
+            <p th:text="${menu.name}"></p>
+            <p th:text="${'₩' + menu.cost}"></p>
+        </div>
+    </div>
+</div>

@@ -27,4 +27,11 @@ public class HomeController extends SessionHelper {
 
         return "/index";
     }
+
+    @GetMapping("/menu")
+    public String menu(Model model) {
+
+
+        return "menu";
+    }
 }

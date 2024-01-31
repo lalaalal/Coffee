@@ -30,7 +30,7 @@
             <div class="row-head" th:text="${dayOfWeeks.get(date)}"></div>
             <div class="row-content reservation-container" th:each="reservation : ${weekReservations.get(date)}">
                 <input type="hidden" name="reservation-id" th:value="${reservation.getId()}">
-                <p class="reservation-content">
+                <p class="row-content-item hover-effect">
                     <th:block th:text="${reservation.getName()}"></th:block>
                     <br>
                     <th:block th:text="${reservation.getTime().format(formatter)}"></th:block>

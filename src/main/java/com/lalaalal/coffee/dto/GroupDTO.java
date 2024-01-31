@@ -1,22 +1,23 @@
 package com.lalaalal.coffee.dto;
 
+import com.lalaalal.coffee.Language;
 import com.lalaalal.coffee.model.menu.Group;
 import com.lalaalal.coffee.model.menu.Menu;
 import lombok.Getter;
 
 import java.util.Set;
 
+@Getter
 public class GroupDTO {
-    @Getter
-    public final int priority;
-    public final String id;
-    public final String name;
-    public final Set<Menu> menus;
+    private final int priority;
+    private final String id;
+    private final String name;
+    private final Set<Menu> menus;
 
-    public GroupDTO(Group group) {
+    public GroupDTO(Group group, Language language) {
         this.priority = group.getPriority();
         this.id = group.getId();
         this.menus = group;
-        this.name = group.getTranslationKey();
+        this.name = language.translate(group.getTranslationKey());
     }
 }
