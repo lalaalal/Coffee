@@ -20,7 +20,7 @@ public class Reservation {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime time;
     @Getter @Setter
-    private String comment;
+    private String message;
     @Setter
     @JsonProperty("for_meeting")
     private boolean forMeeting;
@@ -31,13 +31,13 @@ public class Reservation {
             @JsonProperty("hashed_password") String hashedPassword,
             @JsonProperty("order_id") String orderId,
             @JsonProperty("time") LocalDateTime time,
-            @JsonProperty("comment") String comment,
+            @JsonProperty("message") String message,
             @JsonProperty(value = "for_meeting", defaultValue = "true") boolean forMeeting) {
         this.name = name;
         this.hashedPassword = hashedPassword;
         this.orderId = orderId;
         this.time = time;
-        this.comment = comment;
+        this.message = message;
         this.forMeeting = forMeeting;
     }
 

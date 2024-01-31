@@ -62,7 +62,7 @@ public class Drink extends Menu {
         operator.combineValue(ARG_TUMBLER_COUNT, Integer.class, operand, Integer::sum);
     }
 
-    public Temperature[] getAvailableTypes() {
+    public Temperature[] getAvailableTemperature() {
         return temperatureChecker.getAvailableTemperatures();
     }
 

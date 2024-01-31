@@ -1,14 +1,23 @@
 package com.lalaalal.coffee.model.menu;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.HashSet;
 
 @Getter
-@AllArgsConstructor
 public class Group extends HashSet<Menu> {
-    private String id;
+    private final String id;
+
+    private final int priority;
+
+    public Group(String id, int priority) {
+        this.id = id;
+        this.priority = priority;
+    }
+
+    public String getTranslationKey() {
+        return "group." + id;
+    }
 
     @Override
     public boolean add(Menu menu) {

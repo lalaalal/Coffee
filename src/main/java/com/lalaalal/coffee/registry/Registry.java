@@ -25,6 +25,7 @@ public abstract class Registry<T> {
     protected static final ObjectMapper MAPPER = CoffeeApplication.MAPPER;
 
     protected final HashMap<String, T> registry = new HashMap<>();
+    private final HashMap<String, T> aliasMap = new HashMap<>();
 
     protected static <E> void loadListFromJson(String filePath, Class<E> type, Consumer<E> registerer) {
         if (!Files.exists(Path.of(filePath)))
@@ -42,7 +43,9 @@ public abstract class Registry<T> {
     public abstract void initialize();
 
     public T get(String key) {
-        return registry.get(key);
+        if (registry.containsKey(key))
+            return registry.get(key);
+        return aliasMap.get(key);
     }
 
     public Set<String> keys() {
@@ -71,6 +74,6 @@ public abstract class Registry<T> {
         if (!registry.containsKey(original))
             throw new RuntimeException(original + " is not exists.");
         T value = get(original);
-        register(alias, value);
+        aliasMap.put(alias, value);
     }
 }

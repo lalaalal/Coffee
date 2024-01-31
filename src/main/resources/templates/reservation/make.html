@@ -12,14 +12,14 @@
     <title>Title</title>
 </head>
 <body>
-<header class="html-part" data-include-file="/header"></header>
+<header class="html-part" data-include-file="/part/header"></header>
 <main>
     <div class="title" th:text="${param.date}"></div>
     <div class="column-direction-container outlined">
         <div class="row-direction-container">
             <div class="content ">
                 <label class="form-label" for="name-input">과 이름</label>
-                <input class="rectangle-input" type="text" name="name" id="name-input" placeholder="과 이름">        
+                <input class="rectangle-input" type="text" name="name" id="name-input" size="5" placeholder="과 이름">
             </div>
             <div class="content">
                 <label class="form-label" for="password-input">비밀번호</label>

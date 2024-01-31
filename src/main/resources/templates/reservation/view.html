@@ -9,30 +9,14 @@
     <link rel="stylesheet" href="/css/reservation.css">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
     <script src="/js/reservation-view.js"></script>
     <title>Title</title>
 </head>
 <body>
-<header class="header mdc-top-app-bar">
-    <div class="mdc-top-app-bar__row">
-        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
-                    aria-label="Open navigation menu">menu
-            </button>
-            <span class="mdc-top-app-bar__title">Page title</span>
-        </section>
-        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite">favorite
-            </button>
-            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search
-            </button>
-            <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">more_vert
-            </button>
-        </section>
-    </div>
-</header>
+<header class="html-part" data-include-file="/part/header"></header>
 <main>
-    <div class="row-direction-container">
+    <div class="row-direction-container bottom-interval">
         <div class="left-part current-month" th:text="${currentMonth}"></div>
         <div class="right-part">
             <button class="rectangle-button rectangle-button--outlined week-control-button" th:text="${lastWeekText}"

@@ -32,7 +32,7 @@ public class EventService extends DataStoreService<Integer, Event> {
                 return event;
         }
 
-        return null;
+        return Event.USUAL;
     }
 
     public Result addEvent(Event event) {

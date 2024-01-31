@@ -64,7 +64,7 @@ public class ReservationController extends SessionHelper {
         model.addAttribute("weekReservations", weekReservations);
         model.addAttribute("formatter", formatter);
 
-        return "reservation/view";
+        return "/reservation/view";
     }
 
     @GetMapping("/make")
@@ -83,6 +83,6 @@ public class ReservationController extends SessionHelper {
         availableTimes.add(date.atTime(12, 30));
 
         model.addAttribute("availableTimes", availableTimes);
-        return "reservation/make";
+        return "/reservation/make";
     }
 }

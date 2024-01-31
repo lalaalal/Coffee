@@ -2,6 +2,7 @@ package com.lalaalal.coffee.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lalaalal.coffee.model.order.Modifier;
 import com.lalaalal.coffee.model.order.argument.ArgumentCostModifier;
@@ -12,6 +13,15 @@ import java.util.Map;
 
 @Getter
 public class Event {
+    public static final Event USUAL = new Event(
+            "usual",
+            "",
+            Map.of(),
+            new ArgumentCostModifier(),
+            LocalDate.MIN,
+            LocalDate.MAX
+    );
+
     private final String title;
     private final String content;
     @JsonProperty("cost_modifiers")
@@ -36,5 +46,10 @@ public class Event {
         this.argumentCostModifier = argumentCostModifier;
         this.start = start;
         this.end = end;
+    }
+
+    @JsonIgnore
+    public Modifier getCostModifier(String menu) {
+        return costModifiers.getOrDefault(menu, Modifier.DO_NOTHING);
     }
 }

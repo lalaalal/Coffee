@@ -3,5 +3,15 @@
         "id": "cookie",
         "cost": 1200,
         "group_id": "etc"
+    },
+    {
+        "id": "apple_juice",
+        "cost": 1700,
+        "group_id": "etc"
+    },
+    {
+        "id": "apple_juice_carbonated",
+        "cost": 1700,
+        "group_id": "etc"
     }
 ]

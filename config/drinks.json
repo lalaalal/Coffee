@@ -97,18 +97,6 @@
         "group_id": "ade"
     },
     {
-        "id": "apple_juice",
-        "cost": 1700,
-        "temperature_checker": "ICE_ONLY",
-        "group_id": "bottle"
-    },
-    {
-        "id": "apple_juice_carbonated",
-        "cost": 1700,
-        "temperature_checker": "ICE_ONLY",
-        "group_id": "bottle"
-    },
-    {
         "id": "steam_milk",
         "cost": 1200,
         "temperature_checker": "HOT_ONLY",

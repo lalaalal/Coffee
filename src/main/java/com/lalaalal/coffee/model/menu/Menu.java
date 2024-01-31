@@ -26,6 +26,10 @@ public class Menu {
         tumblerDiscount = Configurations.getIntConfiguration("tumbler.discount");
     }
 
+    public String getTranslationKey() {
+        return "menu." + id;
+    }
+
     public Set<String> getRequiredArgumentNames() {
         return Set.of(ARG_COUNT);
     }

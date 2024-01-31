@@ -25,14 +25,6 @@ public class HomeController extends SessionHelper {
         Event event = eventService.getCurrentEvent();
         model.addAttribute("event", event);
 
-        return "index";
-    }
-
-    @GetMapping("header")
-    public String header(Model model) {
-        String title = getUserLanguage().translate("app.name");
-        model.addAttribute("title", title);
-
-        return "header";
+        return "/index";
     }
 }
