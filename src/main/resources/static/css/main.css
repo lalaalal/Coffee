@@ -83,8 +83,11 @@ header {
 .row-head {
     padding: 8px;
     text-align: center;
-    background-color: #e6e6e6;
     border-bottom: #ddd solid 1px;
+}
+
+.gray-background {
+    background-color: #ccc;
 }
 
 .row-content {
