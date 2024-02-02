@@ -4,12 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lalaalal.coffee.CoffeeApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 class OrderTest {
-    @BeforeEach
-    void setUp() {
-        CoffeeApplication.initialize();
-    }
 
     @Test
     void test() throws JsonProcessingException {

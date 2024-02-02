@@ -1,6 +1,7 @@
 package com.lalaalal.coffee.model.menu;
 
-import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.config.Configurations;
+import com.lalaalal.coffee.initializer.Initialize;
 import com.lalaalal.coffee.model.order.Modifier;
 import com.lalaalal.coffee.model.order.argument.ArgumentCostModifier;
 import com.lalaalal.coffee.model.order.argument.ArgumentReader;
@@ -22,6 +23,7 @@ public class Menu {
     private final int cost;
     private final Group group;
 
+    @Initialize(with = Configurations.class)
     public static void initialize() {
         tumblerDiscount = Configurations.getIntConfiguration("tumbler.discount");
     }

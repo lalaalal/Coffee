@@ -5,16 +5,13 @@ import com.lalaalal.coffee.CoffeeApplication;
 import com.lalaalal.coffee.model.order.argument.ArgumentCostModifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@SpringBootTest
 class ArgumentCostModifierTest {
-    @BeforeEach
-    void setUp() {
-        CoffeeApplication.initialize();
-    }
-
     @Test
     void serializeTest() throws JsonProcessingException {
         HashMap<String, Modifier> modifiers = new HashMap<>(Map.of("shot", Modifier.DO_NOTHING));

@@ -9,18 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 @SpringBootApplication
 class CoffeeApplicationTests {
-	@BeforeEach
-	void setUp() {
-		CoffeeApplication.initialize();
-	}
-
 	@Test
 	void contextLoads() {
 
 	}
 
 	public static void main(String[] args) {
-		CoffeeApplication.initialize();
 		SpringApplication.run(CoffeeApplicationTests.class, args);
 	}
 }

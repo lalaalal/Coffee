@@ -1,6 +1,6 @@
 package com.lalaalal.coffee.registry;
 
-import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.model.menu.Drink;
 
 public class DrinkRegistry extends Registry<Drink> {

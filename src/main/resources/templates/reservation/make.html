@@ -10,7 +10,7 @@
     <script src="/js/material-components-web.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="/js/menu.js"></script>
+    <script src="/js/menu-selector.js"></script>
     <title>Title</title>
 </head>
 <body>
@@ -39,7 +39,7 @@
             <input class="rectangle-input" type="text" name="name" id="message-input" placeholder="요청 사항">
         </div>
     </div>
-    <div id="menu-selector-container" class="html-part" data-include-file="/part/menu-selector"></div>
+    <div id="menu-selector-container" class="html-part" th:data-include-file="${'/part/menu-selector?date=' + date}"></div>
 </main>
 </body>
 </html>

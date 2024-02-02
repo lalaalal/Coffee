@@ -1,6 +1,4 @@
-package com.lalaalal.coffee;
-
-import com.lalaalal.coffee.misc.InitializeListener;
+package com.lalaalal.coffee.config;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,17 +7,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class Configurations {
+import com.lalaalal.coffee.initializer.Initializer;
+import com.lalaalal.coffee.initializer.Initialize.Time;
+
+public class Configurations extends Initializer {
     private static final Properties defaults = new Properties();
     private static final Properties configurations = new Properties();
-    private static final ArrayList<InitializeListener> listeners = new ArrayList<>();
-
-    public static void addInitializeListener(InitializeListener listener) {
-        if (!listeners.contains(listener))
-            listeners.add(listener);
-    }
 
     public static void initialize() {
+        Initializer.initialize(Configurations.class, Time.Pre);
         try (InputStream inputStream = Configurations.class.getResourceAsStream("/config/default.properties")) {
             defaults.load(inputStream);
         } catch (IOException e) {
@@ -33,8 +29,7 @@ public class Configurations {
         } catch (IOException e) {
             // TODO: 12/3/23 handle exception
         }
-        for (InitializeListener listener : listeners)
-            listener.initialize();
+        Initializer.initialize(Configurations.class, Time.Post);
     }
 
     public static String getConfiguration(String key) {

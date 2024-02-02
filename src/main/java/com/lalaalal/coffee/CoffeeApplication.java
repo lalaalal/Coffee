@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.lalaalal.coffee.config.Configurations;
+import com.lalaalal.coffee.initializer.Initializer;
 import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.order.argument.OrderArgumentMap;
@@ -32,6 +34,7 @@ public class CoffeeApplication {
         Registries.register(MenuRegistry.class, MenuRegistry::new);
         Registries.register(DrinkRegistry.class, DrinkRegistry::new);
         Registries.register(OrderArgumentCreatorRegistry.class, OrderArgumentCreatorRegistry::new);
+        Registries.register(TimeRangeRegistry.class, TimeRangeRegistry::new);
     }
 
     public static void initialize() {
@@ -40,9 +43,6 @@ public class CoffeeApplication {
         registerSerializer(Drink.class, new DrinkSerializer(), new DrinkDeserializer());
         registerSerializer(OrderArgumentMap.class, new OrderArgumentMapSerializer(), new OrderArgumentMapDeserializer());
         registerRegistries();
-
-        Configurations.addInitializeListener(Menu::initialize);
-        Configurations.addInitializeListener(Drink::initialize);
 
         MAPPER.registerModule(MODULE);
 

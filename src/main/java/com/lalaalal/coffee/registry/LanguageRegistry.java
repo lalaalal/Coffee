@@ -1,7 +1,7 @@
 package com.lalaalal.coffee.registry;
 
-import com.lalaalal.coffee.Configurations;
 import com.lalaalal.coffee.Language;
+import com.lalaalal.coffee.config.Configurations;
 
 import java.util.Locale;
 

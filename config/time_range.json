@@ -1,0 +1,32 @@
+[
+    {
+        "id": "open",
+        "type": "OPEN",
+        "from": "09:00",
+        "to": "16:00"
+    },
+    {
+        "id": "open.wednesday",
+        "type": "OPEN",
+        "from": "09:00",
+        "to": "15:00"
+    },
+    {
+        "id": "open.friday",
+        "type": "OPEN",
+        "from": "09:00",
+        "to": "14:00"
+    },
+    {
+        "id": "lunch",
+        "type": "CLOSE",
+        "from": "11:40",
+        "to": "12:20"
+    },
+    {
+        "id": "break_time",
+        "type": "CLOSE",
+        "from": "13:00",
+        "to": "14:00"
+    }
+]

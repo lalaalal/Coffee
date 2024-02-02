@@ -9,12 +9,10 @@ import com.lalaalal.coffee.model.order.OrderItem;
 import com.lalaalal.coffee.model.order.argument.ArgumentWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 class OrderItemSerializerTest {
-    @BeforeEach
-    void setUp() {
-        CoffeeApplication.initialize();
-    }
 
     @Test
     void test() throws JsonProcessingException {

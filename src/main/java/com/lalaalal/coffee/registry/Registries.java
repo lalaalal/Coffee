@@ -6,7 +6,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.function.Supplier;
 
-public class Registries {
+import com.lalaalal.coffee.initializer.Initializer;
+import com.lalaalal.coffee.initializer.Initialize.Time;
+
+public class Registries extends Initializer {
     private static final HashMap<Class<?>, Registry<?>> registries = new HashMap<>();
     private static final Queue<Registry<?>> initializeQueue = new LinkedList<>();
     public static <T> T register(Class<T> type, Supplier<Registry<?>> supplier) {
@@ -18,10 +21,12 @@ public class Registries {
     }
 
     public static void initialize() {
+        Initializer.initialize(Registries.class, Time.Pre);
         while (!initializeQueue.isEmpty()) {
             Registry<?> registry = initializeQueue.poll();
             registry.initialize();
         }
+        Initializer.initialize(Registries.class, Time.Post);
     }
 
     public static <T> T get(Class<T> type) {

@@ -1,6 +1,8 @@
 package com.lalaalal.coffee.model.menu;
 
-import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.config.Configurations;
+import com.lalaalal.coffee.initializer.Initialize;
+import com.lalaalal.coffee.initializer.Initialize.Time;
 import com.lalaalal.coffee.model.order.Modifier;
 import com.lalaalal.coffee.model.order.argument.ArgumentCostModifier;
 import com.lalaalal.coffee.model.order.argument.ArgumentReader;
@@ -20,6 +22,7 @@ public class Drink extends Menu {
 
     private final TemperatureChecker temperatureChecker;
 
+    @Initialize(with = Configurations.class)
     public static void initialize() {
         shotCost = Configurations.getIntConfiguration("shot.cost");
         decaffeinateCost = Configurations.getIntConfiguration("decaffeinate.cost");

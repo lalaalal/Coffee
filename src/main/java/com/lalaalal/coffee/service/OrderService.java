@@ -1,6 +1,6 @@
 package com.lalaalal.coffee.service;
 
-import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.OrderItemDTO;
 import com.lalaalal.coffee.exception.ClientCausedException;

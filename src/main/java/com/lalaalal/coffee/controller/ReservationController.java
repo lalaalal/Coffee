@@ -1,6 +1,7 @@
 package com.lalaalal.coffee.controller;
 
 import com.lalaalal.coffee.Language;
+import com.lalaalal.coffee.config.BusinessHours;
 import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.service.OrderService;
 import com.lalaalal.coffee.service.ReservationService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -72,16 +74,17 @@ public class ReservationController extends SessionHelper {
         if (date == null)
             date = LocalDate.now();
 
-        // TODO : make read from file
+        BusinessHours businessHours = BusinessHours.getInstance();
+        List<LocalTime> availableTimes = businessHours.getAvailableReservationTimes(date.getDayOfWeek());
 
-        List<LocalDateTime> availableTimes = new ArrayList<>();
-        availableTimes.add(date.atTime(9, 30));
-        availableTimes.add(date.atTime(10, 0));
-        availableTimes.add(date.atTime(10, 30));
-        availableTimes.add(date.atTime(11, 30));
-        availableTimes.add(date.atTime(12, 0));
-        availableTimes.add(date.atTime(12, 30));
+        LocalDate current = date;
+        reservationService.collectDTO(orderService.delegateGetter()).stream()
+                    .filter(reservationDTO -> current.isEqual(reservationDTO.getTime().toLocalDate()))
+                    .forEach(reservationDTO -> {
+                        availableTimes.remove(reservationDTO.getTime().toLocalTime());
+                    });
 
+        model.addAttribute("date", date);
         model.addAttribute("availableTimes", availableTimes);
         return "/reservation/make";
     }

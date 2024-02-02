@@ -1,6 +1,6 @@
 package com.lalaalal.coffee.service;
 
-import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.dto.UserDTO;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.User;

@@ -1,6 +1,6 @@
 package com.lalaalal.coffee.service;
 
-import com.lalaalal.coffee.Configurations;
+import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.misc.IntegerKeyGenerator;
 import com.lalaalal.coffee.misc.KeyGenerator;
 import com.lalaalal.coffee.model.Event;
