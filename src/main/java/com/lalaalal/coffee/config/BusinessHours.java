@@ -48,6 +48,8 @@ public class BusinessHours {
         ArrayList<LocalTime> times = new ArrayList<>();
 
         LocalTime time = getOpenTime(dayOfWeek);
+        if (time == null)
+            return times;
         final LocalTime closeTime = getCloseTime(dayOfWeek);
         while (time.isBefore(closeTime)) {
             if (isOpenAt(dayOfWeek, time))
