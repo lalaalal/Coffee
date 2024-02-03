@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lalaalal.coffee.config.Configurations;
-import com.lalaalal.coffee.initializer.Initializer;
 import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.order.argument.OrderArgumentMap;

@@ -56,6 +56,19 @@ header {
     width: 100%;
 }
 
+.connected-radio-button {
+    transition-duration: 0.5s;
+    padding: 8px;
+    border: #ddd solid 1px;
+    border-right: none;
+    background-color: transparent;
+    width: 75px;
+}
+
+.connected-radio-button:last-child {
+    border-right: #ddd solid 1px;
+}
+
 .row-direction-container {
     display: flex;
     flex-direction: row;
@@ -63,7 +76,7 @@ header {
 
 .wrap-container {
     flex-wrap: wrap;
-    padding: 8px;
+    padding: 8px 0;
     column-gap: 8px;
 }
 

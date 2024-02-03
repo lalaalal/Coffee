@@ -6,12 +6,25 @@
              th:data-group-id="${group.id}"
              th:text="${group.name}"></div>
     </div>
-    <div class="row-direction-container wrap-container menu-container" th:each="group : ${groupList}"
+    <div class="row-content row-direction-container wrap-container menu-container" th:each="group : ${groupList}"
          th:data-group-id="${group.id}">
         <div class="row-content-item hover-effect outlined menu-item" th:each="menu : ${menuTable.get(group)}"
              th:data-menu-id="${menu.id}">
-            <p th:utext="${menu.name.replaceAll(' ', '<br>')}"></p>
-            <p th:text="${'₩' + menu.cost}"></p>
+            <div th:utext="${menu.name}"></div>
+            <div th:text="${'₩' + menu.cost}"></div>
         </div>
+    </div>
+    <div id="order-adder-container" class="row-content row-tail">
+        <div class="row-direction-container">
+            <div class="btn-group" role="group">
+                <input type="radio" name="temperature" id="ice" class="btn-check" autocomplete="off" checked>
+                <label for="ice" class="btn btn-outline-primary">ICE</label>
+                <input type="radio" name="temperature" id="hot" class="btn-check" autocomplete="off">
+                <label for="hot" class="btn btn-outline-danger">HOT</label>
+            </div>
+        </div>
+        <input type="number" class="rectangle-input" placeholder="shot">
+        <input type="checkbox">
+        <button class="rectangle-button rectangle-button--outlined">Add</button>
     </div>
 </div>

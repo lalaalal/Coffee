@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,5 +65,11 @@ public class HTMLPartController extends SessionHelper {
         model.addAttribute("menuTable", menuTable);
 
         return "/part/menu-selector";
+    }
+
+    @GetMapping("/order-viewer")
+    public String order(Model model, @RequestParam(value = "editable", defaultValue = "false") Boolean editable) {
+        model.addAttribute("editable", editable);
+        return "/part/order-viewer";
     }
 }

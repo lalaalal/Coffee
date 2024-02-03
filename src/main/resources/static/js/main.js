@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const parts = $('.html-part');
     for (const part of parts) {
+        part.innerHTML = 'loading...';
         const file = part.dataset.includeFile;
         if (file) {
             let request = new XMLHttpRequest();
