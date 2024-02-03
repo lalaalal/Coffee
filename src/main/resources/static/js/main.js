@@ -1,26 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
     const parts = $('.html-part');
     for (const part of parts) {
-        part.innerHTML = 'loading...';
         const file = part.dataset.includeFile;
         if (file) {
             let request = new XMLHttpRequest();
             request.onreadystatechange = function () {
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                     part.innerHTML = this.responseText;
-                    if (part.id)
-                        init('#' + part.id);
                 }
             };
             request.open('GET', file, true);
             request.send();
         }
     }
-    init();
+    let target = document.body;
+    const observer = new MutationObserver(mutationList =>
+        mutationList.filter(m => m.type === 'childList').forEach(m => {
+            m.addedNodes.forEach(loadRadioButtons);
+        }));
+    observer.observe(target, {childList: true, subtree: true});
 });
 
-function init(prefix) {
-    const observers = $(`${prefix} .observer`);
+const loadRadioButtons = function () {
+    const observers = $('.observer');
     observers.change(function() {
         const inputGroup = $(`input[name=${this.name}]`);
         for (const input of inputGroup) {
@@ -31,7 +33,7 @@ function init(prefix) {
                 linkedLabel.css('background-color', 'transparent');
         }
     });
-    const selected = $(`${prefix} .observer:checked`)[0];
+    const selected = $('.observer:checked')[0];
     if (selected)
         colorElement(selected);
 }

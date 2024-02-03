@@ -117,7 +117,7 @@ button, input, optgroup, select, textarea {
 }
 
 .gray-background {
-    background-color: #ddd;
+    background-color: #eee;
 }
 
 .row-content {
@@ -137,7 +137,7 @@ button, input, optgroup, select, textarea {
 }
 
 .hover-effect:hover {
-    background-color: #ccc !important;
+    background-color: #ddd !important;
 }
 
 .row-tail {
