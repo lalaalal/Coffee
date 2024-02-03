@@ -1,5 +1,3 @@
-
-
 class Menu {
     constructor(id, name, cost) {
         this.id = id;
@@ -18,11 +16,11 @@ class Order {
     }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     $.ajax({
         url: "/part/order/editable",
-        success: function(result) {
-            
+        success: function (result) {
+
         }
     });
 })

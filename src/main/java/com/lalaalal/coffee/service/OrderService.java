@@ -21,9 +21,9 @@ import java.util.HashMap;
 
 @Service
 public class OrderService extends DataStoreService<String, Order> {
+    private final KeyGenerator<String> keyGenerator;
     @Getter @Setter
     private int currentOrderNumber;
-    private final KeyGenerator<String> keyGenerator;
 
     public OrderService() {
         super(String.class, Order.class, HashMap::new,

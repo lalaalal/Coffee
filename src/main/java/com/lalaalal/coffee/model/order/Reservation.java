@@ -14,11 +14,11 @@ public class Reservation {
     private final String name;
     @JsonProperty("hashed_password")
     private final String hashedPassword;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private final LocalDateTime time;
     @Setter
     @JsonProperty("order_id")
     private String orderId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private final LocalDateTime time;
     @Getter @Setter
     private String message;
     @Setter

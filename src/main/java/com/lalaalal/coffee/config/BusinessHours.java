@@ -1,36 +1,40 @@
 package com.lalaalal.coffee.config;
 
+import com.lalaalal.coffee.initializer.Initialize;
+import com.lalaalal.coffee.registry.Registries;
+import com.lalaalal.coffee.registry.TimeRangeRegistry;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.lalaalal.coffee.initializer.Initialize;
-import com.lalaalal.coffee.registry.Registries;
-import com.lalaalal.coffee.registry.TimeRangeRegistry;
 
 public class BusinessHours {
     private static BusinessHours instance = null;
 
     private final Map<DayOfWeek, Map<String, TimeRange>> map = new HashMap<>();
 
+    private BusinessHours() {
+    }
+
     @Initialize(with = Registries.class)
     public static void initialize() {
         // TODO : load from file...
         BusinessHours instance = getInstance();
-        
-        DayOfWeek[] normal = { DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.THURSDAY };
+
+        DayOfWeek[] normal = {DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.THURSDAY};
         for (DayOfWeek dayOfWeek : normal) {
             instance.map.put(dayOfWeek, DateBusinessHours.of(
-                TimeRange.ID_OPEN, TimeRange.ID_LUNCH, TimeRange.ID_BREAK_TIME
+                    TimeRange.ID_OPEN, TimeRange.ID_LUNCH, TimeRange.ID_BREAK_TIME
             ));
         }
         instance.map.put(DayOfWeek.WEDNESDAY, DateBusinessHours.of(
-            "open.wednesday", TimeRange.ID_LUNCH, TimeRange.ID_BREAK_TIME
+                "open.wednesday", TimeRange.ID_LUNCH, TimeRange.ID_BREAK_TIME
         ));
         instance.map.put(DayOfWeek.FRIDAY, DateBusinessHours.of(
-            "open.friday", TimeRange.ID_LUNCH
+                "open.friday", TimeRange.ID_LUNCH
         ));
     }
 
@@ -40,11 +44,9 @@ public class BusinessHours {
         return instance;
     }
 
-    private BusinessHours() { }
-
     public List<LocalTime> getAvailableReservationTimes(DayOfWeek dayOfWeek) {
         ArrayList<LocalTime> times = new ArrayList<>();
-        
+
         LocalTime time = getOpenTime(dayOfWeek);
         final LocalTime closeTime = getCloseTime(dayOfWeek);
         while (time.isBefore(closeTime)) {
@@ -53,7 +55,7 @@ public class BusinessHours {
 
             time = time.plusMinutes(30);
         }
-        
+
         return times;
     }
 
@@ -65,7 +67,7 @@ public class BusinessHours {
         return openTimeRange.getFrom();
     }
 
-    
+
     public LocalTime getCloseTime(DayOfWeek dayOfWeek) {
         TimeRange openTimeRange = map.getOrDefault(dayOfWeek, Map.of()).get(TimeRange.ID_OPEN);
 

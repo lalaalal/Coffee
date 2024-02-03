@@ -25,14 +25,6 @@ public class OrderDTO {
         this.items = items;
     }
 
-    public Order convertToOrder(Event event) {
-        ArrayList<OrderItem> orderItems = new ArrayList<>();
-        for (OrderItemDTO item : items)
-            orderItems.add(item.convertToOrderItem(event));
-
-        return new Order(id, orderItems);
-    }
-
     public static OrderDTO convertFrom(Order order) {
         ArrayList<OrderItemDTO> items = new ArrayList<>();
         for (OrderItem item : order.getItems())
@@ -43,5 +35,13 @@ public class OrderDTO {
                 order.calculateCost(),
                 items
         );
+    }
+
+    public Order convertToOrder(Event event) {
+        ArrayList<OrderItem> orderItems = new ArrayList<>();
+        for (OrderItemDTO item : items)
+            orderItems.add(item.convertToOrderItem(event));
+
+        return new Order(id, orderItems);
     }
 }

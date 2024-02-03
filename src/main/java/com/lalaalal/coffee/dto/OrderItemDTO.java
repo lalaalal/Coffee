@@ -23,18 +23,18 @@ public class OrderItemDTO {
         this.arguments = arguments;
     }
 
-    public OrderItem convertToOrderItem(Event event) {
-        if (event == null)
-            return new OrderItem(menu, arguments);
-        Modifier costModifier = event.getCostModifiers().get(menu);
-        return new OrderItem(menu, costModifier, event.getArgumentCostModifier(), arguments);
-    }
-
     public static OrderItemDTO convertFrom(OrderItem orderItem) {
         return new OrderItemDTO(
                 orderItem.getMenuId(),
                 orderItem.calculateCost(),
                 orderItem.getArguments()
         );
+    }
+
+    public OrderItem convertToOrderItem(Event event) {
+        if (event == null)
+            return new OrderItem(menu, arguments);
+        Modifier costModifier = event.getCostModifiers().get(menu);
+        return new OrderItem(menu, costModifier, event.getArgumentCostModifier(), arguments);
     }
 }

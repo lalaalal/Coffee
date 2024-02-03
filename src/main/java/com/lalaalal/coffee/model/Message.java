@@ -6,13 +6,13 @@ public class Message {
     private final String key;
     private final Object[] args;
 
-    public static Message of(String key, Object... args) {
-        return new Message(key, args);
-    }
-
     private Message(String key, Object[] args) {
         this.key = key;
         this.args = args;
+    }
+
+    public static Message of(String key, Object... args) {
+        return new Message(key, args);
     }
 
     public String translate(Language language) {

@@ -10,18 +10,18 @@ public class OrderArgument<T> {
     private final Class<T> type;
     @Getter
     private final String name;
-    private T value;
     private final ArgumentMapper<T> mapper;
-
-    public static <E> E getValue(Class<E> type, OrderArgument<?> argument) {
-        return argument.getValue(type);
-    }
+    private T value;
 
     public OrderArgument(Class<T> type, String name, T defaultValue, ArgumentMapper<T> mapper) {
         this.type = type;
         this.name = name;
         value = defaultValue;
         this.mapper = mapper;
+    }
+
+    public static <E> E getValue(Class<E> type, OrderArgument<?> argument) {
+        return argument.getValue(type);
     }
 
     public void setValue(Object value, Class<?> type) {

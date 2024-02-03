@@ -1,18 +1,20 @@
 package com.lalaalal.coffee.config;
 
+import com.lalaalal.coffee.initializer.Initialize.Time;
+import com.lalaalal.coffee.initializer.Initializer;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Properties;
-
-import com.lalaalal.coffee.initializer.Initializer;
-import com.lalaalal.coffee.initializer.Initialize.Time;
 
 public class Configurations extends Initializer {
     private static final Properties defaults = new Properties();
     private static final Properties configurations = new Properties();
+
+    private Configurations() {
+    }
 
     public static void initialize() {
         Initializer.initialize(Configurations.class, Time.Pre);
@@ -52,8 +54,5 @@ public class Configurations extends Initializer {
 
     public static String getDefaultConfiguration(String key) {
         return defaults.getProperty(key);
-    }
-
-    private Configurations() {
     }
 }
