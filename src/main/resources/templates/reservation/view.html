@@ -2,11 +2,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/reservation.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/reservation.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
@@ -29,7 +29,7 @@
         <div class="row-element" th:each="date : ${dates}">
             <div class="row-head gray-background" th:text="${dayOfWeeks.get(date)}"></div>
             <div class="row-content reservation-container" th:each="reservation : ${weekReservations.get(date)}">
-                <input type="hidden" name="reservation-id" th:value="${reservation.getId()}">
+                <input name="reservation-id" th:value="${reservation.getId()}" type="hidden">
                 <p class="row-content-item hover-effect">
                     <th:block th:text="${reservation.getName()}"></th:block>
                     <br>

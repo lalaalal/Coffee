@@ -2,17 +2,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/material-components-web.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/menu.css">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/css/material-components-web.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/menu.css" rel="stylesheet">
     <script src="/js/material-components-web.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/menu-selector.js"></script>
-
-
     <title>Title</title>
 </head>
 <body>
@@ -23,17 +21,17 @@
         <div class="row-direction-container">
             <div class="content ">
                 <label class="form-label" for="name-input">과 이름</label>
-                <input class="rectangle-input" type="text" name="name" id="name-input" size="5" placeholder="과 이름">
+                <input class="rectangle-input" id="name-input" name="name" placeholder="과 이름" size="5" type="text">
             </div>
             <div class="content">
                 <label class="form-label" for="password-input">비밀번호</label>
-                <input class="rectangle-input" type="password" name="password" id="password-input" size="5" placeholder="비밀번호" autocomplete="off">
+                <input class="rectangle-input" type="password-input" name="password" id="password-input" size="5" placeholder="비밀번호" autocomplete="off">
             </div>
         </div>
         <div class="content">
             <label class="form-label" for="time-selector">시간</label>
-            <select class="rectangle-input" name="time" id="time-selector">
-                <option th:each="time:${availableTimes}" th:value="${time}" th:text="${time}"></option>
+            <select class="rectangle-input" id="time-selector" name="time">
+                <option th:each="time:${availableTimes}" th:text="${time}" th:value="${time}"></option>
             </select>
         </div>
         <div class="content">
@@ -41,8 +39,9 @@
             <textarea class="rectangle-input" name="name" id="message-input" placeholder="요청 사항" autocomplete="off"></textarea>
         </div>
     </div>
-    <div id="menu-selector-container" class="html-part" th:data-include-file="${'/part/menu-selector?date=' + date}"></div>
-    <div id="order-viewer-container" class="html-part" data-include-file="/part/order-viewer"></div>
+    <div class="html-part" id="menu-selector-container"
+         th:data-include-file="${'/part/menu-selector?date=' + date}"></div>
+    <div class="html-part" data-include-file="/part/order-viewer" id="order-viewer-container"></div>
 </main>
 </body>
 </html>

@@ -10,9 +10,9 @@ import java.util.List;
 
 @Getter
 public class Order {
+    protected final List<OrderItem> items;
     @Setter
     private String id = "";
-    protected final List<OrderItem> items;
 
     public Order() {
         this.items = new ArrayList<>();

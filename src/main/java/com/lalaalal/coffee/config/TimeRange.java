@@ -1,13 +1,12 @@
 package com.lalaalal.coffee.config;
 
-import java.time.LocalTime;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
+
+import java.time.LocalTime;
 
 @Getter
 public class TimeRange {
@@ -24,8 +23,8 @@ public class TimeRange {
 
     @JsonCreator
     public TimeRange(
-            @JsonProperty("id") String id, 
-            @JsonProperty("type") TimeRangeType type, 
+            @JsonProperty("id") String id,
+            @JsonProperty("type") TimeRangeType type,
             @JsonProperty("from") LocalTime from,
             @JsonProperty("to") LocalTime to) {
         this.id = id;

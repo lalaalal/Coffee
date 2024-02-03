@@ -22,18 +22,6 @@ public class ReservationDTO {
     @JsonProperty("for_meeting")
     private final boolean forMeeting;
 
-    public static ReservationDTO convertFrom(DelegateGetter<String, OrderDTO> delegate, Reservation reservation) {
-        if (reservation == null)
-            return null;
-        return new ReservationDTO(
-                reservation.getName(),
-                delegate.get(reservation.getOrderId()),
-                reservation.getTime(),
-                reservation.getMessage(),
-                reservation.isForMeeting()
-        );
-    }
-
     @JsonCreator
     public ReservationDTO(
             @JsonProperty("name") String name,
@@ -47,6 +35,18 @@ public class ReservationDTO {
         this.time = time;
         this.message = message;
         this.forMeeting = forMeeting;
+    }
+
+    public static ReservationDTO convertFrom(DelegateGetter<String, OrderDTO> delegate, Reservation reservation) {
+        if (reservation == null)
+            return null;
+        return new ReservationDTO(
+                reservation.getName(),
+                delegate.get(reservation.getOrderId()),
+                reservation.getTime(),
+                reservation.getMessage(),
+                reservation.isForMeeting()
+        );
     }
 
     @JsonProperty("id")

@@ -16,15 +16,15 @@ import lombok.Setter;
 public class OrderItem {
     @JsonIgnore
     private final Menu menu;
+    @Getter
+    @JsonProperty("arguments")
+    private final OrderArgumentMap arguments;
     @Getter @Setter
     @JsonProperty("cost_modifier")
     private Modifier modifier = Modifier.DO_NOTHING;
     @Getter @Setter
     @JsonProperty("argument_cost_modifier")
     private ArgumentCostModifier argumentCostModifier = new ArgumentCostModifier();
-    @Getter
-    @JsonProperty("arguments")
-    private final OrderArgumentMap arguments;
 
     public OrderItem(String menu) {
         this.menu = Registries.get(MenuRegistry.class, menu);

@@ -1,15 +1,15 @@
 <!--Need to include menu.css and menu.js-->
 <!--Set containing element's id to menu-selector-container-->
-<div id="menu-selector" class="column-direction-container outlined">
+<div class="column-direction-container outlined" id="menu-selector">
     <div class="row-direction-container tab-container">
-        <div class="row-element row-head hover-effect tab-item" th:each="group : ${groupList}"
-             th:data-group-id="${group.id}"
+        <div class="row-element row-head hover-effect tab-item" th:data-group-id="${group.id}"
+             th:each="group : ${groupList}"
              th:text="${group.name}"></div>
     </div>
-    <div class="row-content row-direction-container wrap-container menu-container" th:each="group : ${groupList}"
-         th:data-group-id="${group.id}">
-        <div class="row-content-item hover-effect outlined menu-item" th:each="menu : ${menuTable.get(group)}"
-             th:data-menu-id="${menu.id}">
+    <div class="row-content row-direction-container wrap-container menu-container" th:data-group-id="${group.id}"
+         th:each="group : ${groupList}">
+        <div class="row-content-item hover-effect outlined menu-item" th:data-menu-id="${menu.id}"
+             th:each="menu : ${menuTable.get(group)}">
             <div th:utext="${menu.name}"></div>
             <div th:text="${'₩' + menu.cost}"></div>
         </div>

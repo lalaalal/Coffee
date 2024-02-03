@@ -15,12 +15,12 @@ import java.nio.charset.StandardCharsets;
 /**
  * Helps create ResponseEntity and gives session data.
  *
+ * @author lalaalal
  * @see SessionHelper#SessionHelper(HttpSession)
  * @see SessionHelper#createResponseEntity(Object, HttpStatus)
  * @see SessionHelper#createResultEntity(Result)
  * @see SessionHelper#currentUser()
  * @see SessionHelper#getUserLanguage()
- * @author lalaalal
  */
 public abstract class SessionHelper {
     protected final HttpSession httpSession;

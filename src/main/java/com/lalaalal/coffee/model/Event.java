@@ -24,14 +24,14 @@ public class Event {
 
     private final String title;
     private final String content;
-    @JsonProperty("cost_modifiers")
-    private Map<String, Modifier> costModifiers;
-    @JsonProperty("argument_cost_modifier")
-    private ArgumentCostModifier argumentCostModifier;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDate start;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDate end;
+    @JsonProperty("cost_modifiers")
+    private Map<String, Modifier> costModifiers;
+    @JsonProperty("argument_cost_modifier")
+    private ArgumentCostModifier argumentCostModifier;
 
     @JsonCreator
     public Event(@JsonProperty("title") String title,

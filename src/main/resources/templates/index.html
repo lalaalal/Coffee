@@ -2,10 +2,10 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/material-components-web.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/css/main.css">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/css/material-components-web.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
     <script src="/js/material-components-web.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
@@ -14,9 +14,9 @@
 <body>
 <header class="html-part" data-include-file="/part/header"></header>
 <main>
-    <div th:if="${event != null}" class="column-direction-container mdc-data-table">
+    <div class="column-direction-container mdc-data-table" th:if="${event != null}">
         <div class="mdc-data-table__table-container">
-            <table class="mdc-data-table__table" aria-label="event">
+            <table aria-label="event" class="mdc-data-table__table">
                 <thead>
                 <tr class="mdc-data-table__header-row">
                     <th class="notice-title mdc-data-table__header-cell" role="columnheader" scope="col">Event</th>

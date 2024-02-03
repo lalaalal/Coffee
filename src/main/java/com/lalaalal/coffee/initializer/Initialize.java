@@ -8,10 +8,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Initialize {
-    public Class<? extends Initializer> with();
-    public Time time() default Time.Post;
-    
-    public enum Time {
+    Class<? extends Initializer> with();
+
+    Time time() default Time.Post;
+
+    enum Time {
         Pre, Post
     }
 }

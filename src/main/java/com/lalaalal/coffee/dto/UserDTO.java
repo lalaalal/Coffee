@@ -21,14 +21,14 @@ public class UserDTO {
     @JsonIgnore
     private final Language language;
 
-    public static UserDTO from(User user) {
-        return new UserDTO(user.getId(), user.getLanguage());
-    }
-
     @JsonCreator
     public UserDTO(@JsonProperty("id") String id, @JsonProperty("language") String language) {
         this.id = id;
         this.language = Registries.get(LanguageRegistry.class, language);
+    }
+
+    public static UserDTO from(User user) {
+        return new UserDTO(user.getId(), user.getLanguage());
     }
 
     @JsonProperty("language")
