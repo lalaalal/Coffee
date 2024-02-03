@@ -16,11 +16,22 @@ header {
     width: 100%;
 }
 
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
 #header-container {
     background-color: #eee;
     border-bottom: #ddd;
     box-shadow: 0 1px 1px gray;
     padding: 8px;
+}
+
+.bottom-align-container {
+    align-items: end !important;
 }
 
 .column-direction-container {
@@ -35,21 +46,17 @@ header {
 
 .rectangle-button {
     transition-duration: 0.5s;
-    padding: 8px;
+    padding: 8px 16px;
     border: #ddd solid 1px;
-    background-color: #ddd;
+    background-color: transparent;
 }
 
 .rectangle-button:hover {
-    background-color: #eee;
+    background-color: #ddd !important;
 }
 
 .rectangle-button:focus {
-    background-color: #ddd;
-}
-
-.rectangle-button--outlined {
-    background-color: transparent;
+    background-color: #eee !important;
 }
 
 .rectangle-button--fill {
@@ -57,16 +64,26 @@ header {
 }
 
 .connected-radio-button {
-    transition-duration: 0.5s;
-    padding: 8px;
-    border: #ddd solid 1px;
+    padding: 8px 16px;
     border-right: none;
     background-color: transparent;
-    width: 75px;
 }
 
 .connected-radio-button:last-child {
     border-right: #ddd solid 1px;
+}
+
+.rectangle-checkbox {
+    width: 42px;
+    height: 42px;
+}
+
+.observer {
+    display: none;
+}
+
+.grow-item {
+    flex-grow: 1;
 }
 
 .row-direction-container {
@@ -100,7 +117,7 @@ header {
 }
 
 .gray-background {
-    background-color: #ccc;
+    background-color: #ddd;
 }
 
 .row-content {
@@ -120,7 +137,7 @@ header {
 }
 
 .hover-effect:hover {
-    background-color: #ddd;
+    background-color: #ccc !important;
 }
 
 .row-tail {
@@ -129,23 +146,31 @@ header {
 
 .left-part {
     display: flex;
-    flex: 1;
+    flex-grow: 1;
     align-items: center;
     justify-content: start;
 }
 
 .center-part {
     display: flex;
-    flex: 1;
+    flex-grow: 1;
     align-items: center;
     justify-content: center;
 }
 
 .right-part {
     display: flex;
-    flex: 1;
+    flex-grow: 1;
     align-items: center;
     justify-content: end;
+}
+
+.shrink-part {
+    flex-shrink: 1;
+}
+
+.gap-container {
+    gap: 8px;
 }
 
 .title {
@@ -162,6 +187,7 @@ header {
 }
 
 .form-label {
+    text-align: start;
     margin-left: 12px;
     margin-bottom: 4px;
 }
@@ -182,3 +208,14 @@ header {
         width: 1024px;
     }
 }
+
+@media (max-width: 512px) {
+    .rectangle-button {
+        padding: 8px;
+    }
+
+    .short-width-input {
+        max-width: 100px;
+    }
+}
+

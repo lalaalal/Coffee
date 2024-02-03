@@ -1,4 +1,15 @@
+#menu-add-container {
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: end;
+    column-gap: 16px;
+}
+
 .menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 24px 16px;
     flex: 1;
+    min-width: 100px;
 }
