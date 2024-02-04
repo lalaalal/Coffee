@@ -1,6 +1,9 @@
 package com.lalaalal.coffee.config;
 
 import com.lalaalal.coffee.initializer.Initialize.Time;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.lalaalal.coffee.initializer.Initializer;
 
 import java.io.FileInputStream;
@@ -9,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Slf4j
 public class Configurations extends Initializer {
     private static final Properties defaults = new Properties();
     private static final Properties configurations = new Properties();
@@ -17,19 +21,21 @@ public class Configurations extends Initializer {
     }
 
     public static void initialize() {
+        log.debug("Initializing Configurations");
         Initializer.initialize(Configurations.class, Time.Pre);
         try (InputStream inputStream = Configurations.class.getResourceAsStream("/config/default.properties")) {
             defaults.load(inputStream);
         } catch (IOException e) {
-            // TODO: 12/3/23 handle exception
+            log.error("Something went wrong while loading default configurations");
         }
 
-        try (InputStream inputStream = new FileInputStream("config.properties")) {
+        String userConfigFile = "./config/config.properties";
+        try (InputStream inputStream = new FileInputStream(userConfigFile)) {
             configurations.load(inputStream);
-        } catch (FileNotFoundException ignored) {
-
+        } catch (FileNotFoundException e) {
+            log.warn("Configuation file %s".formatted(userConfigFile));
         } catch (IOException e) {
-            // TODO: 12/3/23 handle exception
+            log.error("Something went wrong while loading user configurations");
         }
         Initializer.initialize(Configurations.class, Time.Post);
     }

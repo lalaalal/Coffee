@@ -8,11 +8,8 @@ import java.util.HashSet;
 public class Group extends HashSet<Menu> {
     private final String id;
 
-    private final int priority;
-
-    public Group(String id, int priority) {
+    public Group(String id) {
         this.id = id;
-        this.priority = priority;
     }
 
     public String getTranslationKey() {

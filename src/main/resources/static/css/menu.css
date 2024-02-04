@@ -1,8 +1,19 @@
 #menu-add-container {
+    justify-content: start;
+    align-items: start;
+}
+
+#menu-argument-container {
     flex-wrap: wrap;
     justify-content: start;
     align-items: end;
     column-gap: 16px;
+}
+
+#selected-menu {
+    padding-left: 16px;
+    font-size: 16pt;
+    font-weight: bold;
 }
 
 .menu-item {

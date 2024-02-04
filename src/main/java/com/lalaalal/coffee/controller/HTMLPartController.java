@@ -58,7 +58,6 @@ public class HTMLPartController extends SessionHelper {
             groupMenuList.sort(Comparator.comparingInt(MenuDTO::getCost));
             menuTable.put(groupDTO, groupMenuList);
         }
-        groupList.sort(Comparator.comparingInt(GroupDTO::getPriority));
 
         model.addAttribute("groupList", groupList);
         model.addAttribute("menuTable", menuTable);

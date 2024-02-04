@@ -10,8 +10,9 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -24,8 +25,8 @@ import java.util.function.Consumer;
 public abstract class Registry<T> {
     protected static final ObjectMapper MAPPER = CoffeeApplication.MAPPER;
 
-    protected final HashMap<String, T> registry = new HashMap<>();
-    private final HashMap<String, T> aliasMap = new HashMap<>();
+    protected final Map<String, T> registry = new LinkedHashMap<>();
+    private final Map<String, T> aliasMap = new LinkedHashMap<>();
 
     protected static <E> void loadListFromJson(String filePath, Class<E> type, Consumer<E> registerer) {
         if (!Files.exists(Path.of(filePath)))

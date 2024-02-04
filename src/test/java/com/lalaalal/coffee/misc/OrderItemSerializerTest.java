@@ -7,7 +7,6 @@ import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.menu.Temperature;
 import com.lalaalal.coffee.model.order.OrderItem;
 import com.lalaalal.coffee.model.order.argument.ArgumentWriter;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

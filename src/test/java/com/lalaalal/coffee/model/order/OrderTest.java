@@ -2,7 +2,6 @@ package com.lalaalal.coffee.model.order;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lalaalal.coffee.CoffeeApplication;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

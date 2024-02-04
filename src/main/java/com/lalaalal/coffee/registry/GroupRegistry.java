@@ -6,11 +6,11 @@ import com.lalaalal.coffee.model.menu.Group;
 public class GroupRegistry extends Registry<Group> {
     @Override
     public void initialize() {
-        register("etc", Integer.MAX_VALUE);
-        alias("etc", "");
-
         String filePath = Configurations.getConfiguration("menu.groups.path");
         loadListFromJson(filePath, String.class, this::register);
+
+        register("etc");
+        alias("etc", "");
     }
 
     @Override
@@ -21,11 +21,6 @@ public class GroupRegistry extends Registry<Group> {
     }
 
     public void register(String id) {
-        register(id, registry.size());
-    }
-
-    public void register(String id, int priority) {
-        register(id, new Group(id, priority));
-
+        register(id, new Group(id));
     }
 }

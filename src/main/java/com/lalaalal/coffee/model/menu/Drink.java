@@ -29,7 +29,7 @@ public class Drink extends Menu {
     @Initialize(with = Configurations.class)
     public static void initialize() {
         shotCost = Configurations.getIntConfiguration("shot.cost");
-        decaffeinateCost = Configurations.getIntConfiguration("decaffeinate.cost");
+        decaffeinateCost = Configurations.getIntConfiguration("decaffeinated.cost");
     }
 
     @Override

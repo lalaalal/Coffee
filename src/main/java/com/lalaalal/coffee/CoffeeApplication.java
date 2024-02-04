@@ -11,10 +11,14 @@ import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.order.argument.OrderArgumentMap;
 import com.lalaalal.coffee.registry.*;
 import com.lalaalal.coffee.serializer.*;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+@Slf4j
 @SpringBootApplication
 public class CoffeeApplication {
     public static final ObjectMapper MAPPER = new ObjectMapper();
@@ -37,6 +41,7 @@ public class CoffeeApplication {
     }
 
     public static void initialize() {
+        log.info("Initializing before Spring Boot");
         MAPPER.registerModule(new JavaTimeModule());
         registerSerializer(Menu.class, new MenuSerializer(), new MenuDeserializer());
         registerSerializer(Drink.class, new DrinkSerializer(), new DrinkDeserializer());

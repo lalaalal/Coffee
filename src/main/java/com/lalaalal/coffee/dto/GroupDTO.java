@@ -9,13 +9,11 @@ import java.util.Set;
 
 @Getter
 public class GroupDTO {
-    private final int priority;
     private final String id;
     private final String name;
     private final Set<Menu> menus;
 
     public GroupDTO(Group group, Language language) {
-        this.priority = group.getPriority();
         this.id = group.getId();
         this.menus = group;
         this.name = language.translate(group.getTranslationKey());
