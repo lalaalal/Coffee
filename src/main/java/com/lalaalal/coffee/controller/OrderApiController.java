@@ -1,5 +1,7 @@
 package com.lalaalal.coffee.controller;
 
+import com.lalaalal.coffee.Language;
+import com.lalaalal.coffee.dto.MenuDTO;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.OrderItemDTO;
 import com.lalaalal.coffee.dto.ResultDTO;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 @RestController
@@ -68,6 +71,13 @@ public class OrderApiController extends SessionHelper {
         Result result = orderService.addOrderItem(orderId, orderItem, event);
 
         return createResultEntity(result);
+    }
+
+    @GetMapping("/menu")
+    public ResponseEntity<Collection<MenuDTO>> getMenuList(@RequestParam(value = "date", required = false) LocalDate date) {
+        Event event = eventService.getEventAt(date);
+        Language language = getUserLanguage();
+        return createResponseEntity(orderService.getMenuList(event, language), HttpStatus.OK);
     }
 
     @PostMapping("/{orderId}/menu/{menuId}/cancel")

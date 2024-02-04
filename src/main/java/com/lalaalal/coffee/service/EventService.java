@@ -26,6 +26,8 @@ public class EventService extends DataStoreService<Integer, Event> {
     }
 
     public Event getEventAt(LocalDate date) {
+        if (date == null)
+            return getCurrentEvent();
         for (Event event : data.values()) {
             if (date.isAfter(event.getStart().minusDays(1))
                     && date.isBefore(event.getEnd().plusDays(1)))

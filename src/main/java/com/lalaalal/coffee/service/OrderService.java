@@ -1,6 +1,8 @@
 package com.lalaalal.coffee.service;
 
+import com.lalaalal.coffee.Language;
 import com.lalaalal.coffee.config.Configurations;
+import com.lalaalal.coffee.dto.MenuDTO;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.OrderItemDTO;
 import com.lalaalal.coffee.exception.ClientCausedException;
@@ -11,6 +13,8 @@ import com.lalaalal.coffee.model.Event;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
+import com.lalaalal.coffee.registry.MenuRegistry;
+import com.lalaalal.coffee.registry.Registries;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class OrderService extends DataStoreService<String, Order> {
@@ -34,6 +39,13 @@ public class OrderService extends DataStoreService<String, Order> {
 
     public void increaseCurrentOrderNumber() {
         this.currentOrderNumber += 1;
+    }
+
+    public List<MenuDTO> getMenuList(Event event, Language language) {
+        ArrayList<MenuDTO> menuList = new ArrayList<>();
+        Registries.get(MenuRegistry.class).values()
+                .forEach(menu -> menuList.add(new MenuDTO(menu, event, language)));
+        return menuList;
     }
 
     public Result addOrder(OrderDTO orderDTO, Event event) {
