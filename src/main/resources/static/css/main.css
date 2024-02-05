@@ -199,6 +199,10 @@ button, input, optgroup, select, textarea {
     padding: 8px 4px;
 }
 
+.red-border {
+    border: red solid 2px;
+}
+
 @media (min-width: 1024px) {
     body {
         align-items: center;

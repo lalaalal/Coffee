@@ -1,6 +1,14 @@
 $(document).ready(function() {
     let makeReservationButton = $('#make-reservation-button');
     makeReservationButton.click(function() {
+        for (const input of $('input[required]')) {
+            if (input.value == '') {
+                input.classList.add('red-border');
+                alert("빈 칸을 모두 채워주세요");
+                return;
+            }
+        }
+
         let params = new URLSearchParams(location.search);
         const date = params.get('date');
 
