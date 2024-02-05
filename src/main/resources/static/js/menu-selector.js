@@ -1,36 +1,3 @@
-class Order {
-    constructor() {
-        this.items = [];
-    }
-
-    addItem(item) {
-        this.items.push(item);
-    }
-
-    calculateCost() {
-        let sum = 0;
-
-        for (const item of this.items) {
-
-            let menuName = item['menu'];
-            let menu = menuList.getMenu(menuName);
-            let cost = menu['cost'];
-            // TODO : parameterize
-            let count = item['count'];
-            let decaffeinate = item['decaffeinate'];
-            let shot = item['shot'];
-
-            if (decaffeinate)
-                cost += 500;
-            if (shot)
-                cost += shot * 500;
-            sum += cost * count;
-        }
-
-        return sum;
-    }
-}
-
 class MenuList {
     constructor(list) {
         this.list = list;
@@ -42,7 +9,6 @@ class MenuList {
 }
 
 let menuList;
-let order = new Order();
 let currentMenu;
 
 $(document).ready(function () {
@@ -85,10 +51,26 @@ $(document).ready(function () {
                 arguments[argument] = $('#decaffeinated')[0].checked;
             if (argument === 'shot')
                 arguments[argument] = $('#shot')[0].value *= 1;
+            if (argument == 'temperature') {
+                let checkedButton = getCheckedRadioButton('temperature');
+                if (checkedButton === null)
+                    arguments[argument] = 'ICE';
+                else
+                    arguments[argument] = checkedButton.dataset.temperature;
+            }
         }
         order.addItem(item);
     });
 });
+
+function getCheckedRadioButton(name) {
+    for (const button of $(`input[name=${name}]`)) {
+        if (button.checked)
+            return button;
+    }
+
+    return null;
+}
 
 let loadMenu = function () {
     let tabs = $('.tab-item');

@@ -7,7 +7,9 @@
     <link href="/css/menu.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/reservation-make.js"></script>
     <script src="/js/menu-selector.js"></script>
+    <script src="/js/order.js"></script>
     <title>Title</title>
 </head>
 <body>
@@ -40,6 +42,7 @@
     <div class="html-part" id="menu-selector-container"
          th:data-include-file="${'/part/menu-selector?date=' + date}"></div>
     <div class="html-part" data-include-file="/part/order-viewer" id="order-viewer-container"></div>
+    <button id="make-reservation-button" class="rectangle-button rectangle-button--fill">신청</button>
 </main>
 </body>
 </html>

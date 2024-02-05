@@ -45,8 +45,8 @@ public class ReservationApiController extends SessionHelper {
         );
     }
 
-    @PostMapping("/take")
-    public ResponseEntity<ResultDTO> takeReservation(@RequestBody ReservationRequestDTO reservation) {
+    @PostMapping("/make")
+    public ResponseEntity<ResultDTO> makeReservation(@RequestBody ReservationRequestDTO reservation) {
         String reservationId = reservationService.createReservationId(reservation);
         Result result = reservationService.makeReservation(reservation, reservation.getHashedPassword());
         if (!result.status().is2xxSuccessful())

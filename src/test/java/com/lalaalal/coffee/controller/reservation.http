@@ -10,7 +10,7 @@ GET {{host}}/api/reservation/list
 Accept: application/json
 
 ###
-POST {{host}}/api/reservation/take
+POST {{host}}/api/reservation/make
 Content-Type: application/json
 
 {

@@ -14,25 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     let target = document.body;
-    const observer = new MutationObserver(mutationList =>
-        mutationList.filter(m => m.type === 'childList').forEach(m => {
-            m.addedNodes.forEach(loadRadioButtons);
-        }));
-    observer.observe(target, {childList: true, subtree: true});
+    $(document.body).on('click', '.observer', loadRadioButtons);
 });
 
 const loadRadioButtons = function () {
     const observers = $('.observer');
-    observers.change(function() {
-        const inputGroup = $(`input[name=${this.name}]`);
-        for (const input of inputGroup) {
-            let linkedLabel = $(`label[for=${input.id}]`);
-            if (this.id === input.id)
-                linkedLabel.css('background-color', '#eee');
-            else
-                linkedLabel.css('background-color', 'transparent');
-        }
-    });
+    observers.change(function() {colorElement(this)});
     const selected = $('.observer:checked')[0];
     if (selected)
         colorElement(selected);
