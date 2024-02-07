@@ -5,6 +5,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/menu.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/reservation.css">
+    <link rel="stylesheet" href="/css/order.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/reservation-make.js"></script>
@@ -17,7 +19,7 @@
 <main>
     <div class="title" th:text="${param.date}"></div>
     <div class="column-direction-container outlined">
-        <div class="row-direction-container">
+        <div class="grid-two-column">
             <div class="content">
                 <label class="form-label" for="name-input">과 이름</label>
                 <input class="rectangle-input" id="name-input" name="name" placeholder="과 이름" size="5" type="text" required>
@@ -28,7 +30,7 @@
                        type="text" required>
             </div>
         </div>
-        <div class="row-direction-container">
+        <div class="grid-two-column">
             <div class="content">
                 <label class="form-label" for="password-input">비밀번호</label>
                 <input class="rectangle-input" type="password" name="password" id="password-input" size="5"

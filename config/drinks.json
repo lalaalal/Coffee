@@ -85,6 +85,12 @@
         "group_id": "ade"
     },
     {
+        "id": "lemon_ade",
+        "cost": 1500,
+        "temperature_checker": "BOTH",
+        "group_id": "ade"
+    },
+    {
         "id": "green_grape_ade",
         "cost": 1500,
         "temperature_checker": "ICE_ONLY",

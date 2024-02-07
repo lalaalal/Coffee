@@ -64,7 +64,7 @@ class Order {
             text += ' [' + item['arguments']['shot'] + ' 샷추가]';
         }
         text += ' × ' + item['arguments']['count'];
-        return "<div class=\"order-item\">" + text + "</div>";
+        return `<div class="row-content"><p class="row-content-item order-item">${text}</p></div>`;
     }
 }
 

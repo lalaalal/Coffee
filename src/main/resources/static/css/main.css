@@ -30,6 +30,11 @@ button, input, optgroup, select, textarea {
     padding: 8px;
 }
 
+.grid-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 .bottom-align-container {
     align-items: end !important;
 }
@@ -124,6 +129,10 @@ button, input, optgroup, select, textarea {
     margin: 8px;
     text-align: center;
     border-bottom: #ddd solid 1px;
+}
+
+.row-content:last-child {
+    border-bottom: none;
 }
 
 .row-content-item {

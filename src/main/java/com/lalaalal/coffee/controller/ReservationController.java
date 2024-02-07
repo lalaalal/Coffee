@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,7 +35,7 @@ public class ReservationController extends SessionHelper {
     }
 
     @GetMapping("/view")
-    public String selectDate(Model model, @RequestParam(value = "offset", defaultValue = "0") int offset) {
+    public String viewWeek(Model model, @RequestParam(value = "offset", defaultValue = "0") int offset) {
         LocalDate monday = LocalDate.now()
                 .plusWeeks(offset)
                 .with(DayOfWeek.MONDAY);
@@ -86,5 +87,13 @@ public class ReservationController extends SessionHelper {
         model.addAttribute("date", date);
         model.addAttribute("availableTimes", availableTimes);
         return "/reservation/make";
+    }
+
+    @GetMapping("/{reservationId}")
+    public String viewReservation(Model model, @PathVariable("reservationId") String reservationId) {
+        ReservationDTO reservation = reservationService.getReservation(orderService.delegateGetter(), reservationId);
+        model.addAttribute("reservation", reservation);
+
+        return "/reservation/reservation-view";
     }
 }

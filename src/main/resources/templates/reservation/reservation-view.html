@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/menu.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/reservation.css">
+    <link rel="stylesheet" href="/css/order.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/reservation-make.js"></script>
+    <script src="/js/menu-selector.js"></script>
+    <script src="/js/order.js"></script>
+    <script src="/js/order-loader.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<header class="html-part" data-include-file="/part/header"></header>
+<main>
+    <div>과 이름</div><div th:text="${reservation.name}"></div>
+    <div>연락처</div><div th:text="${reservation.contact}"></div>
+    <div>요청사항</div><div th:text="${reservation.message}"></div>
+    <div class="html-part" data-include-file="/part/order-viewer" id="order-viewer-container" th:data-order-id="${reservation.id}"></div>
+</main>
+</body>
+</html>

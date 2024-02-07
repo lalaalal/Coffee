@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
             request.send();
         }
     }
-    let target = document.body;
     $(document.body).on('click', '.observer', loadRadioButtons);
 });
 

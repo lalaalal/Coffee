@@ -1,3 +1,5 @@
+// TODO : seperate file menu...
+
 class MenuList {
     constructor(list) {
         this.list = list;
@@ -12,13 +14,6 @@ let menuList;
 let currentMenu;
 
 $(document).ready(function () {
-    let target = $('#menu-selector-container')[0];
-    const observer = new MutationObserver(mutationList =>
-        mutationList.filter(m => m.type === 'childList').forEach(m => {
-            m.addedNodes.forEach(loadMenu);
-        }));
-    observer.observe(target, {childList: true, subtree: false});
-
     $.ajax({
         url: "/api/order/menu",
         success: function (result) {
@@ -78,6 +73,15 @@ $(document).ready(function () {
         }
         order.addItem(item);
     });
+
+    let target = $('#menu-selector-container')[0];
+    if (!target)
+        return;
+    const observer = new MutationObserver(mutationList =>
+        mutationList.filter(m => m.type === 'childList').forEach(m => {
+            m.addedNodes.forEach(loadMenu);
+        }));
+    observer.observe(target, {childList: true, subtree: false});
 });
 
 function getCheckedRadioButton(name) {
