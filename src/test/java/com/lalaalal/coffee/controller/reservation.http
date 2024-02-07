@@ -16,6 +16,7 @@ Content-Type: application/json
 {
     "password": "hello",
     "name": "인사과",
+    "contact": "0720",
     "order": {
         "items": [
             {
@@ -28,6 +29,6 @@ Content-Type: application/json
             }
         ]
     },
-    "time": "2024-02-02 09:30:00",
+    "time": "2024-02-09 09:30:00",
     "for_meeting": true
 }

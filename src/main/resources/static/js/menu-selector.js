@@ -35,6 +35,21 @@ $(document).ready(function () {
         let menu = menuList.getMenu(menuId);
         currentMenu = menu;
         $('#selected-menu').text(menu['name']);
+        for (const input of $(`input[name=temperature]`)) {
+            input.disabled = true;
+            input.checked = false;
+            $(`label[for=${input.id}]`)[0].classList.add('disabled');
+            $(`label[for=${input.id}]`).css('background-color', 'transparent');
+        }
+        console.log(menu['required_arguments']);
+        if (menu['required_arguments'].includes('temperature')) {
+            for (const temp of menu['available_temperature']) {
+                console.log("enable " + temp);
+                let input = $(`input[name=temperature][value=${temp}]`)[0];
+                input.disabled = false;
+                $(`label[for=${input.id}]`)[0].classList.remove('disabled');
+            }
+        }
     });
     $('#menu-selector-container').on('click', '#add-menu-button', function() {
         if (currentMenu == null)
@@ -53,10 +68,12 @@ $(document).ready(function () {
                 arguments[argument] = $('#shot')[0].value *= 1;
             if (argument == 'temperature') {
                 let checkedButton = getCheckedRadioButton('temperature');
-                if (checkedButton === null)
-                    arguments[argument] = 'ICE';
+                if (checkedButton === null) {
+                    alert('온도를 선택해주세요!');
+                    return;
+                }
                 else
-                    arguments[argument] = checkedButton.dataset.temperature;
+                    arguments[argument] = checkedButton.value;
             }
         }
         order.addItem(item);

@@ -173,13 +173,23 @@ button, input, optgroup, select, textarea {
     gap: 8px;
 }
 
+.disabled {
+    color: gray;
+    text-decoration-line: line-through;
+    background-color: transparent;
+}
+
+.disabled:hover {
+    background-color: transparent !important;
+}
+
 .title {
     font-size: 24pt;
     font-weight: bold;
 }
 
 .content {
-    flex: 1;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: stretch;

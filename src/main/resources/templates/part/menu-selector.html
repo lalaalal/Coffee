@@ -22,10 +22,14 @@
                     <div class="form-label">온도</div>
                     <div class="row-direction-container">
                         <div id="temperature-selector" class="row-direction-container" role="group">
-                            <input type="radio" name="temperature" id="temperature-ice" class="observer" autocomplete="off" data-temperature="ICE" checked>
-                            <label for="temperature-ice" class="rectangle-button connected-radio-button">ICE</label>
-                            <input type="radio" name="temperature" id="temperature-hot" class="observer" autocomplete="off" data-temperature="HOT">
-                            <label for="temperature-hot" class="rectangle-button connected-radio-button">HOT</label>
+                            <input type="radio" name="temperature" id="temperature-ice" class="observer"
+                                   autocomplete="off" value="ICE" checked>
+                            <label for="temperature-ice" class="rectangle-button connected-radio-button"
+                                   aria-label="ICE">ICE</label>
+                            <input type="radio" name="temperature" id="temperature-hot" class="observer"
+                                   autocomplete="off" value="HOT">
+                            <label for="temperature-hot" class="rectangle-button connected-radio-button"
+                                   aria-label="HOT">HOT</label>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 public class Reservation {
     private final String name;
+    private final String contact;
     @JsonProperty("hashed_password")
     private final String hashedPassword;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -28,12 +29,14 @@ public class Reservation {
     @JsonCreator
     public Reservation(
             @JsonProperty("name") String name,
+            @JsonProperty("contact") String contact,
             @JsonProperty("hashed_password") String hashedPassword,
             @JsonProperty("order_id") String orderId,
             @JsonProperty("time") LocalDateTime time,
             @JsonProperty("message") String message,
             @JsonProperty(value = "for_meeting", defaultValue = "true") boolean forMeeting) {
         this.name = name;
+        this.contact = contact;
         this.hashedPassword = hashedPassword;
         this.orderId = orderId;
         this.time = time;

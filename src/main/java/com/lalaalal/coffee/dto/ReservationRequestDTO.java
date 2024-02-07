@@ -10,7 +10,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-@JsonPropertyOrder({"id", "name", "password", "time", "order"})
+@JsonPropertyOrder({"id", "name", "contact", "password", "time", "order"})
 public class ReservationRequestDTO extends ReservationDTO {
     @JsonIgnore
     private final String hashedPassword;
@@ -18,13 +18,14 @@ public class ReservationRequestDTO extends ReservationDTO {
     @JsonCreator
     public ReservationRequestDTO(
             @JsonProperty("name") String name,
+            @JsonProperty("contact") String contact,
             @JsonProperty("order") OrderDTO order,
             @JsonProperty("time") LocalDateTime time,
             @JsonProperty("password") String password,
             @JsonProperty("message") String message,
             @JsonProperty(value = "for_meeting", defaultValue = "true") boolean forMeeting
     ) {
-        super(name, order, time, message, forMeeting);
+        super(name, contact, order, time, message, forMeeting);
         this.hashedPassword = SHA256.encrypt(password);
     }
 }
