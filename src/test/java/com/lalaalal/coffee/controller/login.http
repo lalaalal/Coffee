@@ -1,0 +1,13 @@
+GET {{host}}/logout
+Accept: application/json
+
+###
+POST {{host}}/login
+Content-Type: application/x-www-form-urlencoded
+
+id = admin &
+password = admin
+
+###
+GET {{host}}/whoami
+Accept: text/plain

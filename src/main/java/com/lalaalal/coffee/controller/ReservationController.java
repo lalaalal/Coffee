@@ -80,9 +80,7 @@ public class ReservationController extends SessionHelper {
         LocalDate current = date;
         reservationService.collectDTO(orderService.delegateGetter()).stream()
                 .filter(reservationDTO -> current.isEqual(reservationDTO.getTime().toLocalDate()))
-                .forEach(reservationDTO -> {
-                    availableTimes.remove(reservationDTO.getTime().toLocalTime());
-                });
+                .forEach(reservationDTO -> availableTimes.remove(reservationDTO.getTime().toLocalTime()));
 
         model.addAttribute("date", date);
         model.addAttribute("availableTimes", availableTimes);
