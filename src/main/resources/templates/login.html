@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/css/main.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/login.js"></script>
     <title>Title</title>
 </head>
 <body>
@@ -9,16 +14,16 @@
 <main>
     <div class="column-direction-container outlined">
         <div class="content">
-            <label class="form-label" for="name-input">아이디</label>
-            <input class="rectangle-input" id="name-input" name="name" placeholder="과 이름" size="5" type="text" required>
+            <label class="form-label" for="id-input">아이디</label>
+            <input class="rectangle-input" id="id-input" name="name" placeholder="아이디" size="5" type="text" required>
         </div>
         <div class="content">
-            <label class="form-label" for="contact-input">비밀번호</label>
-            <input class="rectangle-input" id="contact-input" name="name" placeholder="연락서 (사무실 번호)" size="5"
+            <label class="form-label" for="password-input">비밀번호</label>
+            <input class="rectangle-input" id="password-input" name="name" placeholder="비밀번호" size="5"
                    type="password" required>
         </div>
-        <button class="rectangle-button">로그인</button>
     </div>
+    <button id="login-button" class="rectangle-button rectangle-button--fill">로그인</button>
 </main>
 </body>
 </html>
