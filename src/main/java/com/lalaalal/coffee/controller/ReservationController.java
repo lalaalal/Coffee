@@ -44,7 +44,7 @@ public class ReservationController extends SessionHelper {
         List<LocalDate> dates = new ArrayList<>();
         Map<LocalDate, String> dayOfWeeks = new HashMap<>();
         Map<LocalDate, List<ReservationDTO>> weekReservations = new HashMap<>();
-        Collection<ReservationDTO> reservationDTOs = reservationService.collectDTO(orderService.delegateGetter());
+        Collection<ReservationDTO> reservationDTOs = reservationService.collectDTO(orderService.delegateGetter(), currentUser().getPermission());
         for (DayOfWeek dayOfWeek = monday.getDayOfWeek(); dayOfWeek.compareTo(DayOfWeek.SATURDAY) < 0; dayOfWeek = dayOfWeek.plus(1)) {
             LocalDate currentDate = monday.with(dayOfWeek);
             List<ReservationDTO> reservations = reservationDTOs.stream()
@@ -78,7 +78,7 @@ public class ReservationController extends SessionHelper {
         List<LocalTime> availableTimes = businessHours.getAvailableReservationTimes(date.getDayOfWeek());
 
         LocalDate current = date;
-        reservationService.collectDTO(orderService.delegateGetter()).stream()
+        reservationService.collectDTO(orderService.delegateGetter(), currentUser().getPermission()).stream()
                 .filter(reservationDTO -> current.isEqual(reservationDTO.getTime().toLocalDate()))
                 .forEach(reservationDTO -> availableTimes.remove(reservationDTO.getTime().toLocalTime()));
 
@@ -89,7 +89,7 @@ public class ReservationController extends SessionHelper {
 
     @GetMapping("/{reservationId}")
     public String viewReservation(Model model, @PathVariable("reservationId") String reservationId) {
-        ReservationDTO reservation = reservationService.getReservation(orderService.delegateGetter(), reservationId);
+        ReservationDTO reservation = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser().getPermission());
         model.addAttribute("reservation", reservation);
 
         return "/reservation/reservation-view";

@@ -4,8 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.lalaalal.coffee.initializer.Initialize;
 import com.lalaalal.coffee.misc.DelegateGetter;
+import com.lalaalal.coffee.model.Permission;
+import com.lalaalal.coffee.model.TextHider;
 import com.lalaalal.coffee.model.order.Reservation;
+import com.lalaalal.coffee.registry.PermissionRegistry;
+import com.lalaalal.coffee.registry.Registries;
+
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -13,6 +19,15 @@ import java.time.LocalDateTime;
 @Getter
 @JsonPropertyOrder({"id", "name", "contact", "time", "order", "comment", "for_meeting"})
 public class ReservationDTO {
+    private static Permission READ_RESERVATION_NAME;
+    private static Permission READ_RESERVATION_CONTACT;
+
+    @Initialize(with = Registries.class)
+    public static void initialize() {
+        READ_RESERVATION_NAME = Registries.get(PermissionRegistry.class, "read.reservation.name");
+        READ_RESERVATION_CONTACT = Registries.get(PermissionRegistry.class, "read.reservation.contact");
+    }
+
     private final String name;
     private final String contact;
     private final OrderDTO order;
@@ -40,17 +55,23 @@ public class ReservationDTO {
         this.forMeeting = forMeeting;
     }
 
-    public static ReservationDTO convertFrom(DelegateGetter<String, OrderDTO> delegate, Reservation reservation) {
+    public static ReservationDTO convertFrom(DelegateGetter<String, OrderDTO> delegate, Reservation reservation, Permission permission) {
         if (reservation == null)
             return null;
         return new ReservationDTO(
-                reservation.getName(),
-                reservation.getContact(),
+                hideText(permission, READ_RESERVATION_NAME, reservation.getName(), TextHider.SHOW_FIRST_CHARACTER),
+                hideText(permission, READ_RESERVATION_CONTACT, reservation.getContact(), TextHider.HIDE_ALL),
                 delegate.get(reservation.getOrderId()),
                 reservation.getTime(),
                 reservation.getMessage(),
                 reservation.isForMeeting()
         );
+    }
+
+    protected static String hideText(Permission accessor, Permission required, String originalText, TextHider textHider) {
+        if (accessor.canAccess(required))
+            return originalText;
+        return textHider.hide(originalText);
     }
 
     @JsonProperty("id")

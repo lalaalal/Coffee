@@ -4,6 +4,7 @@ import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.misc.DelegateGetter;
+import com.lalaalal.coffee.model.Permission;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Reservation;
 import org.springframework.stereotype.Service;
@@ -47,16 +48,16 @@ public class ReservationService extends DataStoreService<String, Reservation> {
         return Result.SUCCEED;
     }
 
-    public ReservationDTO getReservation(DelegateGetter<String, OrderDTO> delegate, String id) {
+    public ReservationDTO getReservation(DelegateGetter<String, OrderDTO> delegate, String id, Permission permission) {
         Reservation reservation = data.get(id);
-        return ReservationDTO.convertFrom(delegate, reservation);
+        return ReservationDTO.convertFrom(delegate, reservation, permission);
     }
 
-    public Collection<ReservationDTO> collectDTO(DelegateGetter<String, OrderDTO> delegate) {
+    public Collection<ReservationDTO> collectDTO(DelegateGetter<String, OrderDTO> delegate, Permission permission) {
         ArrayList<ReservationDTO> list = new ArrayList<>();
         data.values().stream()
                 .sorted(Comparator.comparing(Reservation::getOrderId))
-                .forEach(reservation -> list.add(ReservationDTO.convertFrom(delegate, reservation)));
+                .forEach(reservation -> list.add(ReservationDTO.convertFrom(delegate, reservation, permission)));
         return list;
     }
 }

@@ -5,10 +5,10 @@ $(document).ready(function() {
         let data = `id = ${id} & password = ${password}`;
         console.log(data);
         $.ajax({
-            url: "/api/login",
-            type: "POST",
-            contentType: "application/x-www-form-urlencoded",
-            data: `id=${id}&\npassword=${password}`
+            url: '/api/login',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: `id=${id}&password=${password}`
         }).done(function(data, status, xhr) {
             alert(data.message);
             location.href ='/';

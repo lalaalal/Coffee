@@ -22,7 +22,7 @@ public class UserApiController extends SessionHelper {
 
     @PostMapping("/login")
     public ResponseEntity<ResultDTO> login(
-            @RequestParam String id, @RequestParam String password) {
+            @RequestParam("id") String id, @RequestParam("password") String password) {
         Result result = userService.login(id, password);
         ResponseEntity<ResultDTO> responseEntity = createResultEntity(result);
         if (!result.status().is2xxSuccessful())
@@ -47,7 +47,7 @@ public class UserApiController extends SessionHelper {
 
     @PostMapping("/sign_up")
     public ResponseEntity<ResultDTO> signUp(
-            @RequestParam String id, @RequestParam String password) {
+            @RequestParam("id") String id, @RequestParam("password") String password) {
         Result result = userService.signUp(id, password);
 
         return createResultEntity(result);

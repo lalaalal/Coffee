@@ -17,6 +17,9 @@ public class PermissionRegistry extends Registry<Permission> {
         register("edit.reservation");
         registerByName("edit");
 
+        register("delete.reservation");
+        register("delete");
+
         register(Permission.ADMIN);
     }
 

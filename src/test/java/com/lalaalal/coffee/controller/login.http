@@ -11,3 +11,9 @@ password = admin
 ###
 GET {{host}}/api/whoami
 Accept: text/plain
+
+###
+POST {{host}}/api/sign_up
+Content-Type: application/x-www-form-urlencoded
+
+id=admin&password=admin
