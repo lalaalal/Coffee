@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.initializer.Initialize;
 import com.lalaalal.coffee.misc.DelegateGetter;
-import com.lalaalal.coffee.model.Permission;
-import com.lalaalal.coffee.model.TextHider;
+import com.lalaalal.coffee.misc.TextHider;
 import com.lalaalal.coffee.model.order.Reservation;
 import com.lalaalal.coffee.registry.PermissionRegistry;
 import com.lalaalal.coffee.registry.Registries;
@@ -45,8 +45,7 @@ public class ReservationDTO {
             @JsonProperty("order") OrderDTO order,
             @JsonProperty("time") LocalDateTime time,
             @JsonProperty("message") String message,
-            @JsonProperty(value = "for_meeting", defaultValue = "true") boolean forMeeting
-    ) {
+            @JsonProperty(value = "for_meeting", defaultValue = "true") boolean forMeeting) {
         this.name = name;
         this.contact = contact;
         this.order = order;

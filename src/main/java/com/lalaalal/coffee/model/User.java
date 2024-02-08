@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lalaalal.coffee.Language;
+import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.misc.SHA256;
 import com.lalaalal.coffee.registry.LanguageRegistry;
 import com.lalaalal.coffee.registry.PermissionRegistry;

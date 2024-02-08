@@ -1,4 +1,4 @@
-package com.lalaalal.coffee.model;
+package com.lalaalal.coffee.misc;
 
 public interface TextHider {
     public static final TextHider SHOW_FIRST_CHARACTER = new TextHider() {

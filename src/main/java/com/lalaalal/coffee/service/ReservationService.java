@@ -1,10 +1,10 @@
 package com.lalaalal.coffee.service;
 
+import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.ReservationDTO;
 import com.lalaalal.coffee.misc.DelegateGetter;
-import com.lalaalal.coffee.model.Permission;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Reservation;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
 package com.lalaalal.coffee.registry;
 
-import com.lalaalal.coffee.model.Permission;
-
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.lalaalal.coffee.Permission;
 
 public class PermissionRegistry extends Registry<Permission> {
     @Override
