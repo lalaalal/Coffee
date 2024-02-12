@@ -10,6 +10,8 @@ import java.time.LocalTime;
 
 @Getter
 public class TimeRange {
+    public static final TimeRange EMPTY = new TimeRange("empty", TimeRangeType.CLOSE, LocalTime.MAX, LocalTime.MIN);
+
     public static final String ID_OPEN = "open";
     public static final String ID_BREAK_TIME = "break_time";
     public static final String ID_LUNCH = "lunch";
