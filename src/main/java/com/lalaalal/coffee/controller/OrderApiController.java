@@ -36,17 +36,17 @@ public class OrderApiController extends SessionHelper {
     }
 
     @GetMapping("/current")
-    public int getCurrentOrderNumber() {
+    public int currentOrderNumber() {
         return orderService.getCurrentOrderNumber();
     }
 
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<Collection<OrderDTO>> listOrder() {
+    public ResponseEntity<Collection<OrderDTO>> list() {
         return createResponseEntity(orderService.collectDTO(), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResultDTO> createOrder(@RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<ResultDTO> create(@RequestBody OrderDTO orderDTO) {
         Event event = eventService.getCurrentEvent();
         Result result = orderService.addOrder(orderDTO, event);
 
@@ -54,7 +54,7 @@ public class OrderApiController extends SessionHelper {
     }
 
     @RequestMapping(value = "/{orderId}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<OrderDTO> getOrder(@PathVariable("orderId") String orderId) {
+    public ResponseEntity<OrderDTO> read(@PathVariable("orderId") String orderId) {
         if (!orderService.isValidKey(orderId))
             // TODO: 12/28/23 add translation
             throw new ClientCausedException("error.client.message.no_such_order_id", orderId);
@@ -74,7 +74,7 @@ public class OrderApiController extends SessionHelper {
     }
 
     @GetMapping("/menu")
-    public ResponseEntity<Collection<MenuDTO>> getMenuList(@RequestParam(value = "date", required = false) LocalDate date) {
+    public ResponseEntity<Collection<MenuDTO>> menu(@RequestParam(value = "date", required = false) LocalDate date) {
         Event event = eventService.getEventAt(date);
         Language language = getUserLanguage();
         return createResponseEntity(orderService.getMenuList(event, language), HttpStatus.OK);
@@ -90,7 +90,7 @@ public class OrderApiController extends SessionHelper {
     }
 
     @PostMapping("/{orderId}/cancel")
-    public ResponseEntity<ResultDTO> cancelOrder(@PathVariable("orderId") String orderId) {
+    public ResponseEntity<ResultDTO> cancel(@PathVariable("orderId") String orderId) {
         Result result = orderService.cancelOrder(orderId);
 
         return createResultEntity(result);

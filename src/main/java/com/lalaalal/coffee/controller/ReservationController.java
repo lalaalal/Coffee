@@ -35,7 +35,7 @@ public class ReservationController extends SessionHelper {
     }
 
     @GetMapping("/view")
-    public String viewWeek(Model model, @RequestParam(value = "offset", defaultValue = "0") int offset) {
+    public String view(Model model, @RequestParam(value = "offset", defaultValue = "0") int offset) {
         LocalDate monday = LocalDate.now()
                 .plusWeeks(offset)
                 .with(DayOfWeek.MONDAY);
@@ -70,7 +70,7 @@ public class ReservationController extends SessionHelper {
     }
 
     @GetMapping("/make")
-    public String makeReservation(Model model, @RequestParam(value = "date", required = false) LocalDate date) {
+    public String make(Model model, @RequestParam(value = "date", required = false) LocalDate date) {
         if (date == null)
             date = LocalDate.now();
 
@@ -88,7 +88,7 @@ public class ReservationController extends SessionHelper {
     }
 
     @GetMapping("/{reservationId}")
-    public String viewReservation(Model model, @PathVariable("reservationId") String reservationId) {
+    public String read(Model model, @PathVariable("reservationId") String reservationId) {
         ReservationDTO reservation = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser().getPermission());
         model.addAttribute("reservation", reservation);
 

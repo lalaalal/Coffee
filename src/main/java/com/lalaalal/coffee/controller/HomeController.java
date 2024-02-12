@@ -29,7 +29,7 @@ public class HomeController extends SessionHelper {
     }
 
     @GetMapping("/menu")
-    public String menu(Model model) {
+    public String menu() {
 
 
         return "menu";

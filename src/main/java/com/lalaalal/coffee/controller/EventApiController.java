@@ -21,13 +21,13 @@ public class EventApiController extends SessionHelper {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ResultDTO> addEvent(@RequestBody Event event) {
+    public ResponseEntity<ResultDTO> add(@RequestBody Event event) {
         Result result = eventService.addEvent(event);
         return createResultEntity(result);
     }
 
     @RequestMapping(value = "/{eventId}/cancel")
-    public ResponseEntity<ResultDTO> cancelEvent(@PathVariable("eventId") int eventId) {
+    public ResponseEntity<ResultDTO> cancel(@PathVariable("eventId") int eventId) {
         Result result = eventService.cancel(eventId);
         return createResultEntity(result);
     }

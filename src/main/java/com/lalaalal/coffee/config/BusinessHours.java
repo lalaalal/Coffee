@@ -97,15 +97,17 @@ public class BusinessHours {
             return map;
         }
 
-        public TimeRange put(String key) {
+        public void put(String key) {
             String[] parts = key.split("\\.");
-            if (parts.length > 1)
-                return this.put(parts[0], Registries.get(TimeRangeRegistry.class, key));
-            return this.put(Registries.get(TimeRangeRegistry.class, key));
+            if (parts.length > 1) {
+                this.put(parts[0], Registries.get(TimeRangeRegistry.class, key));
+                return;
+            }
+            this.put(Registries.get(TimeRangeRegistry.class, key));
         }
 
-        public TimeRange put(TimeRange value) {
-            return this.put(value.getId(), value);
+        public void put(TimeRange value) {
+            this.put(value.getId(), value);
         }
 
         @Override

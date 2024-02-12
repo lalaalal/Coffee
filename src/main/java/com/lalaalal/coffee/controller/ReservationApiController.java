@@ -7,7 +7,6 @@ import com.lalaalal.coffee.dto.ResultDTO;
 import com.lalaalal.coffee.exception.ClientCausedException;
 import com.lalaalal.coffee.model.Event;
 import com.lalaalal.coffee.model.Result;
-import com.lalaalal.coffee.model.User;
 import com.lalaalal.coffee.service.EventService;
 import com.lalaalal.coffee.service.OrderService;
 import com.lalaalal.coffee.service.ReservationService;
@@ -39,7 +38,7 @@ public class ReservationApiController extends SessionHelper {
     }
 
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<Collection<ReservationDTO>> listOrder() {
+    public ResponseEntity<Collection<ReservationDTO>> list() {
         return createResponseEntity(
                 reservationService.collectDTO(orderService.delegateGetter(), currentUser().getPermission()),
                 HttpStatus.OK
@@ -47,7 +46,7 @@ public class ReservationApiController extends SessionHelper {
     }
 
     @PostMapping("/make")
-    public ResponseEntity<ResultDTO> makeReservation(@RequestBody ReservationRequestDTO reservation) {
+    public ResponseEntity<ResultDTO> make(@RequestBody ReservationRequestDTO reservation) {
         String reservationId = reservationService.createReservationId(reservation);
         Result result = reservationService.makeReservation(reservation, reservation.getHashedPassword());
         if (!result.status().is2xxSuccessful())
@@ -60,7 +59,7 @@ public class ReservationApiController extends SessionHelper {
     }
 
     @RequestMapping(value = "/{reservationId}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<ReservationDTO> getReservation(@PathVariable("reservationId") String reservationId) {
+    public ResponseEntity<ReservationDTO> read(@PathVariable("reservationId") String reservationId) {
         if (!reservationService.isValidKey(reservationId))
             // TODO: 12/28/23 add translation
             throw new ClientCausedException("error.client.message.no_such_reservation_id", reservationId);
@@ -70,7 +69,7 @@ public class ReservationApiController extends SessionHelper {
     }
 
     @RequestMapping(value = "/{reservationId}/cancel", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<ResultDTO> cancelReservation(@PathVariable("reservationId") String reservationId) {
+    public ResponseEntity<ResultDTO> cancel(@PathVariable("reservationId") String reservationId) {
         ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser().getPermission());
         Result orderResult = orderService.cancelOrder(reservationDTO.getOrder().getId());
         if (orderResult.status().is4xxClientError())
