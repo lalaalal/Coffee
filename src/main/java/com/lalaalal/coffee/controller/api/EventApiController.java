@@ -1,5 +1,6 @@
-package com.lalaalal.coffee.controller;
+package com.lalaalal.coffee.controller.api;
 
+import com.lalaalal.coffee.controller.SessionHelper;
 import com.lalaalal.coffee.dto.ResultDTO;
 import com.lalaalal.coffee.model.Event;
 import com.lalaalal.coffee.model.Result;

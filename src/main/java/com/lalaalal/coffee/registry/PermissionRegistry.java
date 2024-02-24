@@ -1,9 +1,9 @@
 package com.lalaalal.coffee.registry;
 
+import com.lalaalal.coffee.Permission;
+
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import com.lalaalal.coffee.Permission;
 
 public class PermissionRegistry extends Registry<Permission> {
     @Override
@@ -19,6 +19,8 @@ public class PermissionRegistry extends Registry<Permission> {
 
         register("delete.reservation");
         register("delete");
+
+        register("privilege.reservation", "read.reservation", "edit.reservation", "delete.reservation");
 
         register(Permission.ADMIN);
     }

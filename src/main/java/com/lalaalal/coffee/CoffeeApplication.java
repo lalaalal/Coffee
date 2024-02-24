@@ -5,15 +5,14 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.lalaalal.coffee.config.BusinessHours;
 import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.order.argument.OrderArgumentMap;
 import com.lalaalal.coffee.registry.*;
 import com.lalaalal.coffee.serializer.*;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -57,6 +56,11 @@ public class CoffeeApplication {
     @Bean
     public static ObjectMapper objectMapper() {
         return MAPPER;
+    }
+
+    @Bean
+    public static BusinessHours businessHours() {
+        return BusinessHours.getInstance();
     }
 
     public static void main(String[] args) {

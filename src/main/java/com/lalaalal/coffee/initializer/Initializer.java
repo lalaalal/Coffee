@@ -9,8 +9,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-public class Initializer {
-    protected static void initialize(Class<?> initializer, Time time) {
+public interface Initializer {
+    static void initialize(Class<? extends Initializer> initializer, Time time) {
         Reflections reflections = new Reflections(
                 new ConfigurationBuilder()
                         .addScanners(Scanners.MethodsAnnotated.filterResultsBy(s -> true))
@@ -29,9 +29,8 @@ public class Initializer {
             }
         } catch (InvocationTargetException exception) {
             // TODO : handle exception
-            exception.printStackTrace();
         } catch (IllegalAccessException exception) {
-            exception.getMessage();
+
         }
 
     }

@@ -1,6 +1,7 @@
-package com.lalaalal.coffee.controller;
+package com.lalaalal.coffee.controller.api;
 
 import com.lalaalal.coffee.Language;
+import com.lalaalal.coffee.controller.SessionHelper;
 import com.lalaalal.coffee.dto.MenuDTO;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.OrderItemDTO;

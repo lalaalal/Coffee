@@ -4,6 +4,8 @@ import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.ReservationDTO;
+import com.lalaalal.coffee.initializer.Initialize;
+import com.lalaalal.coffee.initializer.Initializer;
 import com.lalaalal.coffee.misc.DelegateGetter;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Reservation;
@@ -16,12 +18,14 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 @Service
-public class ReservationService extends DataStoreService<String, Reservation> {
+public class ReservationService extends DataStoreService<String, Reservation>
+        implements Initializer {
     public static final String DATE_TIME_PATTERN = "yyMMddHHmm";
 
     public ReservationService() {
         super(String.class, Reservation.class, HashMap::new,
                 Configurations.getConfiguration("data.reservation.path"));
+        Initializer.initialize(getClass(), Initialize.Time.Post);
     }
 
     public String createReservationId(ReservationDTO reservationDTO) {

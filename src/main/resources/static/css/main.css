@@ -51,7 +51,7 @@ button, input, optgroup, select, textarea {
 
 .rectangle-button {
     transition-duration: 0.5s;
-    padding: 8px 16px;
+    padding: 12px;
     border: #ddd solid 1px;
     background-color: transparent;
 }
@@ -69,7 +69,7 @@ button, input, optgroup, select, textarea {
 }
 
 .connected-radio-button {
-    padding: 8px 16px;
+    padding: 12px 12px;
     border-right: none;
     background-color: transparent;
 }
@@ -215,7 +215,7 @@ button, input, optgroup, select, textarea {
     border: #ddd solid 1px;
     border-bottom: gray solid 1px;
     background-color: #eee;
-    padding: 8px 4px;
+    padding: 12px 12px;
 }
 
 .red-border {
@@ -233,9 +233,6 @@ button, input, optgroup, select, textarea {
 }
 
 @media (max-width: 512px) {
-    .rectangle-button {
-        padding: 8px;
-    }
 
     .short-width-input {
         max-width: 100px;

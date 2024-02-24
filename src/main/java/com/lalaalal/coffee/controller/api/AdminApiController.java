@@ -1,5 +1,6 @@
-package com.lalaalal.coffee.controller;
+package com.lalaalal.coffee.controller.api;
 
+import com.lalaalal.coffee.controller.SessionHelper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RestController;
 

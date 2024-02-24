@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.function.Supplier;
 
-public class Registries extends Initializer {
+public class Registries implements Initializer {
     private static final HashMap<Class<?>, Registry<?>> registries = new HashMap<>();
     private static final Queue<Registry<?>> initializeQueue = new LinkedList<>();
 
@@ -36,7 +36,7 @@ public class Registries extends Initializer {
         return type.cast(registries.get(type));
     }
 
-    public static <T, E> T get(Class<? extends Registry<T>> type, String key) {
+    public static <T> T get(Class<? extends Registry<T>> type, String key) {
         return get(type).get(key);
     }
 }

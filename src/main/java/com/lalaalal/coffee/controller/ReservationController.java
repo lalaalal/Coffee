@@ -26,12 +26,17 @@ import java.util.*;
 public class ReservationController extends SessionHelper {
     private final OrderService orderService;
     private final ReservationService reservationService;
+    private final BusinessHours businessHours;
 
     @Autowired
-    public ReservationController(HttpSession httpSession, OrderService orderService, ReservationService reservationService) {
+    public ReservationController(HttpSession httpSession,
+                                 OrderService orderService,
+                                 ReservationService reservationService,
+                                 BusinessHours businessHours) {
         super(httpSession);
         this.orderService = orderService;
         this.reservationService = reservationService;
+        this.businessHours = businessHours;
     }
 
     @GetMapping("/view")
@@ -74,7 +79,6 @@ public class ReservationController extends SessionHelper {
         if (date == null)
             date = LocalDate.now();
 
-        BusinessHours businessHours = BusinessHours.getInstance();
         List<LocalTime> availableTimes = businessHours.getAvailableReservationTimes(date.getDayOfWeek());
 
         LocalDate current = date;

@@ -19,7 +19,7 @@ public class TimeRangeRegistry extends Registry<TimeRange> {
     @Override
     public TimeRange get(String key) {
         if (registry.containsKey(key))
-            return TimeRange.EMPTY;
-        return super.get(key);
+            return super.get(key);
+        return TimeRange.EMPTY;
     }
 }
