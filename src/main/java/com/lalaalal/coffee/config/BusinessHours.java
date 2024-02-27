@@ -1,9 +1,14 @@
 package com.lalaalal.coffee.config;
 
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.lalaalal.coffee.CoffeeApplication;
 import com.lalaalal.coffee.initializer.Initialize;
 import com.lalaalal.coffee.registry.Registries;
 import com.lalaalal.coffee.registry.TimeRangeRegistry;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -21,21 +26,18 @@ public class BusinessHours {
 
     @Initialize(with = Registries.class)
     public static void initialize() {
-        // TODO : load from file...
         BusinessHours instance = getInstance();
 
-        DayOfWeek[] normal = {DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.THURSDAY};
-        for (DayOfWeek dayOfWeek : normal) {
-            instance.map.put(dayOfWeek, DateBusinessHours.of(
-                    TimeRange.ID_OPEN, TimeRange.ID_LUNCH, TimeRange.ID_BREAK_TIME
-            ));
+        String configFilePath = Configurations.getConfiguration("config.path.business_hours");
+        try (InputStream inputStream = new FileInputStream(configFilePath)) {
+            TypeFactory typeFactory = CoffeeApplication.MAPPER.getTypeFactory();
+            Map<DayOfWeek, String[]> configure = CoffeeApplication.MAPPER.readValue(inputStream, typeFactory.constructMapType(Map.class, DayOfWeek.class, String[].class));
+            for (DayOfWeek dayOfWeek : configure.keySet()) {
+                instance.map.put(dayOfWeek, DateBusinessHours.of(configure.get(dayOfWeek)));
+            }
+        } catch (IOException exception) {
+            // TODO : handle exception
         }
-        instance.map.put(DayOfWeek.WEDNESDAY, DateBusinessHours.of(
-                "open.wednesday", TimeRange.ID_LUNCH, TimeRange.ID_BREAK_TIME
-        ));
-        instance.map.put(DayOfWeek.FRIDAY, DateBusinessHours.of(
-                "open.friday", TimeRange.ID_LUNCH
-        ));
     }
 
     public static BusinessHours getInstance() {

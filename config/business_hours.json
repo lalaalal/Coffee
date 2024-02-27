@@ -1,0 +1,26 @@
+{
+    "monday": [
+        "open",
+        "lunch",
+        "break_time"
+    ],
+    "tuesday": [
+        "open",
+        "lunch",
+        "break_time"
+    ],
+    "wednesday": [
+        "open.wednesday",
+        "lunch",
+        "break_time"
+    ],
+    "thursday": [
+        "open",
+        "lunch",
+        "break_time"
+    ],
+    "friday": [
+        "open.friday",
+        "lunch"
+    ]
+}

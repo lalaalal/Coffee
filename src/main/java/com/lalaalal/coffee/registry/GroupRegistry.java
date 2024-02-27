@@ -6,7 +6,7 @@ import com.lalaalal.coffee.model.menu.Group;
 public class GroupRegistry extends Registry<Group> {
     @Override
     public void initialize() {
-        String filePath = Configurations.getConfiguration("menu.groups.path");
+        String filePath = Configurations.getConfiguration("config.path.group");
         loadListFromJson(filePath, String.class, this::register);
 
         register("etc");

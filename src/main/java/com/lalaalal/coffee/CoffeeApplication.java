@@ -17,6 +17,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.DayOfWeek;
+
 @Slf4j
 @SpringBootApplication
 public class CoffeeApplication {
@@ -45,6 +47,7 @@ public class CoffeeApplication {
         registerSerializer(Menu.class, new MenuSerializer(), new MenuDeserializer());
         registerSerializer(Drink.class, new DrinkSerializer(), new DrinkDeserializer());
         registerSerializer(OrderArgumentMap.class, new OrderArgumentMapSerializer(), new OrderArgumentMapDeserializer());
+        MODULE.addDeserializer(DayOfWeek.class, new DayOfWeekDeserializer());
         registerRegistries();
 
         MAPPER.registerModule(MODULE);

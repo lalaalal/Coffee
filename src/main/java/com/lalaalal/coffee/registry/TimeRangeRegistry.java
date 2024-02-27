@@ -8,7 +8,7 @@ public class TimeRangeRegistry extends Registry<TimeRange> {
     public void initialize() {
         register(TimeRange.EMPTY);
 
-        String filePath = Configurations.getConfiguration("time_range.path");
+        String filePath = Configurations.getConfiguration("config.path.time_range");
         loadListFromJson(filePath, TimeRange.class, this::register);
     }
 

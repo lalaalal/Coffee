@@ -6,7 +6,7 @@ import com.lalaalal.coffee.model.menu.Menu;
 public class MenuRegistry extends Registry<Menu> {
     @Override
     public void initialize() {
-        String filePath = Configurations.getConfiguration("menu.path");
+        String filePath = Configurations.getConfiguration("config.path.menu");
         loadListFromJson(filePath, Menu.class, this::register);
     }
 

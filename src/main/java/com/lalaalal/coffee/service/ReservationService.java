@@ -24,7 +24,7 @@ public class ReservationService extends DataStoreService<String, Reservation>
 
     public ReservationService() {
         super(String.class, Reservation.class, HashMap::new,
-                Configurations.getConfiguration("data.reservation.path"));
+                Configurations.getConfiguration("data.path.reservation"));
         Initializer.initialize(getClass(), Initialize.Time.Post);
     }
 

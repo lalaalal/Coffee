@@ -16,7 +16,7 @@ public class EventService extends DataStoreService<Integer, Event> {
 
     public EventService() {
         super(Integer.class, Event.class, HashMap::new,
-                Configurations.getConfiguration("data.event.path"));
+                Configurations.getConfiguration("data.path.event"));
         keyGenerator = new IntegerKeyGenerator();
         keyGenerator.setKeySetSupplier(data::keySet);
     }

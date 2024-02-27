@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class UserService extends DataStoreService<String, User> {
     public UserService() {
         super(String.class, User.class, HashMap::new,
-                Configurations.getConfiguration("data.user.path"));
+                Configurations.getConfiguration("data.path.user"));
     }
 
     public Result login(String id, String password) {

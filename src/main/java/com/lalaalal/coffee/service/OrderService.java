@@ -32,7 +32,7 @@ public class OrderService extends DataStoreService<String, Order> {
 
     public OrderService() {
         super(String.class, Order.class, HashMap::new,
-                Configurations.getConfiguration("data.order.path"));
+                Configurations.getConfiguration("data.path.order"));
         keyGenerator = new DateBasedKeyGenerator();
         keyGenerator.setKeySetSupplier(data::keySet);
     }
