@@ -16,9 +16,9 @@ public interface Initializer {
                         .addScanners(Scanners.MethodsAnnotated.filterResultsBy(s -> true))
                         .forPackage("com.lalaalal.coffee")
         );
-        Set<Method> classes = reflections.getMethodsAnnotatedWith(Initialize.class);
+        Set<Method> methods = reflections.getMethodsAnnotatedWith(Initialize.class);
         try {
-            for (Method method : classes) {
+            for (Method method : methods) {
                 if (method.getParameterCount() > 0 || method.getReturnType() != void.class)
                     continue;
                 Initialize[] annotations = method.getAnnotationsByType(Initialize.class);
