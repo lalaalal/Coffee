@@ -4,6 +4,7 @@ import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.ReservationDTO;
+import com.lalaalal.coffee.exception.FatalError;
 import com.lalaalal.coffee.initializer.Initialize;
 import com.lalaalal.coffee.initializer.Initializer;
 import com.lalaalal.coffee.misc.DelegateGetter;
@@ -22,7 +23,7 @@ public class ReservationService extends DataStoreService<String, Reservation>
         implements Initializer {
     public static final String DATE_TIME_PATTERN = "yyMMddHHmm";
 
-    public ReservationService() {
+    public ReservationService() throws FatalError {
         super(String.class, Reservation.class, HashMap::new,
                 Configurations.getConfiguration("data.path.reservation"));
         Initializer.initialize(getClass(), Initialize.Time.Post);

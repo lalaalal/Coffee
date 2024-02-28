@@ -1,5 +1,6 @@
 package com.lalaalal.coffee.registry;
 
+import com.lalaalal.coffee.exception.FatalError;
 import com.lalaalal.coffee.initializer.Initialize.Time;
 import com.lalaalal.coffee.initializer.Initializer;
 
@@ -23,7 +24,7 @@ public class Registries implements Initializer {
         return type.cast(registry);
     }
 
-    public static void initialize() {
+    public static void initialize() throws FatalError {
         Initializer.initialize(Registries.class, Time.Pre);
         while (!initializeQueue.isEmpty()) {
             Registry<?> registry = initializeQueue.poll();

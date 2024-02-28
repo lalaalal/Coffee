@@ -68,6 +68,11 @@ public class Language {
         return key;
     }
 
+    @Override
+    public String toString() {
+        return locale.getDisplayLanguage();
+    }
+
     @Getter
     private static class BundleCreator {
         private final String directory;

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lalaalal.coffee.config.BusinessHours;
 import com.lalaalal.coffee.config.Configurations;
+import com.lalaalal.coffee.exception.FatalError;
 import com.lalaalal.coffee.model.menu.Drink;
 import com.lalaalal.coffee.model.menu.Menu;
 import com.lalaalal.coffee.model.order.argument.OrderArgumentMap;
@@ -41,7 +42,7 @@ public class CoffeeApplication {
         Registries.register(TimeRangeRegistry.class, TimeRangeRegistry::new);
     }
 
-    public static void initialize() {
+    public static void initialize() throws FatalError {
         log.info("Initializing before Spring Boot");
         MAPPER.registerModule(new JavaTimeModule());
         registerSerializer(Menu.class, new MenuSerializer(), new MenuDeserializer());
@@ -67,7 +68,15 @@ public class CoffeeApplication {
     }
 
     public static void main(String[] args) {
-        initialize();
-        SpringApplication.run(CoffeeApplication.class, args);
+        try {
+            initialize();
+            SpringApplication.run(CoffeeApplication.class, args);
+        } catch (Throwable throwable) {
+            log.error(throwable.getMessage());
+            Throwable cause = throwable.getCause();
+            if (cause != null)
+                log.error("cause : {}", cause.getMessage());
+            log.error("Boot failed!");
+        }
     }
 }

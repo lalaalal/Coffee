@@ -5,17 +5,17 @@ import com.lalaalal.coffee.CoffeeApplication;
 import com.lalaalal.coffee.initializer.Initialize;
 import com.lalaalal.coffee.registry.Registries;
 import com.lalaalal.coffee.registry.TimeRangeRegistry;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.TextStyle;
+import java.util.*;
 
+@Slf4j
 public class BusinessHours {
     private static BusinessHours instance = null;
 
@@ -25,7 +25,7 @@ public class BusinessHours {
     }
 
     @Initialize(with = Registries.class)
-    public static void initialize() {
+    public static void initialize() throws IOException {
         BusinessHours instance = getInstance();
 
         String configFilePath = Configurations.getConfiguration("config.path.business_hours");
@@ -33,10 +33,13 @@ public class BusinessHours {
             TypeFactory typeFactory = CoffeeApplication.MAPPER.getTypeFactory();
             Map<DayOfWeek, String[]> configure = CoffeeApplication.MAPPER.readValue(inputStream, typeFactory.constructMapType(Map.class, DayOfWeek.class, String[].class));
             for (DayOfWeek dayOfWeek : configure.keySet()) {
-                instance.map.put(dayOfWeek, DateBusinessHours.of(configure.get(dayOfWeek)));
+                String[] value = configure.get(dayOfWeek);
+                log.debug("Adding {}: {}", dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH), value);
+                instance.map.put(dayOfWeek, DateBusinessHours.of(value));
             }
         } catch (IOException exception) {
-            // TODO : handle exception
+            log.error("Cannot initialize business hours.");
+            throw exception;
         }
     }
 

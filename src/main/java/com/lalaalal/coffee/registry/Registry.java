@@ -3,17 +3,14 @@ package com.lalaalal.coffee.registry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.lalaalal.coffee.CoffeeApplication;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -22,6 +19,7 @@ import java.util.function.Consumer;
  * @param <T> Object type to store, should be serializable with {@link ObjectMapper}
  * @author lalaalal
  */
+@Slf4j
 public abstract class Registry<T> {
     protected static final ObjectMapper MAPPER = CoffeeApplication.MAPPER;
 
@@ -39,6 +37,10 @@ public abstract class Registry<T> {
         } catch (IOException e) {
             // TODO: 12/3/23 handle exception
         }
+    }
+
+    public String getName() {
+        return getClass().getSimpleName();
     }
 
     public abstract void initialize();
@@ -68,6 +70,7 @@ public abstract class Registry<T> {
     public void register(String key, T value) {
         if (registry.containsKey(key))
             throw new RuntimeException("Key (%s) already exists".formatted(key));
+        log.debug("[{}] Registering '{}'", getName(), key);
         registry.put(key, value);
     }
 

@@ -1,5 +1,6 @@
 package com.lalaalal.coffee.config;
 
+import com.lalaalal.coffee.exception.FatalError;
 import com.lalaalal.coffee.initializer.Initialize.Time;
 import com.lalaalal.coffee.initializer.Initializer;
 import lombok.extern.slf4j.Slf4j;
@@ -18,22 +19,25 @@ public class Configurations implements Initializer {
     private Configurations() {
     }
 
-    public static void initialize() {
-        log.debug("Initializing Configurations");
+    public static void initialize() throws FatalError {
+        log.info("Initializing Configurations");
         Initializer.initialize(Configurations.class, Time.Pre);
         try (InputStream inputStream = Configurations.class.getResourceAsStream("/config/default.properties")) {
             defaults.load(inputStream);
-        } catch (IOException e) {
+        } catch (IOException exception) {
             log.error("Something went wrong while loading default configurations");
+            throw new FatalError("Initializing configurations failed.", exception);
         }
 
         String userConfigFile = "./config/config.properties";
         try (InputStream inputStream = new FileInputStream(userConfigFile)) {
             configurations.load(inputStream);
-        } catch (FileNotFoundException e) {
-            log.warn("Configuration file %s".formatted(userConfigFile));
-        } catch (IOException e) {
+        } catch (FileNotFoundException exception) {
+            log.warn("Configuration file {} is not found", userConfigFile);
+            log.warn("Pass loading target configurations.");
+        } catch (IOException exception) {
             log.error("Something went wrong while loading user configurations");
+            throw new FatalError("Initializing configurations failed.", exception);
         }
         Initializer.initialize(Configurations.class, Time.Post);
     }
@@ -43,7 +47,7 @@ public class Configurations implements Initializer {
             return configurations.getProperty(key);
         if (defaults.containsKey(key))
             return defaults.getProperty(key);
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Configuration key '%s' not found.".formatted(key));
     }
 
     public static int getIntConfiguration(String key) {

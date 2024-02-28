@@ -1,16 +1,16 @@
 package com.lalaalal.coffee.initializer;
 
+import com.lalaalal.coffee.exception.FatalError;
 import com.lalaalal.coffee.initializer.Initialize.Time;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ConfigurationBuilder;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Set;
 
 public interface Initializer {
-    static void initialize(Class<? extends Initializer> initializer, Time time) {
+    static void initialize(Class<? extends Initializer> initializer, Time time) throws FatalError {
         Reflections reflections = new Reflections(
                 new ConfigurationBuilder()
                         .addScanners(Scanners.MethodsAnnotated.filterResultsBy(s -> true))
@@ -27,11 +27,8 @@ public interface Initializer {
                         && annotations[0].time().equals(time))
                     method.invoke(null);
             }
-        } catch (InvocationTargetException exception) {
-            // TODO : handle exception
-        } catch (IllegalAccessException exception) {
-
+        } catch (Throwable exception) {
+            throw new FatalError(exception.getCause());
         }
-
     }
 }

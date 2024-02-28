@@ -58,4 +58,9 @@ public class Menu {
         int count = arguments.getArgumentValue(ARG_COUNT, Integer.class);
         return getModifiedCost(modifier) * count;
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
 }
