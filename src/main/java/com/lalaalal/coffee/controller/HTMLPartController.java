@@ -33,7 +33,7 @@ public class HTMLPartController extends SessionHelper {
         String title = getUserLanguage().translate("app.name");
         model.addAttribute("title", title);
 
-        return "/part/header";
+        return "part/header";
     }
 
     @GetMapping("/menu-selector")
@@ -43,7 +43,7 @@ public class HTMLPartController extends SessionHelper {
         GroupRegistry groupRegistry = Registries.get(GroupRegistry.class);
         Event event = eventService.getEventAt(date);
         // TODO : add all menus tab
-        List<MenuDTO> menuList = new ArrayList<>();
+        //List<MenuDTO> menuList = new ArrayList<>();
         List<GroupDTO> groupList = new ArrayList<>();
         Map<GroupDTO, List<MenuDTO>> menuTable = new HashMap<>();
         for (Group group : groupRegistry.values()) {
@@ -53,7 +53,7 @@ public class HTMLPartController extends SessionHelper {
             for (Menu menu : group) {
                 MenuDTO menuDTO = new MenuDTO(menu, event, getUserLanguage());
                 groupMenuList.add(menuDTO);
-                menuList.add(menuDTO);
+                //menuList.add(menuDTO);
             }
             groupMenuList.sort(Comparator.comparingInt(MenuDTO::getCost));
             menuTable.put(groupDTO, groupMenuList);
@@ -62,12 +62,12 @@ public class HTMLPartController extends SessionHelper {
         model.addAttribute("groupList", groupList);
         model.addAttribute("menuTable", menuTable);
 
-        return "/part/menu-selector";
+        return "part/menu-selector";
     }
 
     @GetMapping("/order-viewer")
     public String order(Model model, @RequestParam(value = "editable", defaultValue = "false") Boolean editable) {
         model.addAttribute("editable", editable);
-        return "/part/order-viewer";
+        return "part/order-viewer";
     }
 }

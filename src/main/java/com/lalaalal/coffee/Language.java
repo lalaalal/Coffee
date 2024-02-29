@@ -51,10 +51,11 @@ public class Language {
         this.bundles.add(ResourceBundle.getBundle(DEFAULT_BASE_NAME, locale));
         for (BundleCreator creator : BUNDLE_CREATORS) {
             try {
+                log.debug("Adding bundle '{}' to language '{}'", creator.baseName, language);
                 ResourceBundle bundle = creator.create(locale);
                 bundles.add(bundle);
             } catch (IOException exception) {
-                log.warn("Cannot load translation data named '%s'".formatted(creator.baseName));
+                log.warn("Cannot load translation data named '{}'", creator.baseName);
                 log.warn(exception.getMessage());
             }
         }

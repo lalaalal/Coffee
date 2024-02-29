@@ -71,7 +71,7 @@ public class ReservationController extends SessionHelper {
         model.addAttribute("weekReservations", weekReservations);
         model.addAttribute("formatter", formatter);
 
-        return "/reservation/view";
+        return "reservation/view";
     }
 
     @GetMapping("/make")
@@ -88,7 +88,7 @@ public class ReservationController extends SessionHelper {
 
         model.addAttribute("date", date);
         model.addAttribute("availableTimes", availableTimes);
-        return "/reservation/make";
+        return "reservation/make";
     }
 
     @GetMapping("/{reservationId}")
@@ -96,6 +96,6 @@ public class ReservationController extends SessionHelper {
         ReservationDTO reservation = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser().getPermission());
         model.addAttribute("reservation", reservation);
 
-        return "/reservation/reservation-view";
+        return "reservation/reservation-view";
     }
 }

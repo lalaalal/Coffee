@@ -25,7 +25,7 @@ public class HomeController extends SessionHelper {
         Event event = eventService.getCurrentEvent();
         model.addAttribute("event", event);
 
-        return "/index";
+        return "index";
     }
 
     @GetMapping("/menu")
