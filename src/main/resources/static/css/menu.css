@@ -16,6 +16,11 @@
     font-weight: bold;
 }
 
+.menu-container {
+    grid-gap: 8px;
+    padding-bottom: 8px;
+}
+
 .menu-item {
     display: flex;
     flex-direction: column;
@@ -23,4 +28,5 @@
     padding: 24px 16px;
     flex: 1;
     min-width: 100px;
+    margin: 0;
 }

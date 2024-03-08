@@ -69,13 +69,13 @@ public class ReservationApiController extends SessionHelper {
         return createResponseEntity(reservationDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{reservationId}/cancel", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<ResultDTO> cancel(@PathVariable("reservationId") String reservationId) {
+    @PostMapping("/{reservationId}/cancel")
+    public ResponseEntity<ResultDTO> cancel(@PathVariable("reservationId") String reservationId, @RequestBody String password) {
         ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser().getPermission());
         Result orderResult = orderService.cancelOrder(reservationDTO.getOrder().getId());
         if (orderResult.status().is4xxClientError())
             return createResultEntity(orderResult);
-        Result result = reservationService.cancel(reservationId);
+        Result result = reservationService.cancel(reservationId, password);
 
         return createResultEntity(result);
     }

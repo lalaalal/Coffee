@@ -6,7 +6,7 @@
              th:each="group : ${groupList}"
              th:text="${group.name}"></div>
     </div>
-    <div class="row-content row-direction-container wrap-container menu-container" th:data-group-id="${group.id}"
+    <div class="row-content grid-two-column menu-container" th:data-group-id="${group.id}"
          th:each="group : ${groupList}">
         <div class="row-content-item hover-effect outlined menu-item" th:data-menu-id="${menu.id}"
              th:each="menu : ${menuTable.get(group)}">

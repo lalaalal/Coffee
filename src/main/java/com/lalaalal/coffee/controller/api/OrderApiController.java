@@ -80,20 +80,4 @@ public class OrderApiController extends SessionHelper {
         Language language = getUserLanguage();
         return createResponseEntity(orderService.getMenuList(event, language), HttpStatus.OK);
     }
-
-    @PostMapping("/{orderId}/menu/{menuId}/cancel")
-    public ResponseEntity<ResultDTO> cancelMenu(
-            @PathVariable("orderId") String orderId,
-            @PathVariable("menuId") String menuId) {
-        Result result = orderService.cancelMenu(orderId, menuId);
-
-        return createResultEntity(result);
-    }
-
-    @PostMapping("/{orderId}/cancel")
-    public ResponseEntity<ResultDTO> cancel(@PathVariable("orderId") String orderId) {
-        Result result = orderService.cancelOrder(orderId);
-
-        return createResultEntity(result);
-    }
 }

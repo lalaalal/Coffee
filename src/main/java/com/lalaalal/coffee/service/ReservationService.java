@@ -45,9 +45,21 @@ public class ReservationService extends DataStoreService<String, Reservation>
         return Result.SUCCEED;
     }
 
-    public Result cancel(String id) {
+    private Result cancel(String id) {
         if (!data.containsKey(id))
             return Result.failed("result.message.failed.no_such_reservation_id", id);
+        data.remove(id);
+        save();
+        return Result.SUCCEED;
+    }
+
+    public Result cancel(String id, String password) {
+        if (!data.containsKey(id))
+            return Result.failed("result.message.failed.no_such_reservation_id", id);
+        Reservation reservation = data.get(id);
+        if (!reservation.checkPassword(password))
+            // TODO : trans
+            return Result.forbidden("result.message.forbidden.cancel_reservation", reservation.getId());
         data.remove(id);
         save();
         return Result.SUCCEED;

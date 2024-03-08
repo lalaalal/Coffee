@@ -19,6 +19,10 @@ public record Result(HttpStatus status, Message message) {
         return new Result(HttpStatus.FORBIDDEN, Message.of("result.message.forbidden", userName));
     }
 
+    public static Result forbidden(String messageKey, Object... args) {
+        return new Result(HttpStatus.FORBIDDEN, Message.of(messageKey, args));
+    }
+
     public static Result error(String messageKey, Object... args) {
         return of(HttpStatus.INTERNAL_SERVER_ERROR, messageKey, args);
     }

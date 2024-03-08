@@ -2,6 +2,7 @@ package com.lalaalal.coffee.model.order;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lalaalal.coffee.misc.SHA256;
 import lombok.Getter;
@@ -44,7 +45,12 @@ public class Reservation {
         this.forMeeting = forMeeting;
     }
 
-    private boolean checkPassword(String password) {
+    @JsonIgnore
+    public String getId() {
+        return orderId;
+    }
+
+    public boolean checkPassword(String password) {
         return hashedPassword.equals(SHA256.encrypt(password));
     }
 }
