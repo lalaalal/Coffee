@@ -18,9 +18,33 @@
 <body>
 <header class="html-part" data-include-file="/part/header"></header>
 <main>
-    <div>과 이름</div><div th:text="${reservation.name}"></div>
-    <div>연락처</div><div th:text="${reservation.contact}"></div>
-    <div>요청사항</div><div th:text="${reservation.message}"></div>
+    <div class="title" th:text="${reservation.getId()}"></div>
+    <div class="column-direction-container outlined">
+        <div class="grid-two-column">
+            <div class="content">
+                <label class="form-label" for="name-input">과 이름</label>
+                <input class="rectangle-input" id="name-input" name="name" placeholder="과 이름" size="5" type="text"
+                       th:value="${reservation.getName()}" disabled>
+            </div>
+            <div class="content">
+                <label class="form-label" for="contact-input">연락처</label>
+                <input class="rectangle-input" id="contact-input" name="name" placeholder="연락서 (사무실 번호)" size="5"
+                       type="text" th:value="${reservation.getContact()}" disabled>
+            </div>
+        </div>
+        <div class="content">
+            <label class="form-label" for="time-selector">시간</label>
+            <select class="rectangle-input" id="time-selector" name="time" disabled>
+                <option th:text="${reservation.getTime().toLocalTime()}"
+                        th:value="${reservation.getTime().toLocalTime()}"></option>
+            </select>
+        </div>
+        <div class="content">
+            <label class="form-label" for="message-input">요청 사항</label>
+            <textarea class="rectangle-input" name="name" id="message-input" autocomplete="off"
+                      th:value="${reservation.getMessage()}" disabled></textarea>
+        </div>
+    </div>
     <div class="html-part" data-include-file="/part/order-viewer" id="order-viewer-container" th:data-order-id="${reservation.id}"></div>
 </main>
 </body>

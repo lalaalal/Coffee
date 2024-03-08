@@ -1,5 +1,11 @@
 const ORDER_ITEM_HTML = "<div class=\"order-item\"></div>"
 
+$(document).ready(function () {
+    $('#order-viewer-container').on('click', '.item-remove-button', function () {
+        order.removeItem(this.value);
+    });
+});
+
 class Order {
     constructor() {
         this.items = [];
@@ -14,6 +20,11 @@ class Order {
             }
         }
         this.items.push(item);
+        this.onChange();
+    }
+
+    removeItem(index) {
+        this.items.splice(index, 1);
         this.onChange();
     }
 
@@ -45,6 +56,8 @@ class Order {
         for (const item of this.items) {
             text += this.makeOrderItemHTMLText(item)
         }
+        if (this.items.length === 0)
+            text = "<div class=\"order-item-container row-content\"><div class=\"order-item\">비어있음</div></div>"
 
         $('#order-viewer')[0].innerHTML = text;
     }
@@ -64,7 +77,10 @@ class Order {
             text += ' [' + item['arguments']['shot'] + ' 샷추가]';
         }
         text += ' × ' + item['arguments']['count'];
-        return `<div class="row-content"><p class="row-content-item order-item">${text}</p></div>`;
+        let index = this.items.indexOf(item, 0);
+        if ($('#order-viewer')[0].dataset.editable === "true")
+            return `<div class="order-item-container row-direction-container row-content"><p class="row-content-item order-item">${text}</p><button class="rectangle-button rectangle-button--compact item-remove-button" value="${index}">제거</button></div>`;
+        return `<div class="order-item-container row-direction-container row-content"><p class="row-content-item order-item">${text}</p></div>`;
     }
 }
 

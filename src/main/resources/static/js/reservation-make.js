@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    let targetDate = new Date($('.title')[0].innerHTML);
+    if (targetDate <= Date.now()) {
+        alert("신청이 불가능한 날짜입니다. 날짜를 확인해주세요!");
+        location.href = '/reservation/view';
+    }
+
     let makeReservationButton = $('#make-reservation-button');
     makeReservationButton.click(function() {
         for (const input of $('input[required]')) {

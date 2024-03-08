@@ -3,15 +3,16 @@ package com.lalaalal.coffee.registry;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.lalaalal.coffee.serializer.DrinkSerializer;
 import com.lalaalal.coffee.config.Configurations;
+import com.lalaalal.coffee.exception.FatalError;
 import com.lalaalal.coffee.model.menu.Drink;
+import com.lalaalal.coffee.serializer.DrinkSerializer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class DrinkRegistryTest {
     @BeforeEach
-    void setUp() {
+    void setUp() throws FatalError {
         Configurations.initialize();
     }
 

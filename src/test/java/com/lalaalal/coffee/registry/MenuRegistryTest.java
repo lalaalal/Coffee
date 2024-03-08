@@ -1,14 +1,14 @@
 package com.lalaalal.coffee.registry;
 
 import com.lalaalal.coffee.CoffeeApplication;
+import com.lalaalal.coffee.exception.FatalError;
 import com.lalaalal.coffee.model.menu.Menu;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class MenuRegistryTest {
     @BeforeEach
-    void setUp() {
+    void setUp() throws FatalError {
         CoffeeApplication.initialize();
     }
 

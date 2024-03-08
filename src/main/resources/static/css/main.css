@@ -51,7 +51,7 @@ button, input, optgroup, select, textarea {
 
 .rectangle-button {
     transition-duration: 0.5s;
-    padding: 12px;
+    padding: 8px 12px;
     border: #ddd solid 1px;
     background-color: transparent;
 }
@@ -66,6 +66,12 @@ button, input, optgroup, select, textarea {
 
 .rectangle-button--fill {
     width: 100%;
+}
+
+.rectangle-button--compact {
+    padding-top: 6px;
+    padding-bottom: 6px;
+
 }
 
 .connected-radio-button {
@@ -236,6 +242,11 @@ button, input, optgroup, select, textarea {
 
     .short-width-input {
         max-width: 100px;
+    }
+
+    .rectangle-button--shrink {
+        padding-left: 2px;
+        padding-right: 2px;
     }
 }
 

@@ -1,3 +1,13 @@
+.order-item-container {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 8px 0;
+}
+
 .order-item {
+    display: flex;
     text-align: start;
+    flex-grow: 1;
+    margin: 0;
+    align-items: center;
 }

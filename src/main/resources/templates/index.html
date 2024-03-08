@@ -14,22 +14,8 @@
 <body>
 <header class="html-part" data-include-file="/part/header"></header>
 <main>
-    <div class="column-direction-container mdc-data-table" th:if="${event != null}">
-        <div class="mdc-data-table__table-container">
-            <table aria-label="event" class="mdc-data-table__table">
-                <thead>
-                <tr class="mdc-data-table__header-row">
-                    <th class="notice-title mdc-data-table__header-cell" role="columnheader" scope="col">Event</th>
-                </tr>
-                </thead>
-                <tbody class="mdc-data-table__content">
-                <tr class="mdc-data-table__row">
-                    <th class="mdc-data-table__cell" th:text="${event.getTitle()}"></th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <div>현재 주문번호 : <span th:text="${currentOrderNumber}"></span></div>
+    <a href="/reservation/view">단체주문 예약</a>
 </main>
 
 </body>
