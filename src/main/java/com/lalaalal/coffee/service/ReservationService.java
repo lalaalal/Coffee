@@ -1,6 +1,5 @@
 package com.lalaalal.coffee.service;
 
-import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.dto.OrderDTO;
 import com.lalaalal.coffee.dto.ReservationDTO;
@@ -8,6 +7,7 @@ import com.lalaalal.coffee.exception.FatalError;
 import com.lalaalal.coffee.initializer.Initialize;
 import com.lalaalal.coffee.initializer.Initializer;
 import com.lalaalal.coffee.misc.DelegateGetter;
+import com.lalaalal.coffee.model.Accessor;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Reservation;
 import org.springframework.stereotype.Service;
@@ -45,14 +45,6 @@ public class ReservationService extends DataStoreService<String, Reservation>
         return Result.SUCCEED;
     }
 
-    private Result cancel(String id) {
-        if (!data.containsKey(id))
-            return Result.failed("result.message.failed.no_such_reservation_id", id);
-        data.remove(id);
-        save();
-        return Result.SUCCEED;
-    }
-
     public Result cancel(String id, String password) {
         if (!data.containsKey(id))
             return Result.failed("result.message.failed.no_such_reservation_id", id);
@@ -65,16 +57,16 @@ public class ReservationService extends DataStoreService<String, Reservation>
         return Result.SUCCEED;
     }
 
-    public ReservationDTO getReservation(DelegateGetter<String, OrderDTO> delegate, String id, Permission permission) {
+    public ReservationDTO getReservation(DelegateGetter<String, OrderDTO> delegate, String id, Accessor accessor) {
         Reservation reservation = data.get(id);
-        return ReservationDTO.convertFrom(delegate, reservation, permission);
+        return ReservationDTO.convertFrom(delegate, reservation, accessor);
     }
 
-    public Collection<ReservationDTO> collectDTO(DelegateGetter<String, OrderDTO> delegate, Permission permission) {
+    public Collection<ReservationDTO> collectDTO(DelegateGetter<String, OrderDTO> delegate, Accessor accessor) {
         ArrayList<ReservationDTO> list = new ArrayList<>();
         data.values().stream()
                 .sorted(Comparator.comparing(Reservation::getOrderId))
-                .forEach(reservation -> list.add(ReservationDTO.convertFrom(delegate, reservation, permission)));
+                .forEach(reservation -> list.add(ReservationDTO.convertFrom(delegate, reservation, accessor)));
         return list;
     }
 }

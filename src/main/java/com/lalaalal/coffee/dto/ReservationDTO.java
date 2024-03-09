@@ -8,10 +8,10 @@ import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.initializer.Initialize;
 import com.lalaalal.coffee.misc.DelegateGetter;
 import com.lalaalal.coffee.misc.TextHider;
+import com.lalaalal.coffee.model.Accessor;
 import com.lalaalal.coffee.model.order.Reservation;
 import com.lalaalal.coffee.registry.PermissionRegistry;
 import com.lalaalal.coffee.registry.Registries;
-
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -54,12 +54,12 @@ public class ReservationDTO {
         this.forMeeting = forMeeting;
     }
 
-    public static ReservationDTO convertFrom(DelegateGetter<String, OrderDTO> delegate, Reservation reservation, Permission permission) {
+    public static ReservationDTO convertFrom(DelegateGetter<String, OrderDTO> delegate, Reservation reservation, Accessor accessor) {
         if (reservation == null)
             return null;
         return new ReservationDTO(
-                hideText(permission, READ_RESERVATION_NAME, reservation.getName(), TextHider.SHOW_FIRST_CHARACTER),
-                hideText(permission, READ_RESERVATION_CONTACT, reservation.getContact(), TextHider.HIDE_ALL),
+                hideText(accessor, READ_RESERVATION_NAME, reservation.getName(), TextHider.SHOW_FIRST_CHARACTER),
+                hideText(accessor, READ_RESERVATION_CONTACT, reservation.getContact(), TextHider.HIDE_ALL),
                 delegate.get(reservation.getOrderId()),
                 reservation.getTime(),
                 reservation.getMessage(),
@@ -67,7 +67,7 @@ public class ReservationDTO {
         );
     }
 
-    protected static String hideText(Permission accessor, Permission required, String originalText, TextHider textHider) {
+    protected static String hideText(Accessor accessor, Permission required, String originalText, TextHider textHider) {
         if (accessor.canAccess(required))
             return originalText;
         return textHider.hide(originalText);

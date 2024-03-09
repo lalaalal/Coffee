@@ -1,6 +1,7 @@
 package com.lalaalal.coffee.service;
 
 import com.lalaalal.coffee.Language;
+import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.config.Configurations;
 import com.lalaalal.coffee.dto.MenuDTO;
 import com.lalaalal.coffee.dto.OrderDTO;
@@ -9,14 +10,15 @@ import com.lalaalal.coffee.exception.ClientCausedException;
 import com.lalaalal.coffee.misc.DateBasedKeyGenerator;
 import com.lalaalal.coffee.misc.DelegateGetter;
 import com.lalaalal.coffee.misc.KeyGenerator;
+import com.lalaalal.coffee.model.Accessor;
 import com.lalaalal.coffee.model.Event;
 import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Order;
 import com.lalaalal.coffee.model.order.OrderItem;
 import com.lalaalal.coffee.registry.MenuRegistry;
+import com.lalaalal.coffee.registry.PermissionRegistry;
 import com.lalaalal.coffee.registry.Registries;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,8 +28,9 @@ import java.util.List;
 
 @Service
 public class OrderService extends DataStoreService<String, Order> {
+    private static final Permission REQUIRED_EDIT_CURRENT_ORDER = Registries.get(PermissionRegistry.class, "edit.current_order_number");
     private final KeyGenerator<String> keyGenerator;
-    @Getter @Setter
+    @Getter
     private int currentOrderNumber;
 
     public OrderService() {
@@ -35,6 +38,14 @@ public class OrderService extends DataStoreService<String, Order> {
                 Configurations.getConfiguration("data.path.order"));
         keyGenerator = new DateBasedKeyGenerator();
         keyGenerator.setKeySetSupplier(data::keySet);
+    }
+
+    public Result setCurrentOrderNumber(int number, Accessor accessor) {
+        if (!accessor.canAccess(REQUIRED_EDIT_CURRENT_ORDER))
+            return Result.forbidden("result.message.forbidden.set_current_order_number", accessor.whoami());
+
+        currentOrderNumber = number;
+        return Result.SUCCEED;
     }
 
     public void increaseCurrentOrderNumber() {

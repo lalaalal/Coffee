@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="/js/home.js"></script>
+    <script src="/js/order-number.js"></script>
     <title>칠성다방</title>
 </head>
 <body>
 <header class="html-part" data-include-file="/part/header"></header>
 <main>
-    <div>현재 주문번호 : <span id="current-order-number" th:text="${currentOrderNumber}"></span></div>
-    <a href="/reservation/view">단체주문 예약</a>
+    <input type="number" name="order-number" id="order-number-input">
+    <input type="button" id="set-order-number-button" value="set">
 </main>
 
 </body>

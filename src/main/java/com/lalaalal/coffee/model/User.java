@@ -1,6 +1,7 @@
 package com.lalaalal.coffee.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lalaalal.coffee.Language;
@@ -15,7 +16,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @JsonIncludeProperties({"id", "hashed_password", "language", "permission"})
-public class User {
+public class User implements Accessor {
     @JsonProperty("id")
     private String id;
     @JsonProperty("hashed_password")
@@ -39,6 +40,12 @@ public class User {
         this.hashedPassword = SHA256.encrypt(password);
         this.language = Registries.get(LanguageRegistry.class, "");
         this.permission = Registries.get(PermissionRegistry.class, "none");
+    }
+
+    @JsonIgnore
+    @Override
+    public String whoami() {
+        return id;
     }
 
     @JsonProperty("language")

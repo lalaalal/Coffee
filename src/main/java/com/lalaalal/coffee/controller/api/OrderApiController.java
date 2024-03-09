@@ -41,6 +41,13 @@ public class OrderApiController extends SessionHelper {
         return orderService.getCurrentOrderNumber();
     }
 
+    @RequestMapping(value = "/set/{number}", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<ResultDTO> setOrderNumber(@PathVariable("number") int number) {
+        Result result = orderService.setCurrentOrderNumber(number, currentUser());
+
+        return createResultEntity(result);
+    }
+
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<Collection<OrderDTO>> list() {
         return createResponseEntity(orderService.collectDTO(), HttpStatus.OK);

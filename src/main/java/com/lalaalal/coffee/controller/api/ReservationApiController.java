@@ -41,7 +41,7 @@ public class ReservationApiController extends SessionHelper {
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<Collection<ReservationDTO>> list() {
         return createResponseEntity(
-                reservationService.collectDTO(orderService.delegateGetter(), currentUser().getPermission()),
+                reservationService.collectDTO(orderService.delegateGetter(), currentUser()),
                 HttpStatus.OK
         );
     }
@@ -64,14 +64,14 @@ public class ReservationApiController extends SessionHelper {
         if (!reservationService.isValidKey(reservationId))
             // TODO: 12/28/23 add translation
             throw new ClientCausedException("error.client.message.no_such_reservation_id", reservationId);
-        ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser().getPermission());
+        ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser());
 
         return createResponseEntity(reservationDTO, HttpStatus.OK);
     }
 
     @PostMapping("/{reservationId}/cancel")
     public ResponseEntity<ResultDTO> cancel(@PathVariable("reservationId") String reservationId, @RequestBody String password) {
-        ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser().getPermission());
+        ReservationDTO reservationDTO = reservationService.getReservation(orderService.delegateGetter(), reservationId, currentUser());
         Result orderResult = orderService.cancelOrder(reservationDTO.getOrder().getId());
         if (orderResult.status().is4xxClientError())
             return createResultEntity(orderResult);

@@ -14,6 +14,7 @@ public class PermissionRegistry extends Registry<Permission> {
         registerByName("read.reservation");
         registerByName("read");
 
+        register("edit.current_order_number");
         register("edit.reservation");
         registerByName("edit");
 

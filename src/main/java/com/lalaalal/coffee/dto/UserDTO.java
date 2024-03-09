@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lalaalal.coffee.Language;
 import com.lalaalal.coffee.Permission;
 import com.lalaalal.coffee.config.Configurations;
+import com.lalaalal.coffee.model.Accessor;
 import com.lalaalal.coffee.model.User;
 import com.lalaalal.coffee.registry.LanguageRegistry;
 import com.lalaalal.coffee.registry.PermissionRegistry;
@@ -15,7 +16,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserDTO {
+public class UserDTO implements Accessor {
     public static final UserDTO ANONYMOUS = new UserDTO("anonymous", Configurations.getConfiguration("language.default"), "none");
 
     @JsonProperty("id")
@@ -36,6 +37,12 @@ public class UserDTO {
 
     public static UserDTO from(User user) {
         return new UserDTO(user.getId(), user.getLanguage(), user.getPermission());
+    }
+
+    @JsonIgnore
+    @Override
+    public String whoami() {
+        return id;
     }
 
     @JsonProperty("language")
