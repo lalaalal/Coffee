@@ -36,6 +36,19 @@ public class UserService extends DataStoreService<String, User> {
         return Result.succeed("user.sign_up.succeed", id);
     }
 
+    public Result signOut(String id, String password) {
+        if (data.containsKey(id))
+            return Result.failed("user.sign_up.failed.id_exists", id);
+        User user = data.get(id);
+        if (user.verify(password))
+            // TODO : trans
+            return Result.failed("");
+        data.remove(id);
+        save();
+
+        return Result.SUCCEED;
+    }
+
     public UserDTO getUser(String id) {
         return UserDTO.from(data.get(id));
     }

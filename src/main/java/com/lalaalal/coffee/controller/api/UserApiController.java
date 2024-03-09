@@ -54,6 +54,13 @@ public class UserApiController extends SessionHelper {
         return createResultEntity(result);
     }
 
+    @PostMapping("/sign_out")
+    public ResponseEntity<ResultDTO> signOut(@RequestParam("id") String id, @RequestParam("password") String password) {
+        Result result = userService.signOut(id, password);
+
+        return createResultEntity(result);
+    }
+
     @GetMapping("/whoami")
     public String whoami() {
         UserDTO user = currentUser();

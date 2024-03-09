@@ -36,7 +36,6 @@ $(document).ready(function() {
         reservation['message'] = $('#message-input')[0].value;
         reservation['contact'] = $('#contact-input')[0].value;
 
-        console.log(reservation);
         $.ajax({
             url: '/api/reservation/make',
             type: 'POST',

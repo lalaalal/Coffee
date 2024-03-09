@@ -13,7 +13,6 @@ let loadOrder = function() {
         url: `/api/order/${orderId}`,
         success: function(result) {
             order.items = result.items;
-            console.log(result);
             order.onChange();
         }
     });
