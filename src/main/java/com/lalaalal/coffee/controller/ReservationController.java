@@ -74,6 +74,15 @@ public class ReservationController extends SessionHelper {
         return "reservation/view";
     }
 
+    @GetMapping("/view/month/{year}-{month}")
+    public String monthViewPage(Model model, @PathVariable("year") int year, @PathVariable("month") int month) {
+        Map<String, List<ReservationDTO>> monthlyUsage = reservationService.getMonthlyUsage(orderService.delegateGetter(), currentUser(), year, month);
+
+        model.addAttribute("monthlyUsage", monthlyUsage);
+
+        return "reservation/month-view";
+    }
+
     @GetMapping("/make")
     public String make(Model model, @RequestParam(value = "date", required = false) LocalDate date) {
         if (date == null)

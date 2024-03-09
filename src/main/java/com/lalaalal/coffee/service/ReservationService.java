@@ -12,11 +12,9 @@ import com.lalaalal.coffee.model.Result;
 import com.lalaalal.coffee.model.order.Reservation;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 @Service
 public class ReservationService extends DataStoreService<String, Reservation>
@@ -62,11 +60,32 @@ public class ReservationService extends DataStoreService<String, Reservation>
         return ReservationDTO.convertFrom(delegate, reservation, accessor);
     }
 
-    public Collection<ReservationDTO> collectDTO(DelegateGetter<String, OrderDTO> delegate, Accessor accessor) {
-        ArrayList<ReservationDTO> list = new ArrayList<>();
-        data.values().stream()
+    public Map<String, List<ReservationDTO>> getMonthlyUsage(DelegateGetter<String, OrderDTO> delegate, Accessor accessor, int year, int month) {
+        Map<String, List<ReservationDTO>> monthlyUsage = new HashMap<>();
+
+        collectDTO(delegate, accessor)
+                .stream()
+                .filter(reservationDTO -> {
+                    LocalDateTime dateTime = reservationDTO.getTime();
+                    return dateTime.getYear() == year && dateTime.getMonthValue() == month;
+                }).forEach(reservationDTO -> {
+                    String name = reservationDTO.getName();
+                    if (monthlyUsage.containsKey(name))
+                        monthlyUsage.get(name).add(reservationDTO);
+                    else {
+                        ArrayList<ReservationDTO> list = new ArrayList<>();
+                        list.add(reservationDTO);
+                        monthlyUsage.put(name, list);
+                    }
+                });
+
+        return monthlyUsage;
+    }
+
+    public List<ReservationDTO> collectDTO(DelegateGetter<String, OrderDTO> delegate, Accessor accessor) {
+        return data.values().stream()
                 .sorted(Comparator.comparing(Reservation::getOrderId))
-                .forEach(reservation -> list.add(ReservationDTO.convertFrom(delegate, reservation, accessor)));
-        return list;
+                .map(reservation -> ReservationDTO.convertFrom(delegate, reservation, accessor))
+                .toList();
     }
 }
